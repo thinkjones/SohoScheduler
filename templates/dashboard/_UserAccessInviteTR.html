@@ -1,0 +1,11 @@
+<tr userid="{{eachuser.key.id}}">
+	<td>
+        {{eachuser.invite_email_address|escape}}
+	</td>
+	<td align="right">
+        {{eachuser.access_right_code.name|escape}}
+        </td>
+        <td>
+        <a class="deletesmallbutton deleteuser" id="lnkDeleteThisUser" user_type="invite" userid="{{eachuser.key.id}}" href="#"></a>
+	</td>
+</tr>

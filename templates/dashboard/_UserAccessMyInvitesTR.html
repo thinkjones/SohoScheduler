@@ -1,0 +1,22 @@
+You {{myinvite.invite_email_address|escape}}
+have been granted access persmissions "{{myinvite.access_right_code.name|escape}}"
+to the application "{{myinvite.entity_reference.name}}".
+<a id="lnkMIA{{myinvite.key.id}}" invite_id="{{myinvite.key.id}}" invite_email="{{myinvite.invite_email_address}}" invite_response="accept" href="#">Accept</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a id="lnkMIR{{myinvite.key.id}}" invite_id="{{myinvite.key.id}}" invite_email="{{myinvite.invite_email_address}}" invite_response="reject" href="#">Reject</a>
+
+
+<script language="javascript">
+$(document).ready(function () {
+     $("#lnkMIA{{myinvite.key.id}}").click(function(){
+         invite_email = $(this).attr('invite_email');
+         invite_id = $(this).attr('invite_id');
+         ProcessInviteAcceptReject(invite_id,invite_email,'accept');
+     });
+     $("#lnkMIR{{myinvite.key.id}}").click(function(){
+         invite_email = $(this).attr('invite_email');
+         invite_id = $(this).attr('invite_id');
+         ProcessInviteAcceptReject(invite_id,invite_email,'reject');
+     });     
+});
+</script>

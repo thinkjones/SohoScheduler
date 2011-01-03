@@ -1,0 +1,4 @@
+cron:
+#- description: Recent Activity Stats Update
+#  url: /sohoadmin/cron/ProcessActivityStats/
+#  schedule: every 1 minutes

@@ -1,0 +1,16 @@
+<script type="text/javascript" language="javascript">
+    //Main Tabs Used In Application
+    var tabMainURLS = {
+            'DashboardAdmin':        "{%url sohoadmin.views.index%}"
+        };
+</script>
+
+<ul id="mainHorizTabs">
+    <li {% ifequal tabSelected 'tabAdminDashboard' %}   class="selected"{% endifequal %} >
+        <a class="menudashboardbutton" {% ifequal tabSelected 'tabAdminDashboard' %}class="active"{% endifequal %} href="javascript:selectTab('DashboardAdmin');">Admin Home</a>
+   </li>
+   <li {% ifequal tabSelected 'tabDashboardFrevvo' %}   class="selected"{% endifequal %} >
+        <a class="menudashboardbutton"    {% ifequal tabSelected 'tabDashboardFrevvo' %}class="active"{% endifequal %} href="javascript:selectTab('DashboardFrevvo');">Frevvo Test</a>
+   </li>
+</ul>
+    

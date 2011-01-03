@@ -1,0 +1,7 @@
+<div>
+	<label for="id_name">New CRM Name:
+		<span class="small">Individual or company name</span>
+	</label>
+	{{ customerform.name.errors }}
+	{{ customerform.name }}
+</div>

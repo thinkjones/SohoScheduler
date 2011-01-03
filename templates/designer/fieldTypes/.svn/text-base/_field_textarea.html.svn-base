@@ -1,0 +1,8 @@
+		<li>
+				  <label class="name">{{field.name}}:</label>
+				  {% if field.required %}				  
+              <span class="required">*</span>
+              {% endif %}
+              <textarea name="{{field.name}}" rows="{{field.rows}}" cols="{{field.cols }}">{{field_values|hash:field.name}}</textarea>      
+              <span class="description">{{field.description}}</span>
+		</li>

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/thinkjones/sohosched/!svn/ver/364/trunk/sohoadmin
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/thinkjones/sohosched/!svn/ver/363/trunk/sohoadmin/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/thinkjones/sohosched/!svn/ver/302/trunk/sohoadmin/__init__.py
+END
+helpers.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/thinkjones/sohosched/!svn/ver/347/trunk/sohoadmin/helpers.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/thinkjones/sohosched/!svn/ver/305/trunk/sohoadmin/models.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/thinkjones/sohosched/!svn/ver/332/trunk/sohoadmin/forms.py
+END

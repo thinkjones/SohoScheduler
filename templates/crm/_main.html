@@ -1,0 +1,321 @@
+<script language="javascript">
+    var CurrentSelectedUser = 0;
+    var crms_count = 0;
+    var new_data = null;
+    var search_results = null;
+    var all_results = {{jsoncrms|safe}};
+    var mode = 'default';
+
+    function SetupScreenCRM(sMode){
+
+        strHTML = GetHTMLFromJsonData(new_data);
+        
+        $('#crmlist-nav').empty();
+        $('#crmlist').empty();
+        $('#crmlist').html(strHTML);
+        $('#crmlist').listnav({noMatchText:''});
+
+        SetupEditPanel();
+
+        SetupFilterLabel(sMode,$('#txtSearchCRM').val());
+
+        $('#crmlist').find('a').click(function(){
+            var customer_id = $(this).attr('customer_id');
+            ViewCustomerInfo(customer_id);
+        });
+    }
+
+    function SetupEditPanel(){
+        $('#custInfoContainer').hide();
+        $('#custInfoOverall').hide();
+        $('#lnkEditCustomer').hide();
+        $('#lnkDeleteCustomer').hide();
+
+        $('#lblCustInfoCount').text('You currently have ' + all_results.results.length + ' customer(s).');
+
+        if (CurrentSelectedUser > 0){
+            $('#custInfoContainer').show().effect("highlight", {}, 3000);
+            $('#lnkEditCustomer').show();
+            $('#lnkDeleteCustomer').show();
+        } else {
+            $('#custInfoOverall').show();
+        }
+    }
+
+    function DeleteThisCRM(intCRMID){
+        var strURL  = '{%url crm.views.jsonrequests entity_id%}';
+        var data = { action: 'deletecrm', crm_id: intCRMID};
+        var callbackFunc = function(data, textStatus){
+            RemoveValueFromAllResults(intCRMID);
+            $("#dialog").dialog('close');
+            FadeOutAndRemove('#lnkViewCRMInfo' + intCRMID);
+        };
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+     }
+
+     function RemoveValueFromAllResults(intID){
+        var iIndex = -1;
+        
+        //Find item in Array
+        for(var i=0;i<all_results.results.length;i++){
+            if(all_results.results[i].id == intID.toString()){
+                iIndex = i;
+         }
+
+         //remove Item from array
+         if(iIndex>-1){
+            all_results.results.splice(iIndex,1);
+         }
+
+        CurrentSelectedUser = 0;
+        SetupEditPanel();
+     }
+
+
+     
+     }
+
+    function SetupFilterLabel(sMode, sFilterText){
+        $('#divFilteredLabel').hide();
+        $('#lblFilteredLabel').empty();
+
+        if(sMode=='searchcrm'){
+            $('#lblFilteredLabel').html("Results filtered by \"" + $('#txtSearchCRM').val() + "\"");
+            $('#divFilteredLabel').show();
+        }
+    }
+
+
+    $(document).ready(function () {
+
+            new_data = all_results;
+            crms_count = {{crms_count}};
+
+            $('#lnkAddCustomer').nyroModal({'autoSizable':true,'minHeight':600,'minWidth':1000});
+
+
+            $('#lnkEditCustomer').click(function(){
+                strURL = "{%url crm.views.edit entity_id,99999999%}";
+                strURL = strURL.replace('99999999',CurrentSelectedUser);
+                $('#lnkEditCustomer').attr('href',strURL)
+                $('#lnkEditCustomer').nyroModalManual({'autoSizable':true,'minHeight':600,'minWidth':1000});
+                return false;
+             });
+
+            $('#lnkSearchCRM').click(function(){
+                 PerformSearchJsonRequest('searchcrm');
+                return false;
+             });
+
+            $('#lnkRemoveFilter').click(function(){
+                 //PerformSearchJsonRequest('removefilter');
+                 new_data = all_results;
+                 SetupScreenCRM('default');
+                 return false;
+             });
+
+             SetupScreenCRM(mode);
+
+            $('#lnkSyncWithGoogleWizard').nyroModal({'autoSizable':true,'minHeight':600,'minWidth':1000});
+
+            $('#dialog').dialog({ autoOpen: false,modal: true  });
+
+            $('#lnkDeleteCustomer').click(function(){
+                $("#dialog").dialog('open');
+                return false;
+            });
+
+            $('#lnkNoDelete').click(function(){
+                $("#dialog").dialog('close');
+                return false;
+            });
+
+            $('#lnkYesDelete').click(function(){
+                return DeleteThisCRM(CurrentSelectedUser);
+            });
+    });
+
+
+
+    function ViewCustomerInfo(strID){
+        CurrentSelectedUser = strID;
+        strURL = "{%url crm.views.viewinfo entity_id,99999999%}";
+        strURL = strURL.replace('99999999',CurrentSelectedUser);
+        //$("#custInfo").load(strURL,null,SetupScreenCRM);
+        sohoJsonLoad(strURL,"custInfo",SetupScreenCRM, null)
+
+        return false;
+    }
+
+    function RefreshAfterRuntime(){
+        PerformSearchJsonRequest('removefilter');
+        ShowNotification('Information updated','success');
+        if(CurrentSelectedUser!=0){
+            ViewCustomerInfo(CurrentSelectedUser);
+        }
+    }
+
+    function GetHTMLFromJsonData(data){
+        // Put new data in placeholder
+        var objphDIV = document.createElement('div');
+        for( var i in data.results ){
+            row=data.results[i];
+            var objDiv = document.createElement('div');
+			strName = "";
+			if(row.name)
+				strName = row.name;
+            $(objDiv)
+            .hide()
+            .append($('<a />')
+                .text(strName)
+                .attr("customer_id",row.id)
+                .attr("href","#")
+                .attr("id","lnkViewCRMInfo"+row.id)
+                );
+            strLi = "<li>" + $(objDiv).html() + "</li>";
+            $(objphDIV).append(strLi);
+
+            //$("lnkViewCRMInfo"+row.id).click(function(){alert(row.name);});
+            //.click(function() { selectAjaxURLPart('{%url crm.views.viewinfo entity_id,99999999%}','custInfo'); })
+        };
+
+
+        return $(objphDIV).html();
+
+    }
+
+    function PerformSearchJsonRequest(strMode){
+        var strURL  = '{%url crm.views.jsonrequests entity_id%}';
+        var data = { action: strMode, 'simplesearch': $('#txtSearchCRM').val()};
+        var callbackFunc = function(data, textStatus){
+
+            //Update search li with results
+            new_data = data;
+            if (strMode=='removefilter'){
+                all_results = new_data;
+            }else{
+                search_results = new_data;
+            }
+            SetupScreenCRM(strMode);
+        };
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+    }
+</script>
+
+<table celpadding="0" cellspacing="0" class="mini-app">
+    <thead>
+        <tr>
+            <td colspan="2">
+                <ul class="toolbar">
+                    {% if entity_access_rights.Owner or entity_access_rights.Edit %}
+                    <li>
+                        <a class="addbutton button" target="_blank" href="{%url crm.views.new entity_id%}" id="lnkAddCustomer">Add Customer</a>
+                    </li>
+                    {%endif%}
+                    <li>
+                        <input class="toolbar" id="txtSearchCRM" value="" />
+                    </li>
+                    <li>
+                        <a class="searchbutton button" href="#" id="lnkSearchCRM">Search</a>
+                    </li>
+                </ul>
+            {% if entity_access_rights.Owner or entity_access_rights.Edit %}
+                <ul class="toolbar" style="float:right;">
+                    <li>
+                        <a class="wizardbutton button"  target="_blank" href="{%url crm.wizards.loadSyncWithGoogleWizard entity_id%}" id="lnkSyncWithGoogleWizard">Import Google Contacts</a>
+                    </li>
+                </ul>
+            {% endif %}
+               
+            </td>
+        </tr>
+    </thead>
+        <tr class="mini-app-header-sub">
+            <td>
+                <div id="crmlist-nav"></div>
+            </td>
+            <td>
+            {% if entity_access_rights.Owner or entity_access_rights.Edit %}
+                <ul class="toolbar">
+                    <li>
+                        <a class="editbutton button" target="_blank" href="{%url crm.views.edit entity_id,0%}" id="lnkEditCustomer">Edit</a>
+                    </li>
+                    <li>
+                        <a class="deletebutton button" href="#" id="lnkDeleteCustomer">Delete</a>
+                    </li>
+                </ul>
+            {% endif %}
+            </td>
+        </tr>
+    <tr>
+        <td valign="top" class="customer-info">
+            <div id="listWrapper" class="customer-info givemesomeroom">
+                <div id="divFilteredLabel" class="givemesomeroom">
+                    <ul class="flow-horiz">
+                        <li>
+                            <h3 id="lblFilteredLabel"></h3>
+                        </li>
+                        <li>
+                            <a class="filterRemButton" id="lnkRemoveFilter" href="#">
+                                <b>remove</b>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="clearboth"/>
+                </div>
+                <ul id="crmlist" style="min-height:250px;">
+                {% ifnotequal customers.count 0 %}
+                    {%for customer in customers%}
+                    <li><a href="#" customer_id="{{customer.key.id}}" >{{customer.name}}</a></li>
+                    {%endfor%}
+                {% endifnotequal %}
+                </ul>
+            </div>
+        </td>
+        <td width="50%" valign="top" class="customer-info">
+            <div id="custInfoContainer">
+                <div id="custInfo" class="fillcontainer">
+                    <p>
+                    {% include "crm/_crm_info.html" %}
+                    </p>
+                </div>
+            </div>
+            <div id="custInfoOverall" class="fillcontainer">
+                <p>
+                <h2>Customer Overview</h2>
+                <h3 id="lblCustInfoCount"></h3>
+                </p>
+            </div>
+        </td>
+   </tr>
+</table>
+
+<div id="divSearchList" class="customer-info">
+    <ul id="crmlistSearch">
+        {% ifnotequal searchcustomers.count 0 %}
+            {%for customer in searchcustomers%}
+                <li><a href="javascript: selectAjaxURLPart('{%url crm.views.viewinfo entity_id,customer.key.id%}','custInfo');">{{customer.name}}</a></li>
+            {%endfor%}
+            {% else %}
+            No records found
+        {% endifnotequal %}
+    </ul>
+</div>
+
+<div id="dialog" title="Contact Delete">
+    <h1>Warning!</h1>
+    <p>
+    You are about to delete this contact..
+    </p>
+    <p>
+    Are  you sure you wish to delete this customer?
+    </p>
+    <p>
+    If you click yes your data will be archived and destroyed within two weeks.  This does not affect your linked data in Google.
+    </p>
+    <a  id="lnkYesDelete" class="button deletebutton" href="#">Delete This Contact</a>
+    &nbsp;&nbsp;
+    <a  id="lnkNoDelete" href="#">cancel</a>
+</div>

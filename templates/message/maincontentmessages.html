@@ -1,0 +1,5 @@
+{% ifnotequal mainmessages.count 0 %}
+	{%for message in mainmessages %}
+	    {% include "message/_message.html" %}    
+	{%endfor%}
+{% endifnotequal %}

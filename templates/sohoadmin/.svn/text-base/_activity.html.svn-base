@@ -1,0 +1,20 @@
+<div class="dashboardItem">
+	<table cellpadding="0" cellspacing="0" width="400px">
+		<th colspan=3>
+			<span class="activitylabel">
+				Recent Activity
+			</span>
+		</th>
+		{% if recentactivity %}
+			{%for act in recentactivity%}
+				{% include "dashboard/_ActivityTR.html" %}
+			{%endfor%}
+		{% else %}
+		<tr>
+			<td colspan="3">
+					No Recent Activity
+			</td>
+		</tr>
+	{% endif %}
+	</table>
+</div>

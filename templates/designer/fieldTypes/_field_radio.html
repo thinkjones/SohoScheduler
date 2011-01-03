@@ -1,0 +1,11 @@
+		<li>
+				  <label class="name">{{field.name}}:</label>
+				  {% if field.required %}				  
+              <span class="required">*</span>
+              {% endif %}
+              {% for option in field.options  %}
+              <input type="radio" name="{{field.name}}" value="{{option.value}}" {% ifequal option.value field_values|hash:field.name %} checked="checked" {% endifequal %} /><label>{{option.title}}</label>
+              {% endfor %}
+              </select>     
+              <span class="description">{{field.description}}</span>
+		</li>

@@ -1,0 +1,45 @@
+{%extends "base.html"%}
+
+{%block submenu %}
+{% ifnotequal EntityCount 0 %}
+    <script language="javascript">
+        var tabURLS = {
+            0:     '{%url dashboard.views.index entity_id %}'
+        };
+
+        $(document).ready(function(){
+            // Select Tab Selected
+            SelectSubMenuTab(tabURLS, '{{tab_info.index}}','');
+            SetupTabNavigation(tabURLS,'divTabContent');
+        });
+    </script>
+    <div id="nav2" class="apps-clearfix">
+        <h2>Dashboard</h2>
+        <em>Overview of all your applications and account activity</em>
+        <ul>
+            <li><a href="#">Overview</a></li>
+        </ul>
+    </div>
+{% endifnotequal %}
+{%endblock submenu %}
+
+{%block maincontent%}
+	{% ifequal EntityCount 0 %}
+            {% ifequal myinvites.count 0%}
+		{% include "dashboard/_NewUserNoEntities.html" %}
+            {% else %}
+		{% include "dashboard/_NewUserHasInvites.html" %}
+            {% endifequal%}
+	{% else %}
+        <div id="divTabContent" class="sub-content">
+        {% ifequal tab_info.index 0  %}
+            {% include "dashboard/_main.html" %}
+        {% endifequal %}
+        {% ifequal tab_info.index 1 %}
+            {% include "dashboard/_UserAccess.html" %}
+        {% endifequal %}
+        </div>
+	{% endifequal %}
+
+{%endblock maincontent%}
+

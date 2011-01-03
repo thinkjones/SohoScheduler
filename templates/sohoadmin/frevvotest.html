@@ -1,0 +1,72 @@
+{%extends "base.html"%}
+
+{%block maincontent%}
+<div id="form_container">
+    <div class="form_description">
+        <h2>Here is a frevvo test.</h2>
+    </div>
+    {% for result in feedresults.entry%}
+    <ul>
+        <li >
+            <label class="description" >Title </label>
+            <div>
+                {{result.title.text}}
+            </div>
+        </li>
+        <li >
+            <label class="description" >Link </label>
+            <div>
+                {% if result.content %}
+                    {{result.content.text}}
+                {% else %}
+                    No Content
+                {% endif %}
+            </div>
+        </li>
+        <li >
+            <label class="description" >appFeedUri </label>
+            <div>
+                {{result.GetApplicationFeedLink.href}}
+                <br />
+                {% for entry in appFeed.entry%}
+                ID: {{entry.id.text}}<br />
+                Title: {{entry.title.text}}<br />
+                {% endfor %}
+
+            </div>
+        </li>
+        <li >
+            <label class="description" >ftFeedUri</label>
+            <div>
+                ftFeedUri
+                <br />
+                {% for entry in ftFeed.entry%}
+                Name: {{entry.title.text}}<br />
+                Raw Link: <a href='http://www.frevvo.com{{entry.GetFormTypeLink.href}}'>****</a><br />
+                Embed Link: <a href='http://www.frevvo.com{{entry.GetFormTypeEmbedLink.href}}'>****</a><br />
+                Popup Link: <a href='http://www.frevvo.com{{entry.GetFormTypePopupLink.href}}'>****</a><br />
+                Schema Link: <a href='http://www.frevvo.com{{entry.GetFormTypeSchemaLink.href}}'>****</a><br />
+                Editor Raw Link: <a href='http://www.frevvo.com{{entry.GetFormTypeEditorLink.href}}'>****</a><br />
+                Editor Embed Link: <a href='http://www.frevvo.com{{entry.GetFormTypeEditorEmbedLink.href}}'>****</a><br />
+                Editor Submissions Link: <a href='http://www.frevvo.com{{entry.GetSubmissionsLink.href}}'>****</a><br />
+                {% endfor %}
+
+            </div>
+        </li>
+        <li >
+            <label class="description" >themeFeedUri </label>
+            <div>
+                {{result.GetThemeFeedLink.href}}
+            </div>
+        </li>
+    </ul>
+    {% endfor%}
+</div>
+    <br />
+    <br />
+    appFeedUri: {{appFeedUri}}<br />
+    appFeed: {{appFeed}}<br />
+    feedresults: {{feedresults}}<br />
+    feederror: {{feederror}}
+    ftFeed: {{ftFeed}}
+{%endblock maincontent%}

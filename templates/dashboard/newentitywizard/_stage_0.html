@@ -1,0 +1,18 @@
+<h3>Please select a template from the list below:</h3>
+<div class="stageholder" id="templates">
+    <div id="lblStage0Error" class="messageerror">
+    </div>
+    <ul class="templaterow">
+        {%for entity in entities%}
+            <li>
+                <div class="templaterow" templateid="{{entity.entity_reference.key.id}}" templatename="{{entity.entity_reference.name}}">
+                    <h2>{{entity.entity_reference.name}}</h2>
+                    <label class="description" >{{entity.entity_reference.desc}}</label>
+                    <label class="help">Created on {{entity.entity_reference.created|date:"Y/m/d H:i:s"}}</label>
+                    <input type="button" Value="Use this template" />
+                </div>
+            </li>
+        {%endfor%}
+    </ul>
+
+</div>

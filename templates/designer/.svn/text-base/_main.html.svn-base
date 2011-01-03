@@ -1,0 +1,11 @@
+{% ifequal tab_info.index 0 %}
+	{% include "designer/_main_settings.html" %}
+{% endifequal %}
+
+{% ifequal tab_info.index 1 %}
+	{% include "designer/_form_designer_2.html" %}
+{% endifequal %}
+
+{% ifequal tab_info.index 2 %}
+	{% include "dashboard/_UserAccess.html" %}
+{% endifequal %}

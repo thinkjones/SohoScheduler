@@ -1,0 +1,17 @@
+<div class="dashboardItem">
+	<table cellpadding="0" cellspacing="0" width="400px">
+		<th colspan=2>
+			<span class="entitylabel">
+				Recent Signups 
+			</span>
+		(<a href="{%url sohoadmin.views.downloadusers%}">download</a>)
+		</th>
+		{% if signup_users %}
+			{% for signup_user in signup_users %}
+				{% include "sohoadmin/_recent_usersTR.html" %}
+			{%endfor%}
+		{% else %}
+			<tr><td colspan="2">No New Users</td></tr>
+	{% endif %}
+	</table>
+</div>

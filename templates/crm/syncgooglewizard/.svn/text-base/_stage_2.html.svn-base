@@ -1,0 +1,14 @@
+<h3>If you are happy with the contacts below then please click next to import them into your entity.</h3>
+
+<div class="stageholder">
+    <label for="chkShareContacts">
+    Do you want to share these details with other users of the application?
+    <input type="checkbox" id="chkShareContacts" name="chkShareContacts" checked="True" />
+    </label>
+</div>
+       
+
+<div class="stageholder">
+    <ul id="confirmation_contacts">
+    </ul>
+</div>

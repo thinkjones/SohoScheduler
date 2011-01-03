@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/thinkjones/sohosched/!svn/ver/367/trunk/templates/appointment
+END
+_ViewTR.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/thinkjones/sohosched/!svn/ver/86/trunk/templates/appointment/_ViewTR.html
+END
+_MonthView.html
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/thinkjones/sohosched/!svn/ver/315/trunk/templates/appointment/_MonthView.html
+END
+_main.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/thinkjones/sohosched/!svn/ver/176/trunk/templates/appointment/_main.html
+END
+_Edit.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/thinkjones/sohosched/!svn/ver/207/trunk/templates/appointment/_Edit.html
+END
+edit.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/thinkjones/sohosched/!svn/ver/86/trunk/templates/appointment/edit.html
+END
+_info.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/thinkjones/sohosched/!svn/ver/348/trunk/templates/appointment/_info.html
+END
+_FullCalendar.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/thinkjones/sohosched/!svn/ver/367/trunk/templates/appointment/_FullCalendar.html
+END
+_ViewTREmpty.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/thinkjones/sohosched/!svn/ver/74/trunk/templates/appointment/_ViewTREmpty.html
+END
+index_content.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/thinkjones/sohosched/!svn/ver/109/trunk/templates/appointment/index_content.html
+END
+sidebar_import.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/thinkjones/sohosched/!svn/ver/74/trunk/templates/appointment/sidebar_import.html
+END
+_frevvo.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/thinkjones/sohosched/!svn/ver/176/trunk/templates/appointment/_frevvo.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/thinkjones/sohosched/!svn/ver/319/trunk/templates/appointment/index.html
+END
+_sidebar.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/thinkjones/sohosched/!svn/ver/86/trunk/templates/appointment/_sidebar.html
+END
+_View.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/thinkjones/sohosched/!svn/ver/109/trunk/templates/appointment/_View.html
+END
+view.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/thinkjones/sohosched/!svn/ver/86/trunk/templates/appointment/view.html
+END
+import.html
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/thinkjones/sohosched/!svn/ver/109/trunk/templates/appointment/import.html
+END

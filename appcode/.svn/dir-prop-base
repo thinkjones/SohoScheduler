@@ -1,0 +1,16 @@
+K 10
+svn:ignore
+V 176
+baseclass.pyc
+baseserver.pyc
+viewsbaseclass.pyc
+mailhelper.pyc
+__init__.pyc
+datehelper.pyc
+taskqueuehelper.pyc
+widgets.pyc
+sohosecurity.pyc
+frevvohelper.pyc
+sohodatamodels.pyc
+
+END

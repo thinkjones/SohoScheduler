@@ -1,0 +1,30 @@
+<script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+		$('#lnkShowHideMessage{{message.key.id}}').click(function() {
+			$('#messageRow{{message.key.id}}').toggle();
+			return false;
+		});
+	});
+</script>
+<tr>
+	<td colspan="2">
+		<span class="emaillabel">
+			{{message.message_title|escape}}
+			<em>{{message.created|date:"D"}} {{message.created|date:"d"}}  {{entity.created|date:"M"}} {{entity.created|date:"Y"}} </em>
+		</span>
+	</td>
+	<td align="right">
+		<a id="lnkShowHideMessage{{message.key.id}}" href="#">view</a>
+	</td>
+</tr>
+<tr class="dashboard-message-desc" id="messageRow{{message.key.id}}" style="display:none;">
+	<td colspan="2">
+			{{message.message_description|escape}}	
+			{%  ifnotequal message.message_href None %}
+			<div>	
+				<br />
+				<a class="messagelink" href="{{message.message_href}}" title="more info" target="top">more info</a>
+			</div>
+			{%  endifnotequal %}
+	</td>
+</tr>

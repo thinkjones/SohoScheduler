@@ -1,0 +1,8 @@
+		<li>
+				  <label class="name">{{field.name}}:</label>
+				  {% if field.required %}				  
+              <span class="required">*</span>
+              {% endif %}
+              <input type="checkbox" name="{{field.name}}" {% if field_values|hash:field.name %} checked="checked" {% endif%} />      
+              <span class="description">{{field.description}}</span>
+		</li>

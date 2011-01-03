@@ -1,0 +1,30 @@
+{%extends "base.html"%}
+
+{%block submenu %}
+<script language="javascript">
+	var tabURLS = { 
+		0:     '{%url appointment.views.index entity_id %}', 
+		1:     '{%url appointment.views.index entity_id %}'
+	}; 
+
+	$(document).ready(function(){
+		// Select Tab Selected
+		SelectSubMenuTab(tabURLS, '{{tab_info.index}}','');
+		SetupTabNavigation(tabURLS,'divTabContent');
+	}); 
+
+</script> 
+<div id="nav2" class="apps-clearfix">
+	<h2>{{entity.name}}: Appointments</h2>
+        <em>Appointments scheduled for this application.</em>
+	<ul>
+		<li><a href="#">Calendar</a></li>
+	</ul>
+</div>
+{%endblock submenu %}
+
+{%block maincontent%}
+	<div id="divTabContent" class="sub-content" >
+		{% include "appointment/_FullCalendar.html" %}
+	</div>
+{%endblock maincontent%}

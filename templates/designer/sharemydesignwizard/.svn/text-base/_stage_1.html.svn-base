@@ -1,0 +1,51 @@
+{% if form.errors %}
+    <div class="messagewarning">Form not saved please rectify errors below:</div>
+{% endif %}
+<form id="formtemplate" class="sohoform"  action="{% url designer.views.shareMyDesignWizard entity_id,entity_template_id,1%}" method="post">
+    <div class="form_description">
+        <h2>Stage 2 -  Shared Design Details</h2>
+        <p>
+        Sell your design by providing useful sharing information below.
+        </p>
+    </div>
+    <ul class="form">
+        <li >
+            <label class="description" >Template Name:</label>
+            <label class="help">Enter a useful name that accurately highlights your application. e.g. American Plumbing Company</label>
+            <div>
+               {{ form.name }}
+               {{ form.name.errors }}
+            </div>
+        </li>
+        <li >
+            <label class="description" >Description:</label>
+            <label class="help">Enter a award winning description to sell your template to other users.</label>
+            <div>
+               {{ form.desc }}
+               {{ form.desc.errors }}
+            </div>
+        </li>
+        <li >
+            <label class="description" >Keywords:</label>
+            <label class="help">Good keywords help other users find your template application.</label>
+            <div>
+               {{ form.tags}}
+               {{ form.tags.errors }}
+            </div>
+        </li>
+    </ul>
+    <input type="button" id="lnkEntitySave" Value="Save Details and Create Template >>" />
+</form>
+
+
+<script type="text/javascript">
+	// wait for the DOM to be loaded
+	$(document).ready(function() {
+		var options = {
+			target:     '#divTabContent',
+			url:        '{%url designer.views.shareMyDesignWizard entity_id,entity_template_id,1%}'
+		};
+
+        SetupFormForAjax('#lnkEntitySave',options,'#formtemplate');
+});
+</script>

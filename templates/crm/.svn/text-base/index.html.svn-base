@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+
+{%block submenu %}
+<script language="javascript">
+	var tabURLS = { 
+		0:     '{%url crm.views.index entity_id %}'
+	}; 
+
+	$(document).ready(function(){
+		// Select Tab Selected
+		SelectSubMenuTab(tabURLS, '{{tab_info.index}}','');
+		SetupTabNavigation(tabURLS,'divTabContent');
+	}); 
+</script> 
+<div id="nav2" class="apps-clearfix">
+	<h2>{{entity.name}}: Customer Relationship Management</h2>
+        <em>Manage this applications customer information.</em>
+	<ul>
+		<li><a href="#">Overview</a></li>
+	</ul>
+</div>
+{%endblock submenu %}
+
+{%block maincontent%}
+	<div id="divTabContent"  class="sub-content" >
+		{% include "crm/_main.html" %}
+	</div>
+{%endblock maincontent%}

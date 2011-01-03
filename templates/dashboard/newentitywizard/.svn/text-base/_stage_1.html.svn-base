@@ -1,0 +1,36 @@
+<h3>Personalize your entity below:</h3>
+<div class="stageholder">
+    {% if form.errors %}
+    <div class="messagewarning">Form not saved please rectify errors below:</div>
+    {% endif %}
+
+    <ul class="form">
+        <li>
+            <label class="description" >Template Selected:</label>
+            <div id="lblTemplateName">
+
+            </div>
+        </li>
+        <li >
+            <label class="description" >Company / Entity Name:</label>
+            <label class="help">Give your company/entity a memorable name.</label>
+            <div>
+                <input id="id_name" class="validate[required,length[0,100]] element text medium" />
+            </div>
+        </li>
+        <li >
+            <label class="description" >Description:</label>
+            <label  class="help">A good description helps remember the purpose of this entity for you and other team members.</label>
+            <div>
+               <textarea name="desc" id="id_desc" class="validate[required,length[0,255]] element textarea" rows="3" cols="20" ></textarea>
+            </div>
+        </li>
+        <li >
+            <label class="description" >Keywords:</label>
+            <label class="help">Good keywords help the management of this application.</label>
+            <div>
+                <input id="id_tags" class="validate[required,length[0,100]] element text medium" />
+            </div>
+        </li>
+    </ul>
+</div>

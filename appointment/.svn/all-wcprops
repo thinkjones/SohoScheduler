@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/thinkjones/sohosched/!svn/ver/379/trunk/appointment
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/thinkjones/sohosched/!svn/ver/379/trunk/appointment/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/thinkjones/sohosched/!svn/ver/67/trunk/appointment/__init__.py
+END
+helpers.py
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/thinkjones/sohosched/!svn/ver/338/trunk/appointment/helpers.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/thinkjones/sohosched/!svn/ver/347/trunk/appointment/models.py
+END
+google_import.py
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/thinkjones/sohosched/!svn/ver/294/trunk/appointment/google_import.py
+END

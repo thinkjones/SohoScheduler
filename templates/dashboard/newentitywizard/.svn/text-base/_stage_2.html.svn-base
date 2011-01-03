@@ -1,0 +1,13 @@
+<h3>If you are happy with the details below click next to create your entity:</h3>
+
+<div class="stageholder">
+    <ul class="templaterow">
+        <li>
+            <div class="templaterow templaterowSelected">
+                <h2 id="confirmName">Basic Application</h2>
+                <label id="confirmDescription" class="description"></label>
+                <label id="confirmTags" class="help"></label>
+            </div>
+        </li>
+    </ul>
+</div>

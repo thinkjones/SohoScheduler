@@ -1,0 +1,85 @@
+<dl class="view-display">
+    <dt>
+        <h2>{{crm.name}}</h2>
+    </dt>
+    <dd>
+    </dd>
+    {%for ffv in ffvs%}
+    <dt>{{ffv.display_name}}</dt>
+    {% ifequal ffv.display_type "textarea" %}
+    <dd>{{ffv.value_text}}</dd>
+    {% else %}
+    <dd>{{ffv.value_string}}</dd>
+    {% endifequal %}
+{%endfor%}
+{% if crm.external_system_id%}
+    <dt style="margin-top: 20px;">
+        <h2>Google Contact Info</h2>
+    </dt>
+    <dd>
+        <table cellpadding="0" cellspacing="0">
+        {% if can_show_google%}
+            <tr>
+                <td>
+                    Title
+                </td>
+                <td>
+                    {{contact_entry.title.text}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email
+                </td>
+                <td>
+                    {%for email in contact_entry.email%}
+                        {{email.address}}<br />
+                    {%endfor%}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone Numbers
+                </td>
+                <td>
+                    {%for pn in contact_entry.phone_number%}
+                        {{pn.text}}<br />
+                    {%endfor%}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Additional Info
+                </td>
+                <td>
+                    {%for extended_property in contact_entry.extended_property%}
+                    {{extended_property.name}}
+                    {%if extended_property.value%}
+                        {{extended_property.value}}
+                    {%else%}
+                        {{extended_property.GetXmlBlobString}}
+                    {%endif%}
+                    <br />
+                    {%endfor%}
+                </td>
+            </tr>
+            <tr style="display:none;">
+                <td>
+                    contact_entry
+                </td>
+                <td>
+                    {{contact_entry}}
+                </td>
+            </tr>
+            {%else%}
+            <tr>
+                <td >
+                    This information is not authorised to be shared.
+                </td>
+            </tr>
+            {%endif%}
+        </table>
+    </dd>
+
+{% endif %}
+</dl>

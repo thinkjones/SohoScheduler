@@ -1,0 +1,26 @@
+<script type="text/javascript" language="javascript">
+    jQuery(document).ready(function(){
+			jQuery('#ShowHideMessage{{message.key.id}}').click(function() {
+				strDivID = "divShowHideMessage{{message.key.id}}";
+				strUpdateURL = '{%url message.views.hidethis message.key.id%}';
+				jQuery("#divShowHideMessage{{message.key.id}}").fadeOut("slow");
+				selectAjaxURLPart(strUpdateURL,"divMsgPH{{message.key.id}}");
+				return false;
+			  });
+		  });
+</script>
+
+<div id="divShowHideMessage{{message.key.id}}" class='{{message.message_class|default_if_none:"messageinfo"}}'>
+	<div style="float: right;">
+		<a id="ShowHideMessage{{message.key.id}}" class="cancelbutton" href="#");">hide this</a>
+	</div>
+	<b>{{message.message_title}}</b>
+	<br />
+	{{message.message_description}}
+	{%  ifnotequal message.message_href None %}
+		<div>
+			<a class="messagelink" href="{{message.message_href}}" title="more info" target="top">more info</a>
+		</div>
+	{%  endifnotequal %}
+	<div id="divMsgPH{{message.key.id}}"></div> 
+</div>

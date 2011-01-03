@@ -1,0 +1,12 @@
+K 10
+svn:ignore
+V 92
+SohoSched.e4p.old
+.eric4project
+urls.pyc
+.google_appengine
+.settings
+.project
+.pydevproject
+
+END

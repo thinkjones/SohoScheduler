@@ -1,0 +1,10 @@
+K 10
+svn:ignore
+V 56
+wizards.pyc
+views.pyc
+models.pyc
+__init__.pyc
+forms.pyc
+
+END

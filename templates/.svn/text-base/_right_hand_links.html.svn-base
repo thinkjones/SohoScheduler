@@ -1,0 +1,49 @@
+<div>
+    <ul>
+        <li>
+            <strong>{{signup_user.signup_user}}</strong>
+        </li>
+        <li>
+            <a class="lk" target="_blank" href="http://info.sohoappspot.com/new-features" style="color: rgb(168, 0, 0);font-weight: bold;">v0.8 Released</a>
+        </li>
+        {% ifequal signed_up False %}
+             <!-- User is not Signed In -->
+            <li>
+                <a href="{{sign_in}}">Log in / Sign up</a>
+            </li>
+        {% endifequal %}
+
+
+        {% if signed_up and not is_admin_screen  %}
+            <li>
+                <a onclick="$('.quickcontact').effect('pulsate');return true;" href="#ContactUs">Contact Us</a>
+            </li>
+            {% if is_admin %}
+            <li>
+                <a href="{%url sohoadmin.views.index%}">Admin Site</a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="http://info.sohoappspot.com" target="top">Help</a>
+            </li>
+            <li>
+                <a href="{{sign_out}}">Log out</a>
+            </li>
+        {% endif %}
+
+        {% if signed_up and is_admin_screen  %}
+            <li>
+                <a onclick="$('.quickcontact').effect('pulsate', {});return true;" href="#ContactUs">Contact Us</a>
+            </li>
+            <li>
+                <a href="/">Public Site</a>
+            </li>
+            <li>
+                <a href="http://info.sohoappspot.com" target="top">Help</a>
+            </li>
+            <li>
+                <a href="{{sign_out}}">Log out</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

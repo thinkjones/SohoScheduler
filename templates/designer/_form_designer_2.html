@@ -1,0 +1,199 @@
+entity_id: {{entity_id}}
+editing_form_id: {{editing_form_id}}
+formType: {{formType}}
+<script language="javascript">
+    {% if redirect_to_url %}
+        top.location.href = '{{redirect_to_url}}';
+    {% endif %}
+
+	//Form Ajaxification
+	// prepare Options Object
+	var options = {
+		target:     '#divTabContent',
+		url:        '{%url designer.views.edit entity_id,editing_form_id,formType%}'
+	};
+
+	$(document).ready(function(){
+        //SetupFormForAjax('.savebutton',options,'#save_form_designer');
+	});
+</script>
+
+{%block headjs %}
+
+    <script type='text/javascript'>
+    /*<![CDATA[*/
+   		{% if default_form.fieldsJSON  %}
+          var soho_fields = {{default_form.fieldsJSON}};
+         {% else %}
+          var soho_fields = {};
+         {% endif %}
+
+          var ffo;
+          $(document).ready(function() {
+              var options = {
+                  fieldsContainerSelector: '.form-builder',
+                  toolbarSelector: '.form-toolbar',
+                  fieldEditContainerSelector: '.field-edit-container',
+                  fieldSaveContainerSelector: '.savebutton'
+              };
+
+            ffo = new FormFactory(options);
+
+              //register the plugins
+              $.each(formFactoryFieldPlugins, function() {
+                 ffo.register(this);
+              });
+
+              ffo.fromArray(soho_fields);
+              
+            $('#form_container .savebutton').click(function() {
+               var fields = ffo.FieldsJSON();
+               $('#form_container #fieldsJSON').val( fields );
+               $('#save_form_designer').submit();
+            });
+          });
+         /*]]>*/
+  </script>
+{%endblock headjs %}
+
+<div id="form_container">
+	<form action="#" method="get" id="form_editor" class="sohoform">
+		<div class="form_description">
+			<h2>{{tab_info.title}}</h2>
+			<p>Design yourform here!</p>
+		</div>
+        <ul class="toolbar">
+            <li><a  id="lnkSaveDesign" class="button savebutton" href="#">Update</a></li>
+        </ul>
+        <ul class="form-toolbar">
+        </ul>
+		<ul class="form-builder">
+        </ul>
+	</form>
+<div class="field-edit-container">
+    <fieldset class="general">
+    <legend>General Properties</legend>
+
+    <label for="field-name">Field name:</label><input type="text" id="field-name" /><br />
+    <label for="field-desc">Field description:</label><textarea id="field-desc" cols="30" rows="3"></textarea><br />
+    <label for="field-required">Field is required:</label><input type="checkbox" id="field-required" />
+    </fieldset>
+    <fieldset class="specific">
+    <legend>Specific Field Type Properties</legend>
+    </fieldset>
+    <br />
+    <button id="edit-save">Save</button>
+    <button id="edit-cancel">Cancel</button>
+</div>
+
+    <hr style="visibility:hidden;clear:both;"
+
+    <form class="sohoform" action="{%url designer.views.edit entity_id,editing_form_id,form_type %}" method="post" id="save_form_designer">
+	   <input type="hidden" name="form_html" id="form_html" value="" />
+	   <input type="hidden" name="fieldsJSON"  id="fieldsJSON" value="" />
+	   <input type="hidden" name="template" value="" />
+	   <input type="hidden" name="form_id" value="{{editing_form_id}}" />
+	   <input type="hidden" name="form_type" value="{{form_type}}" />
+	   <!-- use this to generate a new form version, so it doesn't conflict with existing date. This should be triggered by editing existing options, removing fieds etc.  TODO: this is not used yet-->
+	  <input type="hidden" name="new_form_version" value="0" />
+	  <input type="hidden" name="is_default" value="1" />
+        <ul class="toolbar">
+            <li><a  id="lnkSaveDesign" class="button savebutton" href="#">Update</a></li>
+        </ul>
+	</form>
+
+</div>
+
+  <style type="text/css" >
+  .field-edit-container
+  {
+      width:500px;
+      float:left;
+      margin:30px 0 0 50px;
+      visibility:hidden;
+  }
+
+  .form-builder {
+      list-style:none;
+      list-style-position: outside;
+      padding:0px;
+      margin:30px 0 0 0;
+      width:500px;
+      float:left;
+      clear:both;
+  }
+  .form-builder li {
+   position:relative;
+   min-height:50px;
+   width:400px;
+   border:1px solid #e0e0e0;
+   padding-left:15px; /*width of move handle + some extra padding*/
+   padding-top:17px;
+   margin-top:5px;
+  }
+
+   .form-builder li:hover,  {
+      background-color: #ffffee;
+      border:1px dashed #eeeeee;
+   }
+
+   .form-builder li.editing
+   {
+    background-color: yellow;
+    border-color: #c0c0c0;
+   }
+
+  .btn {
+   position: absolute;
+   top:0px;
+   border: 0 none;
+   background-color: transparent;
+   text-indent: -999px;
+   margin:2px;
+  }
+
+   .icon {
+      width:16px;
+      height:16px;
+   }
+
+   .btn.move {
+      background: url(/static/images/ib/movehandle.png) 0 0;
+      left: 0px;
+      height:100%;
+      width:10px;
+      margin:0px;
+      cursor:move;
+   }
+
+   .btn.del {
+      background: url(/static/images/ib/delete.png) no-repeat 0 0;
+      right:0px;
+   }
+   .btn.edit {
+      background: url(/static/images/ib/edit.png) no-repeat 0 0;
+      right:21px;
+   }
+
+   .required {
+      color: #ee6600;
+   }
+
+   .isrequired {
+       display:inline;
+   }
+
+   .notrequired {
+       display:none;
+   }
+
+
+   .description {
+      font-size:75%;
+      display:block;
+   }
+   .toRemove
+   {
+       background-color:Red;
+   }
+  </style>

@@ -1,0 +1,142 @@
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top">
+            <div  id="accordian_useraccess">
+                <h3><a  href="#"><span class="accesslabel">Current Users</span></a></h3>
+                <div id="divCurrentUsers">
+                    {% include "dashboard/_UserAccess_CurrentUsers.html" %}
+                </div>
+                <h3><a  href="#"><span class="accesslabel">Invited Users</span></a></h3>
+                <div id="divInvitedUsers">
+                {% include "dashboard/_UserAccess_Invited.html" %}
+                </div>
+            </div>
+        </td>
+        <td style="width: 50px;">&nbsp;</td>
+        <td valign="top">
+                {% include "dashboard/_UserAccess_InviteUserForm.html" %}
+        </td>
+        <td style="width: 50px;">&nbsp;</td>
+        <td valign="top">
+            {% include "dashboard/_UserAccessHelper.html" %}
+	</td>
+    </tr>
+</table>
+
+<div id="dialogDeleteUserPermissions" title="Delete User Permissions">
+    <h1>Delete User Permission</h1>
+    <p>
+    Are you sure you wish to delete this user permission?
+    </p>
+    <p>
+    If you click yes, this user will no longer have access to your application.
+    </p>
+    <a  id="lnkdDUPYes" class="button deletebutton" href="#">Delete This User Access</a>
+    &nbsp;&nbsp;
+    <a  id="lnkdDUPNo" href="#">cancel</a>
+</div>
+
+<script language="javascript">
+    var CurrentSelectedUser = 0;
+    var UserType = '';
+    var crms_count = 0;
+    $(document).ready(function () {
+
+        $('#dialogDeleteUserPermissions').dialog({ autoOpen: false,modal: true  });
+        $("#dialogDeleteUserPermissions").dialog('close');
+
+        $("#InviteUserForm").validationEngine();
+
+        $("#accordian_useraccess").accordion({ autoHeight: false });
+        
+        SetupScreenInviteUsers("form");
+
+        $('#lnkSubmitNewUserInvite').click(function(){
+            SetupScreenInviteUsers("form");
+            return false;
+        });
+
+        $('#lnkInviteNewUser').click(function(){
+            //Validate
+            var bolIsValid = $("#InviteUserForm").validationEngine({returnIsValid:true})
+            if(bolIsValid==false){
+                return false;
+            }else{
+                ReplaceButtonWithSavingGif($("#lnkInviteNewUser"), 'Sending Invite');
+
+                var strAC = $('#ddlUserPermissions').val();
+                var strEmail = $('#txtInviteEmail').val();
+                var strURL  = '{%url entity.views.jsonrequests %}';
+                var data = {'action':'invite_user_to_access_entity', 'entity_id': '{{entity_id}}', 'access_right_code': strAC,'email_address':strEmail};
+                var callbackFunc = function(data, textStatus){
+                    ReplaceSavingGifWithButton($("#lnkInviteNewUser"));
+                    SetupScreenInviteUsers("thanks");
+                    selectAjaxURLPart('{%url designer.views.index_permissions_invitedusers entity_id%}','divInvitedUsers',ResetFormControlsAfterInvite);
+                };
+                json_post(strURL, data, callbackFunc , "json");
+                return false;
+            }
+
+        });
+
+        $('.deleteuser').click(ShowDeleteThisUserdialogDeleteUserPermissions);
+
+        $('#lnkdDUPNo').click(function(){
+            $("#dialogDeleteUserPermissions").dialog('close');
+            return false;
+        });
+
+        $('#lnkdDUPYes').click(function(){
+            return DeleteThisUserPermissions(CurrentSelectedUser);
+            return false;
+        });
+
+    });
+
+    function DeleteThisUserPermissions(user_id){
+        var strURL  = '{%url entity.views.jsonrequests%}';
+        var data = { action: 'delete_user_invite_or_access', entity_id: '{{entity_id}}', delete_user_invite_id: user_id,user_type:UserType};
+        var callbackFunc = function(data, textStatus){
+            if(UserType=='current'){
+                selectAjaxURLPart('{%url designer.views.index_permissions_currentusers entity_id%}','divCurrentUsers',ResetFormControlsAfterDelete);
+            }
+            if(UserType=='invite'){
+                selectAjaxURLPart('{%url designer.views.index_permissions_invitedusers entity_id%}','divInvitedUsers',ResetFormControlsAfterDelete);
+            }
+        };
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+     }
+
+     function ResetFormControlsAfterInvite(){
+        $('.deleteuser').click(ShowDeleteThisUserdialogDeleteUserPermissions);
+        $("#dialogDeleteUserPermissions").dialog('close');
+        ShowNotification('User has been invited.','success');
+     }
+
+    function ResetFormControlsAfterDelete(){
+        $('.deleteuser').click(ShowDeleteThisUserdialogDeleteUserPermissions);
+        $("#dialogDeleteUserPermissions").dialog('close');
+        ShowNotification('User has been removed.','success');
+    }
+
+     function ShowDeleteThisUserdialogDeleteUserPermissions(){
+        UserType = $(this).attr('user_type');
+        CurrentSelectedUser = $(this).attr('userid');
+        
+        $("#dialogDeleteUserPermissions").dialog('open');
+        return false;
+    }
+
+    function SetupScreenInviteUsers(strMode){
+        $('#qcform-form-inviteuser').hide();
+        $('#qcform-thanks-inviteuser').hide();
+
+        if (strMode == 'form'){
+                $('#qcform-form-inviteuser').show();
+            }
+        if (strMode == 'thanks')
+            $('#qcform-thanks-inviteuser').show();
+            $('#txtDetails-inviteuser').val('');
+    }
+</script>

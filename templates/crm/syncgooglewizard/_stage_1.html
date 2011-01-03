@@ -1,0 +1,311 @@
+<h3>Choose the groups of contacts you would like to import into Soho Scheduler.</h3>
+<div class="stageholder" id="templates">
+    <div id="lblStage1Error" class="messageerror">
+    </div>
+    <div id="picker_container">
+        <div id="picker_header_pane">
+            <p id="picker_title">Soho Scheduler Contact Picker</p>
+        </div>
+        <div id="picker_groups_container">
+            <div id="picker_groups_pane" class="picker_column">
+                <ul id="picker_groups">
+                    <li class="picker_header">Contact Groups</li>
+                    {%if groups_feed%}
+                        {% for oGroup in groups_feed%}
+                            <li>
+                                <a class="groupselect" groupid="{{oGroup.id.text}}" href="">{{oGroup.title.text}}</a>
+                            </li>
+                        {% endfor %}
+                        {%else%}
+                        You don't have any groups set.
+                        Please visit your Google Contacts page and assign contacts to some groups.
+                    {%endif%}
+                </ul>
+            </div>
+        </div>
+        <div id="picker_contacts_container">
+            <div id="picker_contacts_pane" class="picker_column">
+                <ul id="picker_contacts">
+                    <li class="picker_header">Contacts</li>
+                    <li class="picker_menu">
+                        Select:
+                        <a href="#">All</a>
+                        <a href="#">None</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="picker_info_container">
+            <div id="picker_info_pane" class="picker_column">
+                <ul id="picker_contacts_to_add">
+                    <li class="picker_header">Contacts To Import</li>
+                    <li class="picker_menu">
+                        Select:
+                        <a id="RemoveAllSelected" href="#">Remove All</a>
+                    </li>
+                    </ul>
+                </div>
+        </div>
+
+
+    </div>
+        <p>
+        {% for oContact in contacts_feed%}
+            <h2>{{oContact.title.text}}</h2>
+                Emails:<br />
+                {% for email in oContact.email%}
+                    email_address: {{email.address}}<br />
+                {% endfor %}
+                Groups:<br />
+                {% for group in oContact.group_membership_info%}
+                    Member of group: {{group.href}}<br />
+                {% endfor %}
+                Extended Properties:<br />
+                {% for extended_property in oContact.extended_property%}
+                    extended_property_name: {{extended_property.name}} :
+                    {%if extended_property.value %}
+                        {{extended_property.value}}
+                    {%else%}
+                        {{extended_property.GetXmlBlobString}}
+                    {%endif%}
+                    <br />
+                {% endfor %}
+                {{oContact}}
+                <br />
+        {% endfor %}
+    </p>
+    <div id="debug" class="debug">
+        {% for oGroup in groups_feed%}
+        <p>
+            oGroup: {{oGroup}}
+        </p>
+        {% endfor %}
+    </div>
+    <p style="display: none;">
+        sample_contact: {{sample_contact.text}}<br />
+        Emails:<br />
+        {% for email in sample_contact.email%}
+            email_address: {{email.address}}<br />
+        {% endfor %}
+        Groups:<br />
+        {% for group in sample_contact.group_membership_info%}
+            Member of group: {{group.href}}<br />
+        {% endfor %}
+    </p>
+
+
+</div>
+
+<script type="text/javascript">
+    var Picker_CONTACT_LIST_ID = "picker_contacts";
+    var Picker_CONTACTS_PANE_ID = "picker_contacts_pane";
+    var Picker_CONTACTS_TOADD_LIST_ID = "picker_contacts_to_add";
+
+    $().ready(function(){
+        $('.groupselect').click(function(){
+            $('#picker_groups li').removeClass('picker_selected');
+            $(this).parent().addClass('picker_selected');
+            ShowLoadingContactsMessage(true);
+            var filter_group_id = $(this).attr('groupid');
+            GetContactInformation(filter_group_id );
+            return false;
+        });
+
+        $('#RemoveAllSelected').click(function(){
+            $('#picker_contacts_to_add li.picker_info_title').remove();
+        });
+    });
+
+    function ShowLoadingContactsMessage(bolShow){
+        //Remove any entries
+        $('#picker_contacts li.picker_entry').remove();
+
+        //Add Blank Loading Message
+        var newContact = document.createElement('li');
+        $(newContact).attr('id','picker_contacts_loading_message').text('Loading Contacts');
+        $('#picker_contacts').append(newContact);
+
+        //Add new entry
+        ShowLoadingMessage($("#picker_contacts_loading_message"), 'Loading Contacts');
+    }
+
+    function GetContactInformation(filter_group_id){
+        var strURL  = '{%url crm.wizards.jsonrequests entity_id%}';
+        var data = { action: 'getgroupcontacts', group_id: filter_group_id};
+        var callbackFunc = function(data, textStatus){
+            processContactFeed(data.results);
+        };
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+    }
+
+    function processContactFeed(contactData) {
+            //Init
+            var newContactList = document.createElement('ul');
+            newContactList.id = Picker_CONTACT_LIST_ID;
+
+            var addAllDone = false;
+
+            // Write out new list of groups
+            for (var i = 0; i < contactData.length; i++) {
+                //if(addAllDone==false){
+                 //   newContactList.appendChild("<li>Add All</li>");
+                  //  addAllDone = true;
+                //}
+              var entry = contactData[i];
+              var id = entry.ContactID;
+              var newContact = document.createElement('li');
+              newContact.id = 'picker_contact_' + i;
+
+              // List the contact's name next to the checkbox
+              var name = "";
+              if(entry.ContactName){
+                name = entry.ContactName + ' [' + entry.ContactEmail + "]";
+              }else{
+                name = entry.ContactEmail;
+              }
+
+
+              //Create Label
+              var objLabel = document.createElement('label');
+              var chkID = 'chk' + i;
+              $(objLabel).attr('for',chkID).text(name);
+
+              //Create input box
+              var objInput = document.createElement('input');
+              $(objInput).attr('name',chkID).attr('id',chkID).attr('type','checkbox').val(false).addClass('crirHiddenJS').attr('atomid',id).attr('contactname',entry.ContactName);
+              $(objInput).attr('contactemail',entry.ContactEmail);
+              
+              $(objInput).click(function(){
+                    syncContactsToAdd();
+              });
+
+              //Append info to the li
+              $(newContact).append(objLabel).prepend(objInput).addClass('picker_entry');
+
+              //Append this to the li
+              $(newContactList).append(newContact);
+
+            }
+
+            // Replace the old contact list with the newly generated one
+            var contactsPane = document.getElementById(Picker_CONTACTS_PANE_ID);
+            var oldContactList = document.getElementById(Picker_CONTACT_LIST_ID);
+            contactsPane.replaceChild(newContactList, oldContactList);
+
+            //Create Options All
+            var objAll = document.createElement('a');
+            $(objAll).text('All').attr('href','#');
+            $(objAll).click(function(){
+                $('#' + Picker_CONTACT_LIST_ID).find('input').attr('checked',true).append(' ');
+                syncContactsToAdd();
+            });
+
+            //Create Options None
+            var objNone = document.createElement('a');
+            $(objNone).text('None').attr('href','#');
+            $(objNone).click(function(){
+                $('#' + Picker_CONTACT_LIST_ID).find('input').attr('checked',false).append(' ');
+                syncContactsToAdd();
+            });
+
+            //Add Contacts List Menu
+            var jLIMenu =  $('<li></li>').append('Select: ').append(objAll).append(' ').append(objNone).addClass('picker_menu');
+            $('#' + Picker_CONTACT_LIST_ID).prepend($(jLIMenu));
+
+            //Add Contacts List Header
+            var jLIHeader =  $('<li>Contacts</li>').addClass('picker_header');
+            $('#' + Picker_CONTACT_LIST_ID).prepend($(jLIHeader));
+
+      }
+
+
+  function syncContactsToAdd(){
+
+      // Loop thorugh contacts and syn with contacts to add.
+      var julSource = $('#' + Picker_CONTACT_LIST_ID);
+      var julDest = $('#' + Picker_CONTACTS_TOADD_LIST_ID);
+
+      //Loop through source
+      var sourceInputs = $(julSource).find('input');
+      for(var i=0;i<sourceInputs.length;i++){
+          //Is checked?
+          var thisInput = $(sourceInputs[i]);
+          var thisInputIsChecked = $(thisInput).attr('checked');
+          var atomId = $(thisInput).attr('atomid');
+          var thisContactName = $(thisInput).attr('contactname');
+          var thisContactEmail = $(thisInput).attr('contactemail');
+
+          var destEntry = $(julDest).find('li[atomid="' + atomId + '"]');
+          if(thisInputIsChecked==true){
+              //Make sure it is in RHS
+              if($(destEntry).length==0){
+                  //Needs to be added
+                  addContactDetails(thisContactName,atomId,thisContactEmail);
+              }
+          }else{
+              //Remove From RHS irrespective of whether it is there or not.
+              $(destEntry).remove();
+          }
+      }
+
+      setupImportContactsHeader();
+   }
+
+    function setupImportContactsHeader(){
+        var julHeader = $('#' + Picker_CONTACTS_TOADD_LIST_ID);
+        var itemsSelected = $(julHeader).find('.picker_info_title');
+
+        // if not items remove header and return
+        if($(itemsSelected).length == 0){
+            //Remove header if exists
+            $(julHeader).find('.picker_menu').remove();
+            return;
+        }
+
+        //Create Options None
+        var objNone = document.createElement('a');
+        $(objNone).text('Remove All').attr('href','#');
+        $(objNone).click(function(){
+            //Remove all items from checked menu
+            $(julHeader).find('.picker_info_title').remove();
+            $(julHeader).find('.picker_menu').remove();
+
+            //Uncheck any checked items
+            $('#' + Picker_CONTACT_LIST_ID).find('input[type=checkbox]').attr('checked', false);
+        });
+
+        //Add Contacts List Menu
+        if($(julHeader).find('.picker_menu').length == 0){
+            var jLIMenu =  $('<li></li>').append('Select: ').append(' ').append(objNone).addClass('picker_menu');
+            $(julHeader).find('.picker_header').after($(jLIMenu));
+        }
+    }
+
+  function addContactDetails(contactName, atomId,contactEmail) {
+
+    //Init
+    var jCTA = $('#' + Picker_CONTACTS_TOADD_LIST_ID);
+
+    // Get Contact name
+    //var contactName = $(this).text();
+
+    //Check whether contact already exists
+    if(jCTA.find('li[atomId="' + atomId + '"]').length > 0 ){
+        return;
+    }
+
+
+    //Add New Contact Entry
+    var jLIHeader =  $('<li></li>')
+                .addClass('picker_info_title')
+                .attr('atomid',atomId)
+                .attr('contactname',contactName)
+                .attr('contactemail',contactEmail)
+                .text(contactName);
+
+    //Add Entry to list
+    $(jCTA).append(jLIHeader);
+    //alert(atomId + ' ' + elementId);
+  }
+</script>

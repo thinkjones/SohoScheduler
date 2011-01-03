@@ -1,0 +1,33 @@
+<div id="subheader">
+	<div id="title">
+		<span id="title">
+			CRM: {{ customer.name }}
+		</span>
+		<a class="editbutton" href="javascript: selectAjaxURL('{% url crm.views.edit customer.entity_reference.key.id,customer.key.id %}');">edit</a>
+		<a class="deletebutton" href="{%url crm.views.delete customer.entity_reference.key.id,customer.key.id %}">delete</a>
+    </div>
+	<div id="subtitle">
+        {{ customer.desc }}
+	</div>
+</div>
+<br />
+
+<div id="stylized" class="myform">
+	<fieldset>
+		<legend>Customer info</legend>
+		<div>
+				<label for="id_name">Name:
+					<span class="small">Name of company or individual</span>
+				</label>
+			   {{ customer.name }}
+		</div>
+		{% for field in fields %}
+		<div>
+				<label for="id_name">{{field.0}}:
+					<span class="small">{{field.1.description}}</span>
+				</label>
+			   {{ field.1.value }}
+		</div>
+      {% endfor %}		
+   </fieldset>
+</div>

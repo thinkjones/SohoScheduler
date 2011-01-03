@@ -1,0 +1,32 @@
+<div id="extra" >
+    <div id="extra-inner" >
+        <dl>
+            <dt>News</dt>
+            <dd><a target="_blank" href="http://sohosched.blogspot.com/">Blog</a></dd>
+            <dd><a target="_blank" href="http://sohosched.blogspot.com/feeds/posts/default?alt=rss">RSS Feeds</a></dd>
+            <dd><a target="_blank" href="http://info.sohoappspot.com/company-information/newsletters">Newsletters</a></dd>
+            <dd><a target="_blank" href="http://www.twitter.com/SohoScheduler">Follow us on Twitter</a></dd>
+        </dl>
+
+        <dl>
+            <dt>The Company</dt>
+            <dd><a target="_blank" href="http://info.sohoappspot.com/company-information">Information</a></dd>
+            <dd><a target="_blank" href="http://info.sohoappspot.com/company-information/business-services">Business Services</a></dd>
+            <dd><a target="_blank" href="http://info.sohoappspot.com/about-us">The Team</a></dd>
+            <dd><a target="_blank" href="http://spreadsheets.google.com/viewform?key=ppVqLnTNKVfyP1uxiTRegWQ">Contact Us</a> </dd>
+        </dl>
+
+        <dl>
+            <dt>Support</dt>
+            <dd><a target="_blank" href="http://info.sohoappspot.com/">Soho Scheduler Information</a></dd>
+            <dd><a target="_blank" href="http://info.sohoappspot.com/help">Help Page</a></dd>
+            <dd><a target="_blank" href="http://groups.google.com/group/soho-scheduler-discussion-forum">Discussion Forum</a></dd>
+            <dd><a target="_blank" href="http://spreadsheets.google.com/viewform?key=ppVqLnTNKVfyP1uxiTRegWQ">Contact Us</a> </dd>
+        </dl>
+        <a id="ContactUs" />
+        <dl class="quickcontact">
+            <dt>Contact Us</dt>
+            <dd>{%include "about/_quick_contact.html" %}</dd>
+        </dl>
+    </div>
+</div>

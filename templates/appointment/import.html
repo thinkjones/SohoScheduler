@@ -1,0 +1,58 @@
+s{%extends "base.html"%}
+
+{%block maincontent%}
+
+
+
+{%ifequal stage "1" %}
+        <h1>Authenticatication Required</h1>
+        <br />
+        Before we can import your google spreadsheet data we need to authenticate with Google Spreadsheet.
+        <br />
+        Clicking here to authenticate this application with your google spreadsheet: <a href="{{authSubHref}}">Authenticate</a>
+        <br />
+{%endifequal%}
+
+{%ifequal stage "2" %}
+        <form action="{%url appointment.views.importdata company_id%}" method="post">
+                <input type="hidden" name="stage" value="2">
+                <h1>Select Spreadsheet To Import</h1>
+                <select name="ddlSpreadsheet">
+                {%for oSheet in spreadsheets%}
+                        <option value="{{oSheet.id.text}}">{{oSheet.title.text}}</option>
+                {%endfor%}
+                </select>
+                <input type="submit" value="Get Worksheets" class="button">
+        </form>
+{%endifequal%}
+
+{%ifequal stage "3" %}
+        Spreadsheet selected: {{sheet_key}}
+        Spreadsheet selected key : {{spreadsheet_selected_key}}
+        <form action="{%url appointment.views.importdata company_id%}" method="post">
+                <input type="hidden" name="stage" value="3">
+                <input type="hidden" name="spreadsheet_selected_key" value="{{spreadsheet_selected_key}}" >
+                <h1>Select Worksheet To Import</h1>
+                <select name="ddlWorksheet">
+                {%for oSheet in worksheets%}
+                        <option value="{{oSheet.id.text}}">{{oSheet.title.text}}</option>
+                {%endfor%}
+                </select>
+                <input type="submit" value="Import" class="button">
+        </form>
+{%endifequal%}
+
+{%ifequal stage "4" %}
+        Worksheet selected: {{sheet_key}}
+        <br />
+        Worksheet data: {{worksheet_data}}
+        <br />
+{%endifequal%}
+
+{%endblock maincontent%}
+
+{% block sidebar %}
+  {% include "appointment/sidebar_import.html" %}
+{% endblock sidebar %}
+  
+

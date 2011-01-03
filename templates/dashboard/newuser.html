@@ -1,0 +1,10 @@
+{%extends "base.html"%}
+
+{%block maincontent%}
+    {% ifequal myinvites.count 0%}
+        {% include "dashboard/_NewUserNoEntities.html" %}
+    {% else %}
+        {% include "dashboard/_NewUserHasInvites.html" %}
+    {% endifequal%}
+{%endblock maincontent%}
+

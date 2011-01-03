@@ -1,0 +1,16 @@
+<h1>Share My Design</h1>
+<div id="divWizard">
+WizardStage{{wizardstage}}
+{%ifequal wizardstage "0"%}
+    {% include "designer/_sharemydesign_wizard_stage_0.html" %}
+{%endifequal%}
+
+{%ifequal wizardstage "1"%}
+    {% include "designer/_sharemydesign_wizard_stage_1.html" %}
+{%endifequal%}
+
+{%ifequal wizardstage "2" %}
+    {% include "designer/_sharemydesign_wizard_stage_2.html" %}
+{%endifequal%}
+</div>
+

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/thinkjones/sohosched/!svn/ver/380/trunk/appcode
+END
+datehelper.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/thinkjones/sohosched/!svn/ver/339/trunk/appcode/datehelper.py
+END
+util.py
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/thinkjones/sohosched/!svn/ver/338/trunk/appcode/util.py
+END
+viewsbaseclass.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/thinkjones/sohosched/!svn/ver/351/trunk/appcode/viewsbaseclass.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/thinkjones/sohosched/!svn/ver/2/trunk/appcode/__init__.py
+END
+baseclass.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/thinkjones/sohosched/!svn/ver/351/trunk/appcode/baseclass.py
+END
+sohosecurity.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/thinkjones/sohosched/!svn/ver/351/trunk/appcode/sohosecurity.py
+END
+baseserver.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/thinkjones/sohosched/!svn/ver/335/trunk/appcode/baseserver.py
+END
+sohonotify.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/thinkjones/sohosched/!svn/ver/351/trunk/appcode/sohonotify.py
+END
+mailhelper.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/thinkjones/sohosched/!svn/ver/176/trunk/appcode/mailhelper.py
+END
+formhelper.py
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/thinkjones/sohosched/!svn/ver/336/trunk/appcode/formhelper.py
+END
+sohodatamodels.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/thinkjones/sohosched/!svn/ver/305/trunk/appcode/sohodatamodels.py
+END
+taskqueuehelper.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/thinkjones/sohosched/!svn/ver/351/trunk/appcode/taskqueuehelper.py
+END

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/thinkjones/sohosched/!svn/ver/364/trunk/sohoadmin/cron
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/thinkjones/sohosched/!svn/ver/364/trunk/sohoadmin/cron/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/thinkjones/sohosched/!svn/ver/302/trunk/sohoadmin/cron/__init__.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/thinkjones/sohosched/!svn/ver/302/trunk/sohoadmin/cron/models.py
+END

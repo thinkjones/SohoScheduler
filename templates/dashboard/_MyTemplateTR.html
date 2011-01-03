@@ -1,0 +1,14 @@
+<tr>
+	<td>
+		<span class="sharemydesignlabel">
+			{{mytemplate.entity_reference.name|escape}}
+		</span>
+	</td>
+	<td align="right">
+		{% ifequal mytemplate.entity_reference.key.id entity_id%}
+                    <span class="dashboardselected">selected</span>
+		{% else %}
+                    <a href="{%url dashboard.views.change_entity mytemplate.entity_reference.key.id %}">manage</a>
+		{% endifequal %}
+	</td>
+</tr>

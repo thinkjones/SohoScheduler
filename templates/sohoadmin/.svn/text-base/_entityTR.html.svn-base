@@ -1,0 +1,8 @@
+<tr>
+	<td>
+        <a target="_top" href="{%url dashboard.views.index entity.key.id%}">{{entity.name|escape}}</a> ({{entity.signup_reference.signup_user}})
+	</td>
+	<td>
+		{{entity.created|date:"Y/m/d H:i:s"}}
+	</td>
+</tr>

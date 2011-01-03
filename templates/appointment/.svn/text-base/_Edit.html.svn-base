@@ -1,0 +1,107 @@
+<script type="text/javascript" language="javascript">
+    jQuery(document).ready(function(){
+
+		jQuery('button#lnkAddNewCustomer').click(function() {
+		   jQuery('#div_customer_search').hide("fast");
+		   jQuery('#div_customer_add').show('slow');
+		   jQuery('input#txtAddCustomer').val('True');
+		   return false;
+		  });
+
+		jQuery('button#lnkSearchForCustomer').click(function() {
+		   jQuery('#div_customer_add').hide('fast');
+		   jQuery('#div_customer_search').show('slow');
+		   jQuery('input#txtAddCustomer').val('False');		   
+		   return false;
+		  });
+		  
+		jQuery('#div_customer_add').css("display", "none");
+		jQuery('#div_customer_search').css("display", "none");
+		  if(jQuery('input#txtAddCustomer').val()=='True'){
+				jQuery('#div_customer_add').css("display", "block");
+		   }else{
+				jQuery('#div_customer_search').css("display", "block");
+		  }
+
+      });
+</script>
+
+<script language="javascript">
+    jQuery(document).ready(function(){
+        jQuery('#lnkappointmentSave').click(function(){
+            jQuery('#formappointment').submit();
+            return false;
+         });
+ });
+</script>
+
+<div id="subheader">
+	<div id="title">
+		<span id="title">
+			Scheduling Booking Form
+		</span>
+        <a  id="lnkappointmentSave" class="button savebutton" href="{%url appointment.views.new company_id%}">Save</a>	
+        <a class="cancelbutton" href="javascript: selectTab('appointment', {{company_id}});">Cancel</a>
+    </div>
+	<div id="subtitle">
+	<p>Create appointments here.  Start by searching for an existing customer, or simply create new one right here.</p>
+	{% if form.errors %}
+		<div class="formheadererror">Form not saved please rectify errors below:</div>
+	{% endif %}
+	</div>
+</div>
+<br />
+<div id="stylized" class="myform">
+	<form id="formappointment"  action="{% url appointment.views.edit company_id,appointment_id %}" method="post">
+	<div class="spacer"></div>
+		<input type="hidden" name="txtAddCustomer" id="txtAddCustomer" value="{{ add_new_customer }}" />
+		<fieldset>
+			<legend>Step 1 - Customer Selection</legend>
+				{{ form.customer_reference.errors }}
+				<div id="div_customer_search" style="display:none;">
+					<span style="float: left;">
+						<label for="customer_reference">Existing customer
+							<span class="small">Start typing to search for existing customer.</span>
+						</label>
+						{{ form.customer_reference }}
+					</span>
+					<button id="lnkAddNewCustomer" >Add New Customer ?</button>
+				</div>
+				<div id="div_customer_add">
+					<span style="float: left;">
+						{% include "crm/quickadd.html" %}
+					</span>
+					<button id="lnkSearchForCustomer" >Customer Search ?</button>
+				</div>
+		</fieldset>
+		<fieldset>
+			<legend>Step 2 - Booking Date/Time</legend>
+				<div>
+					<label for="id_booking_date">Booking Date:
+						<span class="small">Date service is to be provided.</span>
+					</label>
+					<span style="float: left">
+						{{ form.booking_date.errors }}
+						{{ form.booking_date }}
+					</span>
+				</div>
+				<div>
+					<label for="id_booking_time">Booking Time:
+						<span class="small">Start time of service.</span>
+					</label>
+					{{ form.booking_time.errors }}
+					{{ form.booking_time }}
+				</div>
+		 </fieldset>
+		 <fieldset>
+			<legend>Step 3 - Details</legend>
+		</fieldset>
+	</form>
+</div>
+
+
+
+
+
+
+    

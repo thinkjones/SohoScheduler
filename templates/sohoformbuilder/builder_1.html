@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <!-- JQuery -->
+    <script type="text/javascript" src="/static/javascript/jquery/js/jquery-1.3.2.min.js"></script>
+
+    <!-- Form Builder -->
+    <link rel="stylesheet" href="/static/javascript/jquery/formbuilder/surveyformbuilder.css" type="text/css" />
+    <script type="text/javascript" src="/static/javascript/jquery/formbuilder/jquery.scrollTo-min.js"></script>
+    <script type="text/javascript" src="/static/javascript/jquery/formbuilder/jquery.surveyformbuilder.js"></script>
+    <script type="text/javascript" src="/static/javascript/jquery/js/jquery-ui-1.7.1.custom.min.js"></script>
+
+    <style>
+        .hidden{
+            display:none;
+        }
+    </style>
+
+    <script type="text/javascript">
+        changesMade=false;
+
+        $(document).ready(function(){
+
+                window.onbeforeunload=exit;
+
+                //$.getJSON('json.cfm',{surveyid:"0ECFD9B3-D56B-AA5C-324047FFA8454E29"},
+                 //   function(data){
+                  //      $.formBuilder.loadElements(data,$('#fb-eval ul'));
+                   //     $('.fb-holder').slideUp();
+                    //    $('.toggle-fb-holder').html('Show').addClass('toggle-fb-holder-closed');
+                     //   updateSort(true);
+                    //},"json"
+                //);
+
+                $('#createEL>li').click(
+                    function(){
+                        $('.fb-holder').slideUp();
+                        $('.toggle-fb-holder').html('Show').addClass('toggle-fb-holder-closed');
+                        $('#fb-eval ul').append($.formBuilder.createElement($.formBuilder.getFBID(),$(this).attr('ControlType')));
+                        $(this).val('');
+                        updateSort();
+                        changesMade=true;
+                    }
+                );
+
+                $('#fb-eval ul').sortable({
+                    handle : '.movebutton',
+                    axis : 'y',
+                    placeholder: 'ui-state-highlight',
+                    update : function () {
+                    updateSort();
+                  }
+                });
+
+                $('#btnSave').click(
+                    function(){
+                        changesMade=true;
+                    }
+                );
+
+                $('#lnkRenderRuntime').click(function(){
+                    $.formBuilder.renderRuntime("#fb-eval-runtime");
+                    return false;
+                });
+
+                $('.checkChange').change(
+                    function(){
+                        changesMade=false;
+                    }
+                );
+            });
+
+        function exit(){
+                if(changesMade){
+                    return "The changes you made will be loast if you navigate away from this page.";
+                }
+            }
+
+        function updateSort(loading){
+            var sortOrder = ""
+            if(loading!=true){
+                changesMade=true;
+            }
+            jQuery.each($('#fb-eval ul li'),function()
+            {
+                if($(this).attr('id') !=''){
+
+                    if(sortOrder.length > 0 ){
+                        sortOrder+='&';
+                    }
+                    sortOrder+= $(this).attr('id');
+                }
+            });
+
+            $("#fb-eval-sort").val(sortOrder);
+        }
+    </script>
+</head>
+<body>
+   <!-- Begin Wrapper -->
+   <div id="wrapper">
+         <!-- Begin Header -->
+         <div id="header">
+			Form Builder Demo.
+		 </div>
+		 <!-- End Header -->
+		 <!-- Begin Content -->
+
+		 <div id="content">
+			 <a href="index.cfm?event=edit">New</a>&nbsp;|&nbsp;<a href="index.cfm">List</a><br />
+
+            <ul id="createEL" class="toolbar">
+                <li ControlType="text" class="textfield">Text</li>
+                <li ControlType="textarea" class="textarea">Paragraph text</li>
+                <li ControlType="narrative" class="help">Help Section</li>
+                <li ControlType="radio" class="multiplechoice">Multiple choice</li>
+                <li ControlType="checkboxes" class="checkbox">Checkboxes</li>
+                <li ControlType="select" class="dropdown">Choose from a list</li>
+                <li ControlType="rank" class="rating">Rank</li>
+            </ul>
+            <hr class="clearboth" />
+            <form action='index.cfm' method="post" id="eval_form">
+                <input name="event" value="save"  type='hidden' />
+                <input name="surveyID" value="0ECFD9B3-D56B-AA5C-324047FFA8454E29"  type='hidden' />
+
+                <table width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <div id="fb-eval">
+                            <ul></ul>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="fb-eval-runtime">
+                            <ul></ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="save" id="btnSave">
+                <a id="lnkRenderRuntime" href="#">Rennder Runtime</a>
+
+                <textarea  name='fb-eval-sort' id='fb-eval-sort' class='hidden' style="width:100%;"></textarea>
+
+            </form>
+         </div>
+   </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<div id="form_container">
+<ul id="breadcrumb">
+        <li class="active">Share My Design Wizard</li>
+        <li><a href="#" title="Sample page 1">Stage 1 - Terms and Conditions</a></li>
+    {%ifequal wizardstage "0"%}
+        <li>Stage 2 - Template Details</li>
+        <li>Stage 3 - Complete</li>
+    {%endifequal%}
+    {%ifequal wizardstage "1"%}
+        <li><a href="#" title="Sample page 2">Stage 2 - Template Details</a></li>
+        <li>Stage 3 - Complete</li>
+    {%endifequal%}
+    {%ifequal wizardstage "2"%}
+        <li><a href="#" title="Sample page 2">Stage 2 - Template Details</a></li>
+        <li class="active">Stage 3 - Complete</li>
+    {%endifequal%}
+</ul>
+    {%ifequal wizardstage "0"%}
+        <form id="formshareentity" class="sohoform" method="post">
+        {% include "designer/sharemydesignwizard/_stage_0.html" %}
+    {%endifequal%}
+
+    {%ifequal wizardstage "1"%}
+        {% include "designer/sharemydesignwizard/_stage_1.html" %}
+    {%endifequal%}
+
+    {%ifequal wizardstage "2" %}
+        <form id="formshareentity" class="sohoform" method="post">
+            {% include "designer/sharemydesignwizard/_stage_2.html" %}
+        </form>
+    {%endifequal%}
+</div>
+

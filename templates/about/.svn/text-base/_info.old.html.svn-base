@@ -1,0 +1,58 @@
+    <p>
+        <h2>What is the S.O.H.O. Scheduler?</h2>
+		The S.O.H.O. Scheduler literally means "Small Office - Home Office Scheduling Application".  
+		It is a small business accounting application for individuals in the service scheduling industry.  For instance if you run a small
+		business that requires the booking of appointments and the scheduling of service personnel this maybe the application for you.
+    </p>
+	<br />
+    <p>
+        <h2>What Industry Types Would This Be Used For?</h2>
+		The application has been developed in a fairly generic way allowing it to be utilised in a number of different industries.  
+		The original intention was for use in a small pre-booking taxi company, however it could be used in a number of industries.
+		<br />
+		Some examples are:
+        <ul>
+          <li>Plumbers
+          <li>Taxi Drivers
+          <li>Tow-Truck Operators
+          <li>Cab Drivers
+		  <li>Air Conditioning Booking
+        </ul>
+    </p>
+	<br />
+    
+    <p>
+        <h2>How much does it cost?</h2>
+        At present it is free and for the functionalty we offer at signup will always be free for as long as we can afford to run the service.
+		Because it is free we do not offer any guarantee of service, backup or consistency of service.  However if we get enough interest we will start to add
+		a more professional service for a small fee.
+    </p>
+
+	<br />
+
+    <p>
+        <h2>How do I sign up?</h2>
+        You will need a Google account to continue because we use googles application development software to keep production costs down, whilst maintaining
+        a high performance application.
+        <br />
+        {% include "Signup/signup_button.html" %}    
+    </p>
+    
+	<br />
+    <p>
+        <h2>Get Involved - Community Development</h2>
+        Soho Scheduler's primary objective which is to deliver a useful tool to the community.  For this reason we are not paying our helpers directly
+        but are offering a share of future ad revenue.  If you want to get involved and are accepted your ad share will be calculated on the initial effort
+        put into the project.  Want to earn more then get involved more! Lets make this a success!
+		<br /><br />
+		Get involved by emailing is at <a href="mailto:sohoscheduler@thinkjones.co.uk">sohoscheduler@thinkjones.co.uk</a>
+    </p>
+	
+	<br />
+	<p>
+        <h2>Bugs and Enhancements</h2>
+        In the future we will be adding a bug and enhancement trakcer, but are present we will rely on email.
+		
+		<br /><br />
+		Get involved by emailing is at <a href="mailto:sohoscheduler@thinkjones.co.uk">sohoscheduler@thinkjones.co.uk</a>
+    </p> 

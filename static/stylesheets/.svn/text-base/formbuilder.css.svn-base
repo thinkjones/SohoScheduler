@@ -1,0 +1,95 @@
+ #formcontainer div {
+   clear:none;
+   float:left;
+ }
+ #formcontainer li {
+    clear:both;
+    position:relative;
+	  height: 30px;
+ }
+ 
+  #formcontainer li label{
+	  font-weight: bold;
+ }
+  #formcontainer li label:after{
+		clear: both;
+	  }
+
+ #formcontainer li input {
+    float:none;
+ }
+ 
+ #formcontainer .radio,
+ #formcontainer select,
+ #formcontainer textarea {
+   float:none;
+ }
+ 
+ #formcontainer .radio input {
+   width:auto;
+   clear:both;
+   float:none;
+ }
+ 
+  #formcontainer .radio label {
+   width:auto;
+   float:none;
+   display:inline;
+ }
+ 
+ #formcontainer .select_edit ul {
+   float:left;
+   border: 2px groove #B7DDF2;
+ }
+ 
+ #formcontainer .select_edit {
+   float:none;
+ }
+ 
+ #formcontainer .select_edit button,
+ #formcontainer .fieldDelete {
+   margin-left: 10px;
+   width:18px;
+   height:16px;
+   padding:0;
+   cursor:pointer;
+   background:transparent url(/static/images/ib/delete.png) no-repeat 50% 50%;
+   color:transparent;
+   float:left;
+   border:0px none;
+ }
+ 
+ #formcontainer .select_edit .del_opt {
+  float:none;
+ }
+ 
+ #formcontainer .select_edit .add_opt {
+   background-image:url(/static/images/ib/add.png);
+ }
+ 
+ #formcontainer .select_edit .save_edit {
+   background-image:url(/static/images/ib/check.png);
+ }
+ 
+ #formcontainer .select_edit .cancel_edit {
+   background-image:url(/static/images/ib/cancel.png);
+ }
+
+ #formcontainer .fieldDelete {
+   position:absolute;
+   top:10px;
+   right:10px;
+ }
+ 
+ #save_form {
+   clear:both;
+ }
+
+
+#form-fields li {
+   cursor: pointer;
+}
+
+ #formcontainer .move {
+   cursor:move;
+ }

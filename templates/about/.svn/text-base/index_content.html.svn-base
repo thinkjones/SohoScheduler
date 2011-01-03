@@ -1,0 +1,10 @@
+{%extends "base_content.html" %}
+
+{% block maincontent %}
+    {% include "about/_info.html" %}    
+{% endblock maincontent %}
+
+{% block sidebar %}
+    {% include "about/_sidebar.html" %}    
+{% endblock sidebar %}
+

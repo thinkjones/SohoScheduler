@@ -1,0 +1,238 @@
+<script type='text/javascript'>
+
+    //Ajax functionality to load event data
+    var jsonGetCalURL  = '{%url appointment.views.jsonrequests entity_id%}';
+    var CurrentSelectedApp = 0;
+    var crms_count = 0;
+
+	$(document).ready(function() {
+
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+
+        SetupScreenApp();
+
+        $('#lnkAddAppointment').nyroModal({'autoSizable':true,'minHeight':600,'minWidth':1000});
+
+        $('#lnkEditAppointment').click(function(){
+            strURL = "{%url appointment.views.edit entity_id,99999999%}";
+            strURL = strURL.replace('99999999',CurrentSelectedApp);
+            $('#lnkEditAppointment').attr('href',strURL)
+            $('#lnkEditAppointment').nyroModalManual({'autoSizable':true,'minHeight':600,'minWidth':1000});
+            return false;
+         });
+
+        $('#lnkDeleteAppointment').click(function(){
+            $("#dialog").dialog('open');
+            return false;
+        });
+
+        $('#lnkNoDelete').click(function(){
+            $("#dialog").dialog('close');
+            return false;
+        });
+
+        $('#lnkYesDelete').click(function(){
+            return DeleteThisAppointment(CurrentSelectedApp);
+        });
+
+        $('#dialog').dialog({ autoOpen: false,modal: true  });
+
+        $('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+
+            {% if entity_access_rights.Owner or entity_access_rights.Edit %}
+            editable: true,
+            {%else%}
+            editable: false,
+            {%endif%}
+
+            events: function(start, end, callback) {
+        
+                    // Get Date Info
+                    var dateIn = end;
+                    intMonth = dateIn.getMonth();
+					intYear = dateIn.getFullYear();
+					
+                    var jsonParams = {'action':'getCalendarDataFullCalendar','Da':dateIn.getDate(),'Mo':intMonth,'Ye':intYear};
+
+                    // do some asynchronous ajax
+                    json_post(jsonGetCalURL,jsonParams,
+                        function(data, textStatus) {
+
+                            if (data.response){
+                                // format the result into an array of CalEvents
+                                // (not seen here)
+                                var calEvents = data.events;
+
+                                // then, pass the CalEvent array to the callback
+                                callback(calEvents);
+                            }else{
+                                ShowNotification('Calendar data unavailable','warning');
+                            }
+
+                        }, "json");
+            },
+
+            {% if entity_access_rights.Owner or entity_access_rights.Edit %}
+            eventDrop: function(calEvent, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view) {
+                var eventID = calEvent.id;
+                var dictData = {'action':'updateEventDateDelta','Da': dayDelta,'Mi':minuteDelta,'appointment_id':eventID};
+                var funcCallback = function(data, textStatus){
+                    if (data.response){
+                        //alert(eventID);
+                        eventID = data.appointment_id;
+                        $('div[eventid="' + eventID  + '"]').effect("highlight", {}, 3000);
+                        if(String(CurrentSelectedApp)==eventID){
+                            ViewAppointmentInfo(eventID);
+                        }
+                    }else{
+                        ShowNotification('Calendar data unavailable','warning');
+                    }
+                };
+                json_post(jsonGetCalURL, dictData, funcCallback , "json");
+                return true;
+
+			},
+             {%endif%}
+            eventRender: function(calEvent, element, view){
+                $(element).attr('ce', calEvent.id);
+            },
+
+            eventClick: function(calEvent, jsEvent, view){
+                ViewAppointmentInfo(calEvent.id);
+                return true;
+            },
+		});
+
+	});
+
+
+    function RefreshAfterRuntime(){
+        // Refresh Calendar
+        //alert('refresh calendar');
+        $('#calendar').fullCalendar('refetchEvents');
+        ShowNotification('Information updated','success');
+        
+        //Refresh Selected Info
+        if(CurrentSelectedApp!=0){
+            ViewAppointmentInfo(CurrentSelectedApp);
+        }
+    }
+
+    function returnfalse(){return false;}
+
+    function ViewAppointmentInfo(strID){
+        CurrentSelectedApp = strID;
+        strURL = "{%url appointment.views.jsonrequests entity_id%}";
+        var data = {'action':'viewinfo','appointment_id':strID};
+        strURL = strURL.replace('99999999',CurrentSelectedApp);
+
+        sohoJsonLoad(strURL,"appInfo",SetupScreenApp, data)
+        //$("#appInfo").load(strURL,data,SetupScreenApp);
+
+        return false;
+    }
+
+    function SetupScreenApp(){
+        $('#lnkDeleteAppointment').hide();
+        if (CurrentSelectedApp > 0){
+            $('#appInfo').show().effect("highlight", {}, 3000);
+            $('#appInfoOverall').hide();
+            $('#lnkEditAppointment').show();
+            $('#lnkDeleteAppointment').show();
+        } else {
+            $('#appInfo').hide();
+            $('#appInfoOverall').show();
+            $('#lnkEditAppointment').hide();
+        }
+    }
+
+    function DeleteThisAppointment(intID){
+        var data = { action: 'deleteappointment', appointment_id: intID};
+        var callbackFunc = function(data, textStatus){
+            var delete_selector = 'div[ce="' + intID +'"]'
+            FadeOutAndRemove(delete_selector);
+            $("#appInfo").html('');
+            CurrentSelectedApp = 0;
+            SetupScreenApp();
+            $("#dialog").dialog('close');
+        };
+        json_post(jsonGetCalURL, data, callbackFunc , "json");
+        return false;
+     }
+
+</script>
+<style type='text/css'>
+
+	#calendar {
+		width: 900px;
+		margin: 0 auto;
+		}
+
+
+</style>
+
+<table celpadding="0" cellspacing="0" class="mini-app" width="100%">
+    <thead>
+        <tr>
+            <td>
+                {% if entity_access_rights.Owner or entity_access_rights.Edit %}
+                <ul class="toolbar">
+                    <li>
+                        <a class="addbutton button" target="_blank" href="{%url appointment.views.new entity_id%}" id="lnkAddAppointment">Add Appointment</a>
+                    </li>
+                </ul>
+                {% endif %}
+
+            </td>
+                    <td>
+            {% if entity_access_rights.Owner or entity_access_rights.Edit %}
+            <ul class="toolbar">
+                <li>
+                    <a class="editbutton" target="_blank" href="{%url appointment.views.edit entity_id,0%}" id="lnkEditAppointment">Edit</a>
+                </li>
+                <li>
+                    <a class="deletebutton button" href="#" id="lnkDeleteAppointment">Delete</a>
+                </li>
+            </ul>
+            {% endif %}
+        </td>
+        </tr>
+    </thead>
+    <tr>
+        <td valign="top" class="customer-info" width="800px">
+            <div id='calendar'></div>
+        </td>
+        <td valign="top" class="customer-info">
+            <div id="appInfo" class="fillcontainer">
+                {% include "appointment/_info.html" %}
+            </div>
+            <div id="appInfoOverall" class="fillcontainer">
+                <a Name="AppointmentInfo"></a>
+                <h2>Appointments Overview</h2>
+                <h3 id="lblAppointmentsOverview"></h3>
+            </div>
+        </td>
+   </tr>
+</table>
+
+
+<div id="dialog" title="Appointment Delete">
+    <h1>Warning!</h1>
+    <p>
+    You are about to delete this appointment..
+    </p>
+    <p>
+    Are  you sure you wish to delete?
+    </p>
+    <a  id="lnkYesDelete" class="button deletebutton" href="#">Delete</a>
+    &nbsp;&nbsp;
+    <a  id="lnkNoDelete" href="#">cancel</a>
+</div>

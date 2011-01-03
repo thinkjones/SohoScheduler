@@ -1,0 +1,16 @@
+<tr>
+	<td>
+            {{template.key.id}}:
+			{{template.name|escape}}
+	</td>
+	<td>
+		{{template.created|date:"Y/m/d H:i:s"}}
+    </td>
+    <td>
+        {% if template.is_high_quality_template %}
+            High Quality Template (<a href="{%url sohoadmin.views.changetemplaterating template.key.id,1%}">Make Community</a>)
+         {% else %}
+            Community Template (<a href="{%url sohoadmin.views.changetemplaterating template.key.id,10%}">Make HQ</a>)
+        {% endif %}
+    </td>
+</tr>

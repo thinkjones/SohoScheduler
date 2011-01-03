@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+    <ns0:entry xmlns:ns0="http://www.w3.org/2005/Atom">
+        <ns0:category scheme="http://schemas.google.com/g/2005#kind" term="http://schemas.google.com/contact/2008#contact" />
+            <ns0:id>http://www.google.com/m8/feeds/contacts/drgenejones%40gmail.com/base/20</ns0:id>
+            <ns0:title type="text">Daniel Marsh</ns0:title>
+            <ns0:link href="http://www.google.com/m8/feeds/contacts/drgenejones%40gmail.com/base/20" rel="self" type="application/atom+xml" />
+            <ns0:link href="http://www.google.com/m8/feeds/contacts/drgenejones%40gmail.com/base/20/1234220113362000" rel="edit" type="application/atom+xml" />
+            <ns0:updated>2009-02-09T22:55:13.362Z</ns0:updated>
+            <ns1:phoneNumber rel="http://schemas.google.com/g/2005#mobile" xmlns:ns1="http://schemas.google.com/g/2005">+447779997359</ns1:phoneNumber>
+            <ns1:phoneNumber rel="http://schemas.google.com/g/2005#mobile" xmlns:ns1="http://schemas.google.com/g/2005">+447779997359 </ns1:phoneNumber>
+            <ns1:email address="dj_marsh@hotmail.com" primary="true" rel="http://schemas.google.com/g/2005#work" xmlns:ns1="http://schemas.google.com/g/2005" />
+            <ns1:email address="Dan.Marsh@westlb.co.uk" rel="http://schemas.google.com/g/2005#home" xmlns:ns1="http://schemas.google.com/g/2005" />
+            <ns1:email address="Daniel_Marsh@westlb-systems.co.uk" rel="http://schemas.google.com/g/2005#other" xmlns:ns1="http://schemas.google.com/g/2005" />
+            </ns0:entry>

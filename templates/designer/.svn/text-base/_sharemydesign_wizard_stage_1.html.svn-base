@@ -1,0 +1,1 @@
+{% include "entity/_edit_template.html" %}

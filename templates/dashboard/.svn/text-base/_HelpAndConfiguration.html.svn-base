@@ -1,0 +1,46 @@
+<div class="dashboardItem">
+	<table cellpadding="5" cellspacing="5" width="300px">
+        <tr>
+		<th colspan=3>
+			<span class="helpconfiglabel">
+				Information
+			</span>
+		</th>
+        </tr>
+		<tr>
+			<td colspan="3">
+                <h3 style="color: rgb(168, 0, 0);"">New! V0.8 Released</h3>
+                <p>
+                    <b>The Liberation Edition: </b>Soho Scheduler is proud to annouce that the new version of Soho Scheduler incorporates many new features requested by our users.
+                    Two of the main features are the ability to import Google Contacts and to share the application with other users.
+                    Read more about these and other exciting features by clicking this link below:
+                    <br />
+                    <a href="http://info.sohoappspot.com/new-features/new-features-0-8" target="top">The Liberation Edition</a>
+                </p>
+                {% if not has_used_designer %}
+                    <h3>Try out the Form Designer</h3>
+                {% else %}
+                    <h3>    Form Designer</h3>
+                {% endif %}
+                    <p>
+                        The designer allows you to completely customize your application to meet your business needs.
+                        You can access this feature in the standard forms, or through the designer tab.
+                        <br />
+                        <a target="top" href="{%url designer.views.index entity_id%}?tab=configuration">The Designer</a>
+                    </p>
+                    <h3>Help & Information</h3>
+                    <p>
+                        We have an extensive help section. Feel free to read the wiki to find out more information about the application.
+                        <br />
+                        <a target="top" href="http://info.sohoappspot.com">More Information</a>
+                    </p>
+                    <h3>Have a suggestion?</h3>
+                    <p>
+                        We pride ourselves on being responsive to our clients.  Feel free to make a suggestion through our online form.
+                        <br />
+                        <a href="#ContactUs" onclick="$('.quickcontact').effect('pulsate');return true;">Contact Us</a>
+                    </p>
+            </td>
+		</tr>
+	</table>
+</div>

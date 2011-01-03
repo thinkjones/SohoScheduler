@@ -1,0 +1,11 @@
+<tr>
+	<td>
+			{{param.param_type|escape}}
+	</td>
+	<td>
+			{{param.param_value|escape}}
+	</td>
+	<td>
+			{{param.param_date|escape}}
+	</td>
+</tr>

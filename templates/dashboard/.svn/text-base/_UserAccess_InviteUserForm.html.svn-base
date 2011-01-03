@@ -1,0 +1,46 @@
+<div class="dashboardItem" style="float:left;">
+    <form id="InviteUserForm">
+        <div class="main-view-box">
+            <h2>Invite a new user.</h2>
+            <em>Enter the users email address and select permissions.</em>
+            <table class="noborder st" width="100%" cellpadding="0">
+                <tbody>
+                <tr class="r1">
+                    <td class="d1 rt" width="150px">
+                            Invite User Email Address
+                    </td>
+                    <td class="d2">
+                        <label class="help">Email address of user to share application with.</label>
+                        <div>
+                                <input type="text" class="validate[required,length[0,255],custom[email]] text" id="txtInviteEmail"   style="width:150px;" />
+                        </div>
+                    </td>
+                </tr>
+                <tr class="r1">
+                    <td class="d1 rt" width="150px">
+                            Permissions:
+                    </td>
+                    <td class="d2">
+                        <label class="help">What level of access do you want your new users to have?.</label>
+                        <div>
+                            <select id="ddlUserPermissions" class="validate[required]" style="width: 150px;" name="ddlUserPermissions">
+                                <option value="">Please Select</option>
+                                <option value="ReadWrite">To Edit</option>
+                                <option value="ReadOnly">To View</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="r1">
+                    <td class="d1" width="150px">
+
+                    </td>
+                    <td class="d2">
+                        <a class="sharebutton button" id="lnkInviteNewUser" href="#">Invite User</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

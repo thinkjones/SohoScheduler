@@ -1,0 +1,53 @@
+{% if myinvites.count %}
+<div class="messageinfo">
+    <h4>Application Invites</h4>
+    {%for myinvite in myinvites%}
+        {% include "dashboard/_UserAccessMyInvitesTR.html" %}
+    {%endfor%}
+</div>
+{% endif %}
+<table cellpadding="0" cellspacing="0">
+    <tr>
+        <td valign="top" width="400px">
+                {% include "dashboard/_MyEntity.html" %}
+        </td>
+        <td style="width: 50px;">&nbsp;</td>
+        <td valign="top" width="400px">
+            <div  id="accordian_misc">
+                <h3><a  href="#"><span class="emaillabel">Your Messages</span></a></h3>
+                {% include "dashboard/_MyMessages.html" %}
+                <h3><a  href="#"><span class="billinglabel">Billing</span></a></h3>
+                {% include "dashboard/_MySohoSchedBilling.html" %}
+                <h3><a  href="#"><span class="activitylabel">Recent Activity</span></a></h3>
+                {% include "dashboard/_Activity.html" %}
+            </div>
+        </td>
+        <td style="width: 50px;">&nbsp;</td>
+        <td valign="top">
+            {% include "dashboard/_HelpAndConfiguration.html" %}
+        </td>
+    </tr>
+</table>
+
+<script language="javascript">
+$(document).ready(function () {
+    active_tab = 0;
+    {%ifequal entity_render_type "2"%}
+        active_tab = 1;
+    {%endifequal%}
+    $("#accordian_entity").accordion({ autoHeight: false ,active: active_tab});
+    $("#accordian_misc").accordion({ autoHeight: false });
+
+});
+
+function ProcessInviteAcceptReject(invite_id,invite_email,accept_invite){
+    var strURL  = '{%url entity.views.jsonrequests%}';
+    var data = { action: 'process_my_invite', invite_id: invite_id, invite_email: invite_email,accept_invite:accept_invite};
+    var callbackFunc = function(data, textStatus){
+        selectAjaxURLPart('{%url designer.views.index_permissions_currentusers entity_id%}','divCurrentUsers');
+    };
+    json_post(strURL, data, callbackFunc , "json");
+    return false;
+ }
+
+</script>

@@ -1,0 +1,150 @@
+#picker_container div {
+float:left;
+height:100%;
+margin:0;
+padding:0;
+}
+
+#picker_container div#picker_header_pane {
+background-color:#E0ECFF;
+height:32px;
+vertical-align:middle;
+width:100%;
+}
+
+#picker_container div#picker_groups_container {
+border-right:2px solid #C3D9FF;
+height:250px;
+position:relative;
+width:25%;
+}
+
+#picker_container div#picker_contacts_container {
+border-right:2px solid #C3D9FF;
+height:250px;
+position:relative;
+width:30%;
+}
+#picker_container div#picker_info_container {
+height:250px;
+position:relative;
+width:44%;
+}
+#picker_container div.picker_column {
+width:100%;
+}
+#picker_container div#picker_groups_pane {
+overflow:auto;
+position:static;
+}
+#picker_container div#picker_groups_pane li {
+overflow:hidden;
+}
+#picker_container div#picker_groups_pane li a {
+width:9999%;
+}
+#picker_container div#picker_contacts_pane {
+overflow:auto;
+position:static;
+}
+#picker_container div#picker_contacts_pane li {
+overflow:hidden;
+}
+#picker_container div#picker_contacts_pane li a {
+width:9999%;
+}
+#picker_container div#picker_info_pane {
+overflow:auto;
+position:relative;
+width:100%;
+}
+#picker_container div#picker_footer_pane {
+background-color:#E0ECFF;
+clear:both;
+float:none;
+height:32px;
+vertical-align:middle;
+width:100%;
+}
+#picker_container #picker_title {
+font-size:125%;
+font-weight:bold;
+height:100%;
+margin:0;
+padding:0.4em;
+vertical-align:middle;
+}
+#picker_container ul {
+list-style-type:none;
+margin:0;
+padding:0;
+}
+#picker_container li {
+/*height:1.3em;
+line-height:1.3em;
+    */
+margin:0;
+padding:2px 5px;
+}
+#picker_container li input {
+margin:0 3px;
+}
+#picker_container li.picker_endspecial,#picker_container li.picker_menu  {
+border-bottom:1px solid #C3D9FF;
+}
+
+/*
+#picker_container li a {
+color:#000000;
+display:block;
+text-decoration:none;
+}
+*/
+
+#picker_container li.picker_selected, #picker_container li.picker_selected:hover {
+background-color:#C3D9FF;
+color:#0000CC;
+font-weight:bold;
+}
+
+#picker_container li.picker_header, #picker_container li.picker_header:hover{
+background-color:#C3D9FF;
+color:#000000;
+font-weight:bold;
+font-size: 1.2em;
+}
+
+#picker_container li.picker_selected a, #picker_container li.picker_selected:hover a {
+color:#0000CC;
+}
+
+#picker_container li:hover {
+background-color:#FFFFCC;
+}
+
+#picker_container .picker_info_block {
+float:none;
+height:auto;
+padding:0.5em;
+position:static;
+width:95%;
+}
+#picker_container #picker_info_pane p {
+margin:0;
+padding:0;
+}
+#picker_container .picker_info_title {
+font-size:1.1em;
+font-weight:bold;
+}
+#picker_container .picker_info_meta {
+color:#777777;
+}
+#picker_container #picker_logout {
+line-height:32px;
+margin:0 1em;
+padding:0.6em;
+}
+#picker_container #picker_logout a {
+text-decoration:none;
+}

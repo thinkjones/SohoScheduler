@@ -1,0 +1,13 @@
+	<ul id="form-fields" class="form-toolbar">
+		<li rel="Text">Text</li>
+		<li rel="TextArea">Textbox</li>
+		<li rel="Radio">CheckBox</li>
+		<li rel="Select">Single Select</li>
+		<li rel="SelectMultiline">Multi Select</li>
+		<li rel="DatePicker">Date Picker</li>
+		<li rel="CustomerPicker">Customer Picker</li>
+		<li rel="Number">Number</li>
+		<li rel="Email">Email</li>
+		<li rel="URL">Website</li>
+	</ul>
+<hr class="clearboth"/>

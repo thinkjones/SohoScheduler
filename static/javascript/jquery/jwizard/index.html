@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Registration Wizard</title>
+	<link href="css/jquery.jwizard.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.jwizard.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#registration").jwizard({
+				titles: ["Step 1: Start","Step 2: Do Something","Step 3: Read Something","Step 4: Finsh"],
+				descriptions: ["This is where you begin.","Do something here.","Read something here.","You're all done."],
+				imageDirectory: "static/images/"
+			});
+		});
+	</script>
+
+	<style type="text/css">
+		#registration { width:908px; margin:20px; background:#F6F6F6; }
+		#registration > div { padding:0 10px; }
+
+	</style>
+</head>
+<body>
+	<div id="registration" class="jwizard">
+		<div>Some text to read.</div>
+		<div>More text for you.</div>
+		<div>Yet, even more text to read.</div>
+		<div>This is the last of the text.</div>
+
+	</div>
+</body>
+</html>
+

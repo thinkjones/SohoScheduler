@@ -1,0 +1,13 @@
+<tr>
+	<td>
+		<span class="activityType{{act.activity_type|escape}}">
+			{{act.activity_text|escape}}
+		</span>
+	</td>
+	<td>
+		{{act.activity_date|date:"M d Y P"}}
+	</td>
+	<td>
+		<a href="{{act.action_url}}">view</a>
+	</td>
+</tr>

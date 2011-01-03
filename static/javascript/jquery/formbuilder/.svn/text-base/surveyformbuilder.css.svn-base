@@ -1,0 +1,333 @@
+ul.toolbar li * {margin:0;padding:0;	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;}
+body {background:#FFFFFF none repeat scroll 0 0;margin:0;min-width:730px;}
+html{
+	font-family:"lucida grande","lucida sans unicode","trebuchet ms",arial,verdana,sans-serif;
+	font-size:12px;
+}
+ul {list-style-image:none;list-style-position:outside;list-style-type:none;}
+
+div.fb-runtime{clear:both;background:#FFFFFF;}
+.hidden {visibility:hidden;}
+hr.clearboth {clear:both;visibility:hidden;}
+/* .ui-state-highlight { height: 4em; line-height: 4em;background-color: orange;border: 3px dashed #666666; } */
+a.smallbutton {font-size:0.9em;border:1px solid silver;padding:5px;text-decoration:none;background-repeat:no-repeat;background-position: 5px;background-color:#F7F7F7;padding-left: 25px;}
+a.smallerbutton {font-size:0.8em;border:1px solid silver;padding:3px;text-decoration:none;background-repeat:no-repeat;background-position: 5px;background-color:#F7F7F7;padding-left: 25px;margin-right:10px;}
+a.smallerbutton:hover {background-color:#EEEEEE;cursor:pointer;}
+a.button:hover {background-color:#EEEEEE;cursor:pointer;}
+a.movebutton {background-image: url(images/move.png);}
+a.movebutton:hover {cursor:move;}
+a.right {float:right;}
+.floatleft {float:left;}
+input.short {width: 110px;}
+a.deletebutton {background-image: url(images/delete.png);}
+a.addbutton {background-image: url(images/add.png);}
+
+span.required{color:orange;display:block;}
+div.fb-header {font-size:0.8em;}
+
+li.borderbottom{border-bottom:1px solid silver;margin-bottom:10px;padding-bottom:10px;}
+
+a.toggle-fb-holder{font-size:0.9em;}
+
+
+a{
+	color:#105CB6;
+}
+.fb-round-corners{
+	-moz-border-radius-bottomleft:1em;
+	-moz-border-radius-bottomright:1em;
+	-moz-border-radius-topleft:1em;
+	-moz-border-radius-topright:1em;
+}
+.fb-table{
+	font-family:inherit;
+	font-size:inherit;
+}
+
+#fb-eval {
+	padding: 3px;
+	width:600px;
+}
+
+#fb-eval ul {
+	margin-left: 0;
+	padding-left: 0;
+	border: none;
+	list-style: none;
+}
+li.fb-item-border{
+	border: 1px solid gray;
+    }
+
+li.fb-item{
+	/*background:#EEEEEE;*/
+	margin-bottom: 8px;
+	padding: 8px;
+	list-style: none;
+	display: block;
+}
+.fb-item p {
+	padding: 3px;
+	margin: 0px;
+}
+.fb-item input,.fb-item select{
+	margin:0.3em 2% 0 0;
+	position:relative;
+	/* display:block; */
+    line-height: 18px;border-collapse:collapse;border:1px solid gray;font-size:1.5em;padding: 3px;
+}
+
+.fb-item textarea{
+	margin:0.3em 2% 0 0;
+	position:relative;
+	display:block;
+    line-height: 18px;border-collapse:collapse;border:1px solid gray;font-size:1.5em;padding: 3px;
+}
+
+
+.fb-item input.checkbox{
+	width:auto;
+	display:inline;
+	margin:3px;
+}
+.fb-label{
+	margin:0.3em 2% 0 0;
+	padding:5px;
+	position:relative;
+	line-height:110%;
+	display:block;
+}
+.fb-rank-opts{
+	margin-top: 8px;
+	padding: 0px;
+	border: none;
+	display: block;
+}
+.fb-rank-label{
+	margin-top: 8px;
+	padding: 0px;
+	border: none;
+	display: block;
+}
+.fb-rank-label p{
+	font-weight:bold;
+}
+
+.fb-holder{
+	background-color:#ffcc44;
+	padding:8px;
+}
+.fb-legend{
+    position:relative;
+    background:#FFCC44 none repeat scroll 0 0;
+    padding:5px 5px 3px 5px;
+    }
+
+.fb-required-label{
+	margin:0.3em 2% 0 0;
+	padding:5px;
+	line-height:110%;
+	display:inline;
+}
+.fb-rank-opts{
+	padding:5px;
+}
+.fb-rank-opts p{
+	margin:0px;
+	padding:0px;
+}
+.fb-text-input{
+	padding:3px 5px;
+}
+.fb-text-input-long{
+	width:98%;
+}
+
+.fb-rank{
+}
+.add-option-holder{
+	display:block;
+	position:relative;
+	text-align:left;
+    padding-top: 10px;
+}
+.fb-item input.fb-text-option{
+	width:200px;
+	display:inline;
+    font-size:1em;
+}
+.fb-item input.fb-radio-option{
+	width:auto;
+	display:inline;
+}
+.fb-options-holder{
+	width:500px;
+}
+
+
+dl.ctrl-attrs
+{
+padding: 0;
+display:block;
+}
+
+.ctrl-attrs dt
+{
+width: 200px;
+float: left;
+margin: 0 0 0 0;
+/*border-top: 1px solid #999;*/
+font-weight: 400;
+font-size: 0.9em;
+}
+
+/* commented backslash hack for mac-ie5 \*/
+dt { clear: both; }
+/* end hack */
+
+.ctrl-attrs dd
+{
+float: left;
+margin: 0 0 0 0;
+/*border-top: 1px solid #999;*/
+}
+
+
+dl.ctrl-runtime
+{
+    padding: 0.5em;
+    display:inline-block;
+    width:100%;
+}
+
+.ctrl-runtime dt
+{
+ float: left; clear: left; text-align: right; font-weight: bold; 
+font-weight: 700;
+font-size: 1.02em;
+}
+
+/* commented backslash hack for mac-ie5 \*/
+dt { clear: both; }
+/* end hack */
+
+.ctrl-runtime dd
+{
+ margin: 0 0 0 150px; padding: 0 0 0.5em 0;
+}
+
+.mini-app{background-color:#EDEDED;border-left:1px solid #CCCCCC;border-right:1px solid #CCCCCC;border-top:1px solid #CCCCCC;width: 100%;padding:10px;}
+.mini-app td{padding:10px;}
+.mini-app tr.mini-app-header-sub{background-color:#F7F7F7;}
+.mini-app tr.mini-app-header-sub-main{background-color:#FFFFFF;}
+
+
+
+#navtoolbox {}
+#navtoolbox ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+
+
+li.text {background-image: url(images/textfield.png);}
+li.text {background-image: url(images/textfield.png);}
+li.textarea {background-image: url(images/textarea.png);}
+li.narrative {background-image: url(images/help.png);}
+li.radio {background-image: url(images/multiplechoice.gif);}
+li.checkbox {background-image: url(images/checkbox.png);}
+li.select {background-image: url(images/dropdownsml.png);}
+li.rank {background-image: url(images/rating.png);}
+li.date {background-image: url(images/date.png);}
+li.time {background-image: url(images/time.png);}
+li.customer {background-image: url(images/customer.png);}
+
+
+li.savebutton {background-image: url(/static/images/ib/disk.png);}
+li.cancelbutton {background: url(/static/images/ib/cancel.png);}
+li.easysortbutton {background: url(images/easysort.png);}
+li.testdrivebutton {background: url(images/testdrive.png);}
+li.designbutton {background: url(images/design.png);}
+
+a.savebutton {background-image: url(/static/images/ib/disk.png);}
+a.cancelbutton {background-image: url(/static/images/ib/cancel.png);}
+
+
+
+
+ul.toolbar li{display:inline;margin:0 10px 0px 0;cursor:pointer; border:1px solid silver;padding:5px;padding-left: 30px;text-align:left;text-decoration:none;background-repeat:no-repeat;background-position: 5px;background-color:#F7F7F7;}
+ul.toolbar li:hover {background-color:#EEEEEE;}
+ul.toolbar li.processing{border: none;display:inline;margin:0 10px 0px 0;cursor:pointer; padding:5px;padding-left: 50px;text-align:left;text-decoration:none;background-repeat:no-repeat;background-position: 5px;background-color:inherit;}
+
+
+
+label.help {
+border:medium none;
+color:#6D6489;
+display:block;
+font-size:0.9em;
+line-height:150%;
+padding:0 0 1px;
+}
+
+
+
+a.choose-date {
+background:transparent url(images/date.png) no-repeat scroll 0 0;
+display:block;
+height:16px;
+margin:5px 3px 0;
+overflow:hidden;
+padding:0;
+text-indent:-2000px;
+width:16px;
+position:relative;
+top:10px;
+}
+a.choose-time {
+background:transparent url(images/time.png) no-repeat scroll 0 0;
+display:block;
+height:16px;
+margin:5px 3px 0;
+overflow:hidden;
+padding:0;
+text-indent:-2000px;
+width:16px;
+position:relative;
+top:10px;
+}
+
+ul.easysort{
+    width:300px;
+    margin-bottom:20px;
+}
+
+li.fb-item-easysort {
+background-color:#F7F7F7;
+background-position:5px 50%;
+background-repeat:no-repeat;
+border:1px solid silver;
+cursor:pointer;
+min-width:150px;
+padding:5px 5px 5px 50px;
+margin-bottom:10px;
+}
+li.fb-item-easysort-dropzone {height: 2em; line-height: 2em;border: 3px dashed #666666;padding:10px; }
+
+div#header{position:relative;background-color:#EDEDED;margin:0;padding:10px;background: #EEE;}
+div#header h1{margin:0;padding:10px;background: #EEE;color: #79B30B}
+div#header a{position:absolute;right:0;top:23px}
+div#content p{line-height:1.4}
+div#navigation{background:#B9CAFF}
+div#extra{background:#FF8539}
+div#footer{background: #333;color: #FFF}
+div#footer p{margin:0;padding:5px 10px}
+div#footer a{display:inline;padding:0;color: #C6D5FD}
+
+div#wrapper{float:right;width:100%;margin-left:-240px}
+div#content{margin-left:240px;padding-top:20px;padding-left:50px;padding-right:50px;}
+div#navigation{float:left;width:220px;padding:5px;background-color:#EDEDED;min-height: 400px;height:100%;}
+div#extra{float:left;clear:left;width:200px}
+div#footer{clear:both;width:100%}

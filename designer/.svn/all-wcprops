@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/thinkjones/sohosched/!svn/ver/359/trunk/designer
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/thinkjones/sohosched/!svn/ver/359/trunk/designer/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/thinkjones/sohosched/!svn/ver/69/trunk/designer/__init__.py
+END
+helpers.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/thinkjones/sohosched/!svn/ver/359/trunk/designer/helpers.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/thinkjones/sohosched/!svn/ver/347/trunk/designer/models.py
+END
+wizards.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/thinkjones/sohosched/!svn/ver/359/trunk/designer/wizards.py
+END

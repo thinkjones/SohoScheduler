@@ -1,0 +1,74 @@
+<script language="javascript">
+    {% if redirect_to_url %}
+        top.location.href = '{{redirect_to_url}}';
+    {% endif %}
+    
+	//Form Ajaxification
+	// prepare Options Object 
+	var options = { 
+		target:     '#divTabContent',
+		url:        '{% url designer.views.mainSettings entity_id%}'
+	};
+
+	$(document).ready(function(){
+        SetupFormForAjax('.savebutton',options,'#formentity');
+	}); 
+</script> 
+
+{% if form.errors %}
+	<div class="messagewarning">Form not saved please rectify errors below:</div>
+{% endif %}
+
+<div id="form_container">
+	<form id="formentity" class="sohoform" method="post">
+		<div class="form_description">
+    {% if from_template_chooser %}
+			<h2>New Entity Profile</h2>
+			<p>Please complete the form below to setup your new entity.</p>
+    {% else %}
+			<h2>Entity Profile</h2>
+			<p>This is your form description. Click here to edit.</p>
+    {% endif %}
+		</div>
+		<ul class="toolbar">
+			<li><a  id="lnkentitySave" class="button savebutton" href="#">Update</a></li>
+		</ul>
+		<ul class="form">
+			<li class="">
+				<label class="description" >Name </label>
+                <label class="help">Name of entity or resource that requires managing.</label>
+				<div>
+					{{ form.name }}
+    				{{ form.name.errors }}
+				</div>
+			</li>
+			<li  class="">
+				<label class="description" >Description </label>
+                <label class="help">Useful customer information.</label>
+				<div>
+			   {{ form.desc }}
+			   {{ form.desc.errors }}
+				</div>
+			</li>
+			<li  class="">
+				<label class="description" >Keywords </label>
+                <label class="help">Enter keywords to help you find and group your entities.</label>
+				<div>
+					{{ form.tags }}
+					{{ form.tags.errors }}
+				</div>
+			</li>
+			<li  class="">
+				<label class="description" >Default Entity? </label>
+                <label class="help">Default to this entity when signing in.</label>
+				<div>
+				   {{ form.is_default }}
+				   {{ form.is_default.errors }}
+				</div>
+			</li>
+		</ul>
+		<ul class="toolbar">
+			<li><a  id="lnkentitySave" class="button savebutton" href="#">Update</a></li>
+		</ul>
+	</form>
+</div>

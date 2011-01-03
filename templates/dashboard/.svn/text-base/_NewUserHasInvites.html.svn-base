@@ -1,0 +1,25 @@
+<div id="subheader">
+    <h1>Welcome to Soho Scheduler!</h1>
+    <h2>You have been invited to use this application please accept your invitations below..</h2>
+</div>
+<div id="divTabContent" class="sub-content">
+    <div class="messageinfo">
+        <h4>Application Invites</h4>
+        {%for myinvite in myinvites%}
+            {% include "dashboard/_UserAccessMyInvitesTR.html" %}
+        {%endfor%}
+    </div>
+</div>
+
+<script language="javascript">
+    function ProcessInviteAcceptReject(invite_id,invite_email,accept_invite){
+        var strURL  = '{%url entity.views.jsonrequests%}';
+        var data = { action: 'process_my_invite', invite_id: invite_id, invite_email: invite_email,accept_invite:accept_invite};
+        var callbackFunc = function(data, textStatus){
+            top.location.href = '{%url dashboard.views.index 0%}'
+            
+        };
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+     }
+</script>

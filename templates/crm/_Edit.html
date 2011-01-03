@@ -1,0 +1,93 @@
+{% block headstyle %}
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/formbuilder.css" />
+{% endblock headstyle %}
+
+<script language="javascript">
+    jQuery(document).ready(function(){
+        //jQuery('#formCRM').ajaxForm(function() { 
+            //selectTab('CRMs', {{entity_id}});
+        //}); 
+    });
+</script>
+
+<script language="javascript">
+    jQuery(document).ready(function(){
+        jQuery('#lnkCRMSave').click(function(){
+            jQuery('#formCRM').submit();
+            return false;
+         });
+ });
+</script>
+
+<div id="subheader">
+	<div id="title">
+		<span id="title">
+			CRM Detail Form
+		</span>
+        <a  id="lnkCRMSave" class="button savebutton" href="#">Save</a>
+        <a class="cancelbutton" href="javascript: selectTab('CRM', {{entity_id}});">Cancel</a>
+    </div>
+	<div id="subtitle">
+	<p>Use this form to make changed to your customer details.</p>
+	{% if form.errors %}
+		<div class="formheadererror">Form not saved please rectify errors below:</div>
+	{% endif %}
+	</div>
+</div>
+<br />
+
+<div id="stylized" class="myform">
+	<form id="formCRM" action="{% url crm.views.edit entity_id,crm_id%}" method="post">
+      <ul id="formcontainer">
+         <li><label>Name</label><input type="text" name="d_name" class="default text" value="{{crm.name}}"/></li>
+
+		{% for field in field_props %}
+		
+		    {% ifequal field.type "text" %}
+		       {% include "designer/fieldTypes/_field_text.html" %}
+		    {% endifequal %}
+		    
+		    {% ifequal field.type "textarea" %}
+		       {% include "designer/fieldTypes/_field_textarea.html" %}
+		    {% endifequal %}
+
+		    {% ifequal field.type "checkbox" %}
+		       {% include "designer/fieldTypes/_field_checkbox.html" %}
+		    {% endifequal %}
+		    
+		    {% ifequal field.type "select" %}
+		       {% include "designer/fieldTypes/_field_select.html" %}
+		    {% endifequal %}
+		    
+		    {% ifequal field.type "radio" %}
+		       {% include "designer/fieldTypes/_field_radio.html" %}
+		    {% endifequal %}
+		    
+		    {% ifequal field.type "Date Picker" %}
+		       {% include "designer/fieldTypes/_field_text.html" %}
+		    {% endifequal %}
+		    
+		    {% ifequal field.type "Customer Picker" %}
+		       {% include "designer/fieldTypes/_field_select.html" %}
+		    {% endifequal %}
+		    	    
+		    {% ifequal field.type "email" %}
+		       {% include "designer/fieldTypes/_field_text.html" %}
+		    {% endifequal %}
+		    
+		    {% ifequal field.type "Url" %}
+		       {% include "designer/fieldTypes/_field_text.html" %}
+		    {% endifequal %}
+		    
+		    {% ifequal field.type "Number" %}
+		       {% include "designer/fieldTypes/_field_text.html" %}
+		    {% endifequal %}
+
+      {% endfor %}
+
+
+      </ul>
+      <input type="hidden" name="hid_form_id" value="{{form_id}}" />
+      <button type="submit">Save</button>
+	</form>
+</div>

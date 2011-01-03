@@ -1,0 +1,66 @@
+<div class="qcform">
+    <div id="qcform-form">
+        <ul class="form" id="qcform">
+            <li>
+                <label for="Details">Topic:
+                    <select id="ddlTopic">
+                        <option value="Question" selected="True">Question</option>
+                        <option value="Problem">Problem with this page</option>
+                        <option value="NewFeature">New Feature Request</option>
+                        <option value="NewFeature">Business Services</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </label>
+            </li>
+            <li>
+                <label for="Details">Enter details:<br />
+                    <textarea class="toolbar" name="Details" id="txtDetails" style="width:90%;"></textarea>
+                </label>
+            </li>
+            <li><a class="emailbutton button" href="#" id="lnkSubmitQuickContact">Send</a></li>
+        </ul>
+        &nbsp;
+    </div>
+    <div id="qcform-thanks" style="display: none;padding:20px;text-align:center;">
+            Thanks for your inquiry a Soho Scheduler
+            assistant will get back to you shortly.
+            <br /><br />
+            <a href="#" id="lnkSubmitNewInquiry">Submit New</a>
+     </div>
+</div>
+
+<script language="javascript">
+    var CurrentSelectedUser = 0
+    var crms_count = 0
+    $(document).ready(function () {
+        SetupScreen("form");
+        $('#lnkSubmitNewInquiry').click(function(){
+            SetupScreen("form");
+            return false;
+        });
+
+        $('#lnkSubmitQuickContact').click(function(){
+            var strType = $('#ddlTopic').val();
+            var strDetails = $('#txtDetails').val();
+            var strURL  = '{%url about.views.jsoncontactus %}';
+            var data = { 'inquiry_type': strType, 'inquiry_details': strDetails };
+            var callbackFunc = function(data, textStatus){
+                SetupScreen("thanks");
+            };
+            json_post(strURL, data, callbackFunc , "json");
+            return false;
+        });
+    });
+
+    function SetupScreen(strMode){
+        $('#qcform-form').hide();
+        $('#qcform-thanks').hide();
+
+        if (strMode == 'form'){
+                $('#qcform-form').show();
+            }
+        if (strMode == 'thanks')
+            $('#qcform-thanks').show();
+            $('#txtDetails').val('');
+    }
+</script>

@@ -1,0 +1,86 @@
+<script type="text/javascript">
+	jQuery(document).ready(function(){ 
+			jQuery("li#pickdate a").hover(function() { 
+				var position = jQuery(this).offset();
+				
+				jQuery("div#divDatePickerPopup").css( { 
+					position: 'absolute',
+					zIndex: 2,
+					left: position.left, 
+					top: position.top
+				} );
+
+				jQuery("div#divDatePickerPopup").stop(true, true).animate({opacity: "show", top: "100"}, "slow"); 			
+			}, function() {}); 
+			
+			jQuery("div#divDatePickerPopup").hover(function() {}, function() { 
+			jQuery("div#divDatePickerPopup").animate({opacity: "hide", top: "-100"}, "fast"); 
+		}); 
+	});  
+</script>
+
+<script type="text/javascript" language="javascript">
+    jQuery(document).ready(function(){
+
+		jQuery('div#divFilterByDateRange').datepicker({ 
+			dateFormat: "dd/mm/yy",
+			inline: true,
+			showOn: "both", 
+			buttonImage: "/static/javascript/jquery/img/calendar.gif", 
+			buttonImageOnly: true,
+
+			onSelect: function(date) { 
+                    //alert(date);
+					jQuery('#txtappointmentFilter').val(date);
+                    jQuery('#frmappointmentFilter').submit();
+                    return false;
+    			} 
+            
+            
+		});
+
+	  });
+</script>
+<div id="divDatePickerPopup">
+	<div class="right_articles">
+		<form id="frmappointmentFilter" action="{%url appointment.views.datefilterByDatePostback entity_id%}" method="POST">
+				<div class="ui-datepicker" id="divFilterByDateRange">Select a date to filter results on left accordingly.</div>
+				<input type="hidden" id="txtappointmentFilter" name="txtappointmentFilter" />	
+			</form>
+	</div>
+</div>
+
+<script language="javascript">
+$(document).ready(function () {
+        $('#lnkAddAppointment').nyroModal();
+});
+</script>
+
+<ul class="toolbar">
+	<li>
+		<a class="addbutton" id="lnkAddAppointment" href="{%url appointment.views.new entity_id%}">Add Appointment</a>
+	</li>
+</ul>
+	
+<div id="sortheader">
+    <div id="orderoptions">
+		<ul>
+			<li {%  ifequal sortfield 'showall'  %}class="selected"{% endifequal %} ><a href="javascript: selectAjaxURL('{%url appointment.views.index entity_id%}');">Show All</a></li>
+			<li {%  ifequal sortfield 'yesterday'  %}class="selected"{% endifequal %} ><a href="javascript: selectAjaxURL('{%url appointment.views.yesterday entity_id%}');">Yesterday</a></li>
+			<li {%  ifequal sortfield 'today'  %}class="selected"{% endifequal %} ><a href="javascript: selectAjaxURL('{%url appointment.views.today entity_id%}');">Today</a></li>
+			<li {%  ifequal sortfield 'tomorrow'  %}class="selected"{% endifequal %} ><a href="javascript: selectAjaxURL('{%url appointment.views.tomorrow entity_id%}');">Tomorrow</a></li>
+			<li {%  ifequal sortfield 'todayplus7'  %}class="selected"{% endifequal %} ><a href="javascript: selectAjaxURL('{%url appointment.views.nextseven entity_id%}');">Today + 7</a></li>
+			<li {%  ifequal sortfield 'thismonth'  %}class="selected"{% endifequal %} ><a href="javascript: selectAjaxURL('{%url appointment.views.thismonth entity_id%}');">This month</a></li>
+			<li id="pickdate" {%  ifequal sortfield 'bydate'  %}class="selected"{% endifequal %} ><a>Pick Date</a></li>
+        </ul>
+    </div>
+</div>	
+    {% ifnotequal appointments.count 0 %}
+        {%for appointment in appointments%}
+            {% include "appointment/_ViewTR.html" %}
+        {%endfor%}
+    {% else %}
+<table cellpadding="0" cellspacing="0" width="100%">
+        {% include "appointment/_ViewTREmpty.html" %}
+</table>
+    {% endifnotequal %}

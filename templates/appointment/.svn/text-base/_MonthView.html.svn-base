@@ -1,0 +1,160 @@
+<style type="text/css" media="screen">
+    #jMonthCalendar .Meeting { background-color: #DDFFFF;}
+    #jMonthCalendar .Birthday { background-color: #DD00FF;}
+    #jMonthCalendar #Event_3 { background-color:#0000FF; }
+</style>
+<script type="text/javascript">
+    var CurrentSelectedApp = 0;
+    var crms_count = 0;
+
+    var options = {
+        onMonthChanging: function(dateIn) {
+            intMonth = dateIn.getMonth() + 1;
+            if(intMonth==12)
+                intMonth=0;
+            jsonGetCalData = {'action':'getCalendarData','Da':dateIn.getDate(),'Mo':intMonth,'Ye':dateIn.getFullYear()};
+            //alert(jsonGetCalData);
+            json_post(jsonGetCalURL, jsonGetCalData, jsonGetCalcallbackFunc , "json");
+            //alert('month changed');
+            return true;
+        },
+        onEventLinkClick: function(event) {
+            ViewAppointmentInfo(event.EventID);
+            return true;
+        },
+          onEventBlockOver: function(event) {
+            //alert(event.Title + " - " + event.Description);
+            // Find <div eventid="1"
+            strJQuerySelector = "div[eventid='"+ event.EventID +"']";
+            EventID = event.EventID;
+            //OpenCalendarFlyout(strJQuerySelector, event.Title, event.Title);
+            return true;
+        },
+        onDayCellDblClick: function(dateIn){
+            intMonth = dateIn.getMonth() + 1;
+            if(intMonth==12)
+                intMonth = 0;
+            urlQS = "?Da=" + dateIn.getDate() + '&Mo=' + intMonth + '&Ye=' + dateIn.getFullYear();
+            $.nyroModalManual({
+                url: '{%url appointment.views.new entity_id%}' + urlQS
+            });
+            return true;
+        },
+        onEventDropped: function(event, newDate){
+            var strURL  = '{%url appointment.views.jsonrequests entity_id%}';
+            var intMonth = newDate.getMonth() + 1;
+            var eventID = event.EventID;
+            if(intMonth==12)
+                intMonth = 0;
+            var dictData = {'action':'updateEventDate','Da': newDate.getDate(),'Mo':intMonth,'Ye':newDate.getFullYear(),'appointment_id':event.EventID};
+            var funcCallback = function(data, textStatus){
+                //alert(eventID);
+                eventID = data.appointment_id;
+                $('div[eventid="' + eventID  + '"]').effect("highlight", {}, 3000);
+                if(String(CurrentSelectedApp)==eventID){
+                    ViewAppointmentInfo(eventID);
+                }
+            };
+            json_post(strURL, dictData, funcCallback , "json");
+            return true;
+        }
+    };
+
+    var jsonGetCalURL  = '{%url appointment.views.jsonrequests entity_id%}';
+    var jsonGetCalData = {'action':'getCalendarData'};
+    var jsonGetCalcallbackFunc = function(data, textStatus){
+        //$.jMonthCalendar.Initialize(options, events);
+        //$.jMonthCalendar.Initialize(options, events);
+        appointments_count = data.appointments_count;
+        $('#lblAppointmentsOverview').text("Total Appointments "+appointments_count);
+        extraEvents = data.events;
+         $.jMonthCalendar.ReplaceEventCollection(extraEvents);
+    };
+
+    function RefreshAfterRuntime(){
+        json_post(jsonGetCalURL, jsonGetCalData, jsonGetCalcallbackFunc , "json");
+        if(CurrentSelectedApp!=0){
+            ViewAppointmentInfo(CurrentSelectedApp);
+        }
+    }
+    
+    $().ready(function() {
+            SetupScreenApp();
+ 			$.jMonthCalendar.Initialize(options, null);
+            json_post(jsonGetCalURL, jsonGetCalData, jsonGetCalcallbackFunc , "json");
+            $('#lnkAddAppointment').nyroModal({'autoSizable':true,'minHeight':600,'minWidth':1000});
+
+            $('#lnkEditAppointment').click(function(){
+                strURL = "{%url appointment.views.edit entity_id,99999999%}";
+                strURL = strURL.replace('99999999',CurrentSelectedApp);
+                $('#lnkEditAppointment').attr('href',strURL)
+                $('#lnkEditAppointment').nyroModalManual({'autoSizable':true,'minHeight':600,'minWidth':1000});
+                return false;
+             });
+
+        });
+
+        function returnfalse(){return false;}
+
+    function ViewAppointmentInfo(strID){
+        CurrentSelectedApp = strID;
+        strURL = "{%url appointment.views.jsonrequests entity_id%}";
+        var data = {'action':'viewinfo','appointment_id':strID};
+        strURL = strURL.replace('99999999',CurrentSelectedApp);
+        $("#appInfo").load(strURL,data,SetupScreenApp);
+        return false;
+    }
+
+    function SetupScreenApp(){
+        if (CurrentSelectedApp > 0){
+            $('#appInfo').show().effect("highlight", {}, 3000);
+            $('#appInfoOverall').hide();
+            $('#lnkEditAppointment').show();
+        } else {
+            $('#appInfo').hide();
+            $('#appInfoOverall').show();
+            $('#lnkEditAppointment').hide();
+        }
+    }
+</script>
+
+<table celpadding="0" cellspacing="0" class="mini-app" width="100%">
+    <thead>
+        <tr>
+            <td colspan="2">
+                <ul class="toolbar">
+                    <li>
+                        <a class="addbutton button" target="_blank" href="{%url appointment.views.new entity_id%}" id="lnkAddAppointment">Add Appointment</a>
+                    </li>
+                </ul>
+
+            </td>
+        </tr>
+    </thead>
+    <tr class="mini-app-header-sub">
+        <td>
+        </td>
+        <td>
+            <ul class="toolbar">
+                <li>
+                    <a class="editbutton" target="_blank" href="{%url appointment.views.edit entity_id,0%}" id="lnkEditAppointment">Edit</a>
+                </li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" class="customer-info" width="800px">
+            <div id="jMonthCalendar"></div>
+        </td>
+        <td valign="top" class="customer-info">
+            <div id="appInfo" class="fillcontainer">
+                {% include "appointment/_info.html" %}
+            </div>
+            <div id="appInfoOverall" class="fillcontainer">
+                <A Name="AppointmentInfo"></a>
+                <h2>Appointments Overview</h2>
+                <h3 id="lblAppointmentsOverview"></h3>
+            </div>
+        </td>
+   </tr>
+</table>

@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/thinkjones/sohosched/!svn/ver/378/trunk/dashboard
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/thinkjones/sohosched/!svn/ver/378/trunk/dashboard/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/thinkjones/sohosched/!svn/ver/72/trunk/dashboard/__init__.py
+END
+helpers.py
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/thinkjones/sohosched/!svn/ver/357/trunk/dashboard/helpers.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/thinkjones/sohosched/!svn/ver/347/trunk/dashboard/models.py
+END

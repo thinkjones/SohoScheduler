@@ -1,0 +1,10 @@
+<div class="right_articles">
+    <p>
+        <b>CRMs ?</b><br />
+        This section contains all the customers you would normally send an invoice to.
+        It allows you to record basic details and allows you to have
+        more than one contact associated with a company.
+    </p>
+</div>
+<br/>
+{% include "about/_sponsor_sidebar.html" %}

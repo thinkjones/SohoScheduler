@@ -1,0 +1,332 @@
+/* default styles */
+body {font-size:12px;font-family:"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;font-size:12px;;background:#DFDFDF; margin: 0px 0px 0px 0px; padding: 0px 20px 20px 20px;}
+a { color: #2F637A; background: inherit; }
+a:hover { color: #808080; background: inherit; }
+p {	margin: 0 0 5px 0; }
+ul { margin: 0; padding : 0; list-style : none; }
+img { border: 0; }
+input { font-size: 1em; }
+select { font-size: 1em; }
+textarea { font-size: 1.2em; }
+
+/* Main Layout Areas */
+#divAllContent {width: 100%; background: white; margin-left: auto ;  margin-right: auto ;}
+div#divMainContent{clear:both;background-image: url(images/landing-page-background.png); background-repeat: repeat-x; background-position: 0px -132px;}
+
+/* Header Bar*/
+div#header_bar {height: 70px; width: 100%; background: url(/static/images/about/sohoscheduler_logo_small.png) no-repeat;}
+div#header_bar #header_bar_title h1{font-size: 2em; color: #02243C;margin-left: 270px;color:#333333;position: relative; top: -20px;}
+div#header_bar #right_hand_links{float: right; position: relative; right: 0px;}
+div#header_bar #right_hand_links #top{position: absolute;top: 5px;right:0px; width: 500px; text-align: right;}
+div#header_bar #right_hand_links #bottom{position: absolute;top: 55px;right:0px;width: 500px; text-align: right;}
+#loginbutton a { text-decoration: none; padding: 0px 6px; margin: 0 0 0 0px; background: url(/static/images/ib/door_in.png) no-repeat; color: #FFF; }
+
+/* Header Bar Landing*/
+div#header_bar_landing {height: 90px; width: 100%; background: url(/static/images/about/logo.png) no-repeat;}
+div#header_bar_landing #header_bar_title h1{font-size: 2em; color: #02243C;margin-left: 320px;color:#333333;position: relative; top: -20px;}
+div#header_bar_landing #right_hand_links{float: right; position: relative; right: 0px;}
+div#header_bar_landing #right_hand_links #top{position: absolute;top: 5px;right:0px; width: 500px; text-align: right;}
+div#header_bar_landing #right_hand_links #bottom{position: absolute;top: 55px;right:0px;width: 500px; text-align: right;}
+#loginbutton a { text-decoration: none; padding: 0px 6px; margin: 0 0 0 0px; background: url(/static/images/ib/door_in.png) no-repeat; color: #FFF; }
+
+/* Other Landing page items */
+#attentiongrabber {width: 100%;height: 350px;}
+#attentiongrabber .leftcol {width: 50%;}
+#attentiongrabber .rightcol {width: 50%;float:right; }
+.featuretextcontent {height:280px;}
+#featuretext {padding-top: 33px;padding-left:19px;color: #fff;font-size: 14px;margin-left:-18px;margin-top:-16px;}
+#featuretext h2 {color:#fff;}
+#featuretext a {color: #fff;font-weight: bold;}
+#featuretext a:hover {color:#9cc9ed;}
+#featuretext p {line-height:1.3;margin: 10px 0px;}
+.articlewrapper {margin: 10px 10px 10px 10px;text-align:center;}
+.articlecol {margin: 10px 10px 10px 10px;text-align:left;}
+.articlecol h3 {margin-top: 10px;margin-bottom: 0px;padding: 0px;text-align: center;}
+#quotes {background-repeat: no-repeat;padding: 10px 120px;text-align:center;}
+#quotes p {font-size: 24px;color:#094f89;line-height: 26px;}
+#quoteauthor {font-size: 14px;font-weight: bold;color:#094f89;}
+div#loginbuttons{position: relative;height: 100px; }
+
+/* Menu Bar */
+div#navigation ul{clear:both;background:url(/static/images/navbar_bg.png);float:left;width:100%}
+div#navigation li{float:left;border-right:1px solid #59d;position:relative;}
+div#navigation li a{display:block;padding:5px 15px 5px 15px;color:#fff;font-weight:bold;position:relative;text-decoration:none}
+div#navigation li.selected {background:url(/static/images/navbar_bg2.png);font-weight:bold}
+div#navigation li.selected a:hover{background:url(/static/images/navbar_bg2.png);font-weight:bold}
+div#navigation li.selected:hover{background:url(/static/images/navbar_bg2.png);font-weight:bold}
+div#navigation li a:hover,div#navigation li:hover{background:url(/static/images/navbar_bg3.png)}
+
+/* Submenu Schedule */
+div#submenu ul{clear:both;background:url(/static/images/navbar_bg2.png);float:left;width:100%}
+div#submenu li{float:left;border-right:1px solid #59d;position:relative;width:125px;}
+div#submenu li a{display:block;padding:5px 15px 5px 15px;color:#fff;font-weight:bold;position:relative;text-decoration:none}
+div#submenu li.selected {background:url(/static/images/navbar_bg3.png);font-weight:bold}
+div#submenu li.selected a:hover{background:url(/static/images/navbar_bg3.png);font-weight:bold}
+div#submenu li.selected:hover{background:url(/static/images/navbar_bg3.png);font-weight:bold}
+div#submenu li a:hover,div#submenu li:hover{background:url(/static/images/navbar_bg.png)}
+
+/* Subheaders */
+div#subheader div#title{padding: 10px 0px 10px 0px;}
+div#subheader span#title{color: black;margin-top: 0px;margin-bottom: 0px;font-weight:bold;font-size: 2em;color:#333333;}
+div#subheader div#subtitle{color: gray;margin-top: 0px;font-weight:normal;font-size: 1.5em; clear:both;}
+div#sortheader hr{color: gray;}
+
+/*Global add edit delet buttons */
+a.addbutton {background: url(/static/images/ib/add.png) no-repeat; padding-left: 25px;text-decoration:none;}
+a.editbutton {background: url(/static/images/ib/edit.png) no-repeat; padding-left: 25px;text-decoration:none;}
+a.deletebutton {background: url(/static/images/ib/delete.png) no-repeat; padding-left: 25px;text-decoration:none;}
+a.savebutton {background: url(/static/images/ib/disk.png) no-repeat; padding-left: 25px;text-decoration:none;}
+a.cancelbutton {background: url(/static/images/ib/shape_square_go.png) no-repeat; padding-left: 25px;text-decoration:none;}
+a.addbutton:hover {background: url(/static/images/ib/add.png) no-repeat; padding-left: 25px;text-decoration:underline;}
+a.editbutton:hover {background: url(/static/images/ib/edit.png) no-repeat; padding-left: 25px;text-decoration:underline;}
+a.deletebutton:hover {background: url(/static/images/ib/delete.png) no-repeat; padding-left: 25px;text-decoration:underline;}
+a.savebutton:hover {background: url(/static/images/ib/disk.png) no-repeat; padding-left: 25px;text-decoration:underline;}
+a.cancelbutton:hover {background: url(/static/images/ib/shape_square_go.png) no-repeat; padding-left: 25px;text-decoration:underline;}
+
+
+/* Order Menu TO Go Above Lists */
+div#sortheader {background: url(/static/images/hr.png) repeat-x center;width: 100%; height: 12px;padding: 15px 0px 15px 0px; }
+div#orderoptions {float: right;font-size: 10px;}
+div#orderoptions ul{clear:both;float:right; background: white;padding-left: 20px;}
+div#orderoptions li{float:left;background:orange;position:relative;margin-right: 5px;}
+div#orderoptions li a{display:block;padding:2px 5px 2px 5px;color:#fff;font-weight:bold;position:relative;text-decoration:none; }
+div#orderoptions li.selected {background:url(/static/images/navbar_bg.png);font-weight:bold}
+div#orderoptions li.selected a:hover{font-weight:bold;background:url(/static/images/navbar_bg.png)}
+div#orderoptions li a:hover,div#orderoptions li:hover{background:url(/static/images/navbar_bg.png)}
+
+/* list items */
+div#date {background: #999933;font-size: 17px; text-align: center;color:white; font-weight:bold;}
+div#date .month{background: #999933;font-size: 20px; text-align: center;color:white;font-weight:bold;}
+div#time {border: 2px solid #999933;margin-top: 5px;font-size: 18px; text-align: center;font-weight:bold;}
+div#ItemTitle h1{color: gray;margin-top: 0px;margin-bottom: 0px;font-weight:normal;font-size: 1.5em; clear:both;}
+
+/* Footer Items */
+div#footer { 	clear: both; 	color: #FFFFFF; font-size: 14px;font-weight: bold;	background: url(images/landing-page-background.png) repeat-x -50px;	padding: 10px 15px;	border-top: 1px solid #ccc;	height: 150px;}
+div#footer div#right{float:right;text-align: right;width: 200px;}
+div#footer div#right a{color: #FFFFFF; font-size: 14px;font-weight: bold;text-decoration:none;}
+div#footer div#right a:hover{color: #FFFFFF; font-size: 14px;font-weight: bold;text-decoration:underline;}
+div#divDatePickerPopup{width: 250px; position: absolute; top: -70px; left: -0px; text-align: center; z-index: 2; display: none; }
+
+/* round blue login button */
+div#stylized fieldset{margin-bottom: 20px;}
+div#stylized fieldset div{margin-bottom: 5px;}
+
+#headertext {float: left; position: relative; top: 12px;font-size: 25px;}
+#headertext  em{font-size: 0.4em;}
+
+#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+ul#icons {margin: 0; padding: 0;}
+ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+ul#icons span.ui-icon {float: left; margin: 0 4px;}
+
+
+ul.errorlist li{font-weight:bold;color:red;font-size: 1em;float:right;}
+.formheadererror{font-weight:bold;color:red;font-size: 1.2em;}
+
+
+table.blue{
+border: 1px solid #94beff;
+}
+table.blue tr th,
+table.blue tr td{
+border: 1px dotted #94beff;
+padding: 5px 5px 5px 5px;
+}
+table.blue td, table th {
+background-color: #94beff;
+background-repeat:no-repeat;
+background-position:top right;
+}
+table.blue td.selectedUp,
+table th.selectedUp {
+}
+table.blue td.selectedDown,
+table th.selectedDown {
+}
+table.blue tr td{
+background: #fff;
+}
+table.blue tr.alt td{
+background: #e3edfa;
+}
+table.blue tr.selected td{
+background: yellow;
+}
+table.blue tr:hover td{
+background: #eee;
+}
+table.blue tr.selected:hover td{
+background:#ff9;}table.cool{
+border: 1px solid #6BB12B;
+}
+
+/* left side */
+#left {
+	float: left;
+	margin: 0 0 0px 0;
+	width: 100%;	
+}
+
+#divSubHeader {
+		margin: 0 0 0px 0;
+		padding: 8px;
+		background: #f4f4f4;
+		color: #808080;
+		border-bottom: 1px solid #ccc;
+	}
+
+	.left_articles {
+		margin: 0px 0 10px 0;
+		background: #fff url(/static/images/ib/bgshade.gif) repeat-x;
+		color: #454545;
+		padding: 15px 15px 5px 10px;
+	}
+		.date { font-size: .9em; padding: 0 0 0 12px; background: #fff url(/static/images/ib/news.gif) no-repeat center left; color: #808080; }
+		.bigimage {
+			float: left;
+			clear: left;
+			border: 1px solid #ccc;
+			background: #eee;
+			color: #000;
+			width: 200px;
+			height: 150px;
+			margin: 0 15px 10px 0;
+		}
+	.left_box {
+		background: #f4f4f4;
+		color: #808080;
+		border-top: 1px dotted #ccc;
+		border-bottom: 1px dotted #ccc;
+		padding: 15px;
+		margin: 0 0 15px 0;
+	}
+	.thirds {
+		float: left;
+		width: 186px;
+		padding: 0 10px 0 15px;
+	}		
+		
+/* right side */
+#right {
+	width: 310px;
+	margin: 0 0 10px 0;
+	text-align: left;
+}
+	.right_articles {
+		border: 1px solid #ccc;
+		padding: 8px;	
+		margin: 0 0 10px 0;
+		background: #eee;
+		color: #454545;
+	}
+	.image { float: left; margin: 0 9px 3px 0; }
+	.notes {
+		border-top: 1px dotted #ccc;
+		border-bottom: 1px dotted #ccc;
+		padding: 17px 10px 17px 80px;	
+		margin: 0 0 10px 0;
+		background: #fff url(/static/images/ib/notes.gif) no-repeat center left;
+		color: #454545;
+	}
+/* footer */
+.scheduleformlabel{
+		font-weight: bold;
+		width: 100px;
+}
+
+
+#ajaxStatusDisplay_userMessage {text-align: center; position:absolute; }
+
+
+
+/* ----------- My Form ----------- */
+.myform{
+margin:0 auto;
+width:800px;
+padding:14px;
+}
+
+/* ----------- stylized ----------- */
+#stylized{
+border:solid 2px #b7ddf2;
+background:#ebf4fb;
+}
+#stylized h1 {
+font-size:18px;
+font-weight:bold;
+margin-bottom:8px;
+}
+#stylized p{
+font-size:11px;
+color:#666666;
+margin-bottom:20px;
+border-bottom:solid 1px #b7ddf2;
+padding-bottom:10px;
+}
+#stylized div{clear:both;}
+#stylized label{
+display:block;
+font-weight:bold;
+text-align:right;
+width:200px;
+float:left;
+}
+#stylized .small{
+color:#666666;
+display:block;
+font-size:11px;
+font-weight:normal;
+text-align:right;
+width:200px;
+}
+#stylized input{
+float:left;
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:200px;
+margin:2px 0 20px 10px;
+}
+#stylized input.small{
+float:left;
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:100px;
+margin:2px 0 20px 10px;
+}
+#stylized  button.smallbutton{
+float:left;
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:50px;
+margin:2px 0 20px 10px;
+}
+#stylized textarea{
+float:left;
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:200px;
+margin:2px 0 20px 10px;
+}
+#stylized select{
+float:left;
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+margin:2px 0 20px 10px;
+}
+#stylized button{
+margin-left:150px;
+width:125px;
+height:31px;
+background:#666666;
+text-align:center;
+line-height:31px;
+color:#FFFFFF;
+font-size:11px;
+font-weight:bold;
+}

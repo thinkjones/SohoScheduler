@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/thinkjones/sohosched/!svn/ver/345/trunk/templates/sohoadmin
+END
+base_site.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/thinkjones/sohosched/!svn/ver/309/trunk/templates/sohoadmin/base_site.html
+END
+_extended_profile.html
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/thinkjones/sohosched/!svn/ver/310/trunk/templates/sohoadmin/_extended_profile.html
+END
+_recent_users.html
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/thinkjones/sohosched/!svn/ver/310/trunk/templates/sohoadmin/_recent_users.html
+END
+_templateTR.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/thinkjones/sohosched/!svn/ver/310/trunk/templates/sohoadmin/_templateTR.html
+END
+_activityTR.html
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/thinkjones/sohosched/!svn/ver/302/trunk/templates/sohoadmin/_activityTR.html
+END
+_entityTR.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/thinkjones/sohosched/!svn/ver/345/trunk/templates/sohoadmin/_entityTR.html
+END
+_main.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/thinkjones/sohosched/!svn/ver/310/trunk/templates/sohoadmin/_main.html
+END
+_extended_profileTR.html
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/thinkjones/sohosched/!svn/ver/302/trunk/templates/sohoadmin/_extended_profileTR.html
+END
+_recent_usersTR.html
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/thinkjones/sohosched/!svn/ver/302/trunk/templates/sohoadmin/_recent_usersTR.html
+END
+frevvotest.html
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/thinkjones/sohosched/!svn/ver/302/trunk/templates/sohoadmin/frevvotest.html
+END
+index.html
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/thinkjones/sohosched/!svn/ver/310/trunk/templates/sohoadmin/index.html
+END
+_activity.html
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/thinkjones/sohosched/!svn/ver/302/trunk/templates/sohoadmin/_activity.html
+END
+_entity.html
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/thinkjones/sohosched/!svn/ver/310/trunk/templates/sohoadmin/_entity.html
+END

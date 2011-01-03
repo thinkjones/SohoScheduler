@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/thinkjones/sohosched/!svn/ver/378/trunk/sohoformbuilder
+END
+views.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/thinkjones/sohosched/!svn/ver/378/trunk/sohoformbuilder/views.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/thinkjones/sohosched/!svn/ver/208/trunk/sohoformbuilder/__init__.py
+END
+views.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/thinkjones/sohosched/!svn/ver/378/trunk/sohoformbuilder/views.pyc
+END
+__init__.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/thinkjones/sohosched/!svn/ver/208/trunk/sohoformbuilder/__init__.pyc
+END
+helpers.py
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/thinkjones/sohosched/!svn/ver/337/trunk/sohoformbuilder/helpers.py
+END
+models.py
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/thinkjones/sohosched/!svn/ver/305/trunk/sohoformbuilder/models.py
+END
+forms.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/thinkjones/sohosched/!svn/ver/332/trunk/sohoformbuilder/forms.py
+END
+models.pyc
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/thinkjones/sohosched/!svn/ver/305/trunk/sohoformbuilder/models.pyc
+END

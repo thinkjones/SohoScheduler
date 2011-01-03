@@ -1,0 +1,30 @@
+{%extends "base.html" %}
+
+{% block title %}
+  Soho Scheduler - Scheduling Accounting For Small Office Home Office!
+{% endblock title %}
+
+{% block headjs %}
+    <script type="text/javascript" src="/static/javascript/iframe/iframe.js"></script>
+{% endblock headjs %}
+
+{% block maincontent %}
+<div id="subheader">
+	<div id="title">
+		<span id="title">
+			Soho Scheduler Information
+		</span>
+    </div>
+	<div id="subtitle">
+	<p>This section contains useful information related to the Soho Scheduler project.
+</p>
+	</div>
+</div>
+<br />
+
+<iframe src="http://go.sohoappspot.com" scrolling="no" frameborder="0"></iframe>
+
+{% endblock maincontent %}
+
+{% block sidebar %}
+{% endblock sidebar %}

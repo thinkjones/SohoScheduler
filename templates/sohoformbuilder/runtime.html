@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Form</title>
+    <!-- Core Soho Scheduler CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/sohocore.css" />
+
+    <!--  Live -->
+    <!--  Use Google Load To Get Common Libraries
+    <script src="http://www.google.com/jsapi?key=ABQIAAAAtv2S0aqv5w1DGTRhtpnPVxTbYQ7prvATpQQQm3H3JWTO5igQtBRZ6z2lzZZ8sQn4QS2Pf69nFew8ZQ" type="text/javascript"></script>
+    <script type="text/javascript">
+        google.load("jquery", "1.3.2");
+        google.load("jqueryui", "1.7.2");
+    </script>
+    -->
+
+    <!--  Dev -->
+    <script type="text/javascript" src="/static/javascript/jquery/jquery-ui-1.7.2/js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="/static/javascript/jquery/jquery-ui-1.7.2/js/jquery-ui-1.7.2.custom.min.js"></script>
+
+
+    <link rel="stylesheet" href="/static/javascript/jquery/jquery-ui-1.7.2/css/flick/jquery-ui-1.7.2.custom.css" type="text/css" />
+
+    <!-- Form Builder -->
+    <script type="text/javascript" src="/static2/jquery/jquery.sohoformbuilder/jquery.sohoformbuilder.js"></script>
+    <link rel="stylesheet" href="/static2/jquery/jquery.sohoformbuilder/jquery.sohoformbuilder.css" type="text/css" />
+	
+    <!-- Scroll To -->
+    <script type="text/javascript" src="/static/javascript/jquery/scrollTo/jquery.scrollTo.js"></script>
+
+    <!-- Time picker -->
+    <script type="text/javascript" src="/static/javascript/jquery/timepicker/jquery.timepickr.min.js"></script>
+    <link rel="stylesheet" href="/static/javascript/jquery/timepicker/themes/default/ui.timepickr.css" type="text/css" />
+
+    <!-- Json Library-->
+    <script type="text/javascript" src="/static/javascript/jquery/jquery.json.js"></script>
+
+    <!-- Jquery Utils -->
+    <script type="text/javascript" src="/static/javascript/jquery/jquery.utils.js"></script>
+
+    <script type="text/javascript" src="/static/javascript/soho_navigation.js"></script>
+
+    <!-- Auto Suggest -->
+    <script type="text/javascript" src="/static/javascript/jquery/autosuggest/js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/static/javascript/jquery/autosuggest/css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+
+    <!-- JQuery NyroModal Form -->
+    <link rel="stylesheet" href="/static/javascript/jquery/nyroModal/styles/nyroModal.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="/static/javascript/jquery/nyroModal/js/jquery.nyroModal-1.5.0.pack.js"></script>
+
+    <!-- Form Validator Engine -->
+    <script type="text/javascript" src="/static/javascript/jquery/formValidator/js/jquery.validationEngine.js"></script>
+    <link rel="stylesheet" href="/static/javascript/jquery/formValidator/css/validationEngine.jquery.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+
+
+    <script type="text/javascript">
+        var formTotal = 0;
+        var form_details = {};
+        var designer_base_url = '{%url designer.views.designByType sohoapp_id,9999999999 %}';
+        var current_form_id = 0;
+
+        sohobuilder_json_base_url = '{%url sohoformbuilder.views.jsonrequests sohoapp_id%}';
+
+        //////////////////////////////////////////////////////////
+        // Setup Screen Initially
+        //////////////////////////////////////////////////////////
+        $(document).ready(function(){
+
+            //Get Form Data
+            var formid = {{formbuilder.key.id}};
+            var form_name = '{{form_name}}';
+            var form_design_data = {{form_design_data|safe}};  //JSON.parse('{{form_design_data|safe}}');
+            var form_data = false;
+            {% if form_data %}
+                form_data = {{form_data|safe}}; //JSON.parse('{{form_data|safe}}');
+            {% endif %}
+            var submission_key = '{{submission_key}}';
+            var submission_id = '{{submission_id}}';
+            var form_type = '{{form_type}}';
+
+            $("#lnkCancel").click(function(){
+                CancelForm();
+                return false;
+            });
+
+            $('#lnkSaveFormJSON').click(function(){
+                SaveFormPosted();
+                return false;
+            });
+
+            $('#lnkDesign').click(function(){
+                GotoDesigner();
+                return false;
+            });
+
+            //Add Form to global dictionary
+            addFormDetailsToDict(formid,form_name, form_design_data.formdesign,form_data,submission_key,submission_id,0,null,form_type);
+
+            //Setup Form From This ID
+            SetupForm(formid);
+
+
+        });
+
+        function addFormDetailsToDict(formid,form_name, form_design_data,form_data,submission_key,submission_id,calling_form_id,calling_object,form_type){
+            form_details[formid] = {
+                'formid':formid,
+                'form_name':form_name,
+                'form_design_data':form_design_data,
+                'form_data':form_data,
+                'submission_key':submission_key,
+                'submission_id':submission_id,
+                'calling_form_id':calling_form_id,
+                'calling_object':calling_object,
+                'form_type':form_type
+            };
+        }
+
+        function GetNewFormID(){
+            return formTotal++;
+        }
+
+        //////////////////////////////////////////////////////////
+        // Setup Screen If you know the form details
+        //////////////////////////////////////////////////////////
+        function SetupForm(formid){
+
+            //Slide up all forms
+            $(".formentry").slideUp("fast");
+
+            //Get Form Details
+            current_form_id = formid;
+            var tfd = form_details[formid];
+
+            // Init
+            var ParentContainerID = 'Form' + formid;
+            var JQParentContainerID = '#Form' + formid;
+
+            //Form Title
+            SetPageTitle(tfd.form_name,"rendering");
+
+            //Create form wrapper if not created
+            var form_already_exists = true;
+            if($(JQParentContainerID).length == 0){
+                CreateFormWrapper(formid);
+                form_already_exists = false;
+            }
+
+            if(form_already_exists==false){
+                $(JQParentContainerID).find('#form_runtime_list').sohoFormBuilder({
+                    'formid': formid.toString(),
+                    'setupscreen_mode':'runtime',
+                    'form_design_data': tfd.form_design_data,
+                    'form_data': tfd.form_data,
+                    'form_post_url': '{%url entity.views.docpost%}?submission_key=' + tfd.submission_key + '&submission_id=' + tfd.submission_id,
+                    'save_handler':'#lnkSaveForm',
+                    'postsavefunction': false,
+                    'controls':{'customer':{'DisplayName':'Customer','ControlType':'customer','DisplayType':'autocomplete','HtmlControl':'input','HtmlControlType':'autocomplete','AutoCompleteURL':'{%url crm.views.jsonselect sohoapp_id%}?','AutoCompleteAddNewObject':$('#lnkAddCustomer')}}
+                });
+
+                $(JQParentContainerID).find('#lnkAddCustomer').click(function(){
+                    LoadFullFormData('Add Client',2,0,formid,$(this));
+                    return false;
+                });
+            }
+            
+            //$(JQParentContainerID).slideDown();
+            var JQCallingContainerID = '#Form' + tfd.calling_form_id;
+            $(".formentry:not(" + JQParentContainerID + ")").hide();  //.slideUp("slow");
+            //$().scrollTo($(JQParentContainerID), -100 );
+
+            SetPageTitle(tfd.form_name,"");
+
+            //Add Validation Engine
+            $("#form_runtime").validationEngine();
+
+            $(JQParentContainerID).slideDown("fast");
+			
+			//$('#divFormAjaxMessage').hide();
+
+        }
+
+        //Create Form Wrapper to hold all form details
+        function CreateFormWrapper(formID){
+            var newFormID  = 'Form' + formID;
+            var form = $('#FormsWrapper').children('#' + newFormID);
+            if(form.length == 0){
+                //Form doesn't exist create wrapper
+                $('#FormsWrapper').append('<div id="' + newFormID + '" class="formentry"></div>');
+                $('#' + newFormID).append($('#baseForm').html());
+            }
+        }
+
+        //Attach JSON Functions
+        function CancelForm(){
+            var formid = current_form_id;
+            var tfd = form_details[formid];
+            var cfid = tfd.calling_form_id;
+
+            if(cfid=='0'){
+                FormDataPosted(true);
+            }else{
+                SetupScreenForCallingForm(formid,0, '',true);
+            }
+        }
+
+                //Attach JSON Functions
+        function GotoDesigner(){
+            var formid = current_form_id;
+            var this_form_details = form_details[formid];
+            var designer_url = designer_base_url.replace('9999999999',this_form_details.form_type);
+            location.href = designer_url;
+        }
+
+
+        function SaveFormPosted(formid){
+
+            var formid = current_form_id;
+            var tfd = form_details[formid];
+            var JQParentContainerID = '#Form' + formid;
+
+            var bolIsValid = $(JQParentContainerID + ' form').validationEngine({returnIsValid:true});
+            if(bolIsValid==false){
+                return false;
+            }
+
+            //Show Ajax Message
+            SetPageTitle(tfd.form_name,"saving");
+            $(JQParentContainerID).find("#lnkSaveFormJSON").fadeOut("fast",function(){$(JQParentContainerID).find("#divSaveFormJSON").show();});
+            
+
+            //Gather Data
+            var strURL  = '{%url entity.views.docpost%}';
+            var submission_key = tfd.submission_key.toString();
+            var submission_id  = tfd.submission_id.toString();
+            
+            //var form_data = $(JQParentContainerID).find("#form_runtime").serializeArray();
+
+            var form_data = getFormDataDict(formid);
+
+            var dictFormData = $.toJSON(form_data);
+            var data = {'action': 'submitForm', 'submission_key': submission_key, 'submission_id': submission_id, 'form_data': dictFormData};
+            var callbackFunc = function(data, textStatus){
+
+                //Hide ajax messages
+                SetPageTitle(tfd.form_name,"");
+                
+                $(JQParentContainerID).find("#lnkSaveFormJSON").fadeIn();
+                $(JQParentContainerID).find("#divSaveFormJSON").hide();
+
+                //HIde Form
+                if(tfd.calling_form_id==0){
+                    FormDataPosted();
+                }else{
+                    SetupScreenForCallingForm(formid,data.pkid, data.mnemonic, false);
+                }
+            };
+
+            //Submit Form
+            json_post(strURL, data, callbackFunc , "json");
+            return false;
+         }
+
+         function getFormDataDict(form_id){
+             //[{"name":"fn1","value":"asd"},{"name":"fn0","value":"asd"},{"name":"rtgroup_2","value":"option 2"},{"name":"fn2","value":"option 2"},{"name":"fn5","value":"option 1"}]
+
+            serializedArray = new Array();
+
+            //Get input values
+            var input_values = '#Form' + form_id + ' input';
+            serializedArray = AddFormDataToSeriallizedArray(input_values,serializedArray);
+
+            //Get select values
+            select_values = '#Form' + form_id + ' select';
+            serializedArray = AddFormDataToSeriallizedArray(select_values,serializedArray);
+
+            //Get select values
+            var textarea_values = '#Form' + form_id + ' textarea';
+            serializedArray = AddFormDataToSeriallizedArray(textarea_values,serializedArray);
+
+
+            return serializedArray;
+         }
+
+         function AddFormDataToSeriallizedArray(strSelector, serializedArray){
+
+            var form_values_to_send = $(strSelector);
+            var iIndex = 0
+            for(iIndex=0;iIndex<form_values_to_send.length;iIndex++){
+                var each_input = form_values_to_send[iIndex];
+                    var this_name = $(each_input).attr('value_field_name');
+                    if(this_name){
+                        var this_val = $(each_input).val();
+                        var new_entry = {'name':this_name,'value':this_val};
+                        //new_entry[this_name] = this_val;
+                        serializedArray.push(new_entry);
+                    }
+            }
+
+            return serializedArray;
+
+         }
+
+         
+
+         function SetupScreenForCallingForm(this_form_id, pkid,mnemonic, eventCancel){
+            var this_form_details = form_details[this_form_id];
+            var calling_form_id = this_form_details.calling_form_id;
+            var calling_form_details = form_details[calling_form_id];
+
+            var jq_calling_form_id = '#Form' + calling_form_id;
+            var jq_this_form_id = '#Form' + this_form_id;
+            $(jq_this_form_id).remove();
+
+            if(eventCancel==false){
+                var calling_control = form_details[this_form_id]['calling_object'];
+
+                $(jq_calling_form_id).find('#form_runtime_list').sohoFormLoadDataByControl(calling_control, pkid, mnemonic);
+            }
+
+            SetupForm(calling_form_id);
+
+         }
+
+         function SetupScreenForCallingForm_old(this_form_id, pkid,mnemonic, eventCancel){
+            var this_form_details = form_details[this_form_id];
+            var calling_form_id = this_form_details.calling_form_id;
+            var calling_form_details = form_details[calling_form_id];
+            
+            var jq_calling_form_id = '#Form' + calling_form_id;
+            var jq_this_form_id = '#Form' + this_form_id;
+            $(".formentry:not(" + jq_calling_form_id + ")").slideUp("fast");
+            $(".formentry:not(" + jq_this_form_id + ")").slideDown("fast");
+
+            SetPageTitle(calling_form_details['form_name'],'');
+
+            $(jq_this_form_id).remove();
+
+            // Get calling control - this helps locate where the data should be updated to.
+            if(eventCancel==false){
+                var calling_control = form_details[this_form_id]['calling_object'];
+
+                $(jq_calling_form_id).find('#form_runtime_list').sohoFormLoadDataByControl(calling_control, pkid, mnemonic);
+            }
+
+            current_form_id = calling_form_id;
+         }
+
+         //Attach JSON Functions
+        function LoadFullFormData(load_action_name, form_type, pk_id,calling_form_id,calling_object){
+
+            //Show Ajax Message
+            SetPageTitle(load_action_name,"loading");
+            
+            //Gather Data
+            var strURL  = sohobuilder_json_base_url;
+            var data = {'action': 'getFullFormData', 'form_type':form_type,'data_record_id':pk_id};
+            var callbackFunc = function(data, textStatus){
+
+                //Setup First Form
+                var formid = data['form_design_record_id'];
+                var form_name = data['form_name'];
+                var form_design_data = data['form_design_data'];  //JSON.parse(data['form_design_data']);
+                var form_data = data['form_data'];
+                var submission_key = data['submission_key'];
+                var submission_id = data['submission_id'];
+                var form_type = data['form_type'];
+                
+                addFormDetailsToDict(formid,form_name, form_design_data.formdesign,form_data,submission_key,submission_id,calling_form_id,calling_object,form_type);
+				//$('#divFormAjaxMessage').hide();
+                SetupForm(formid);
+            };
+
+            //Submit Form
+            json_post(strURL, data, callbackFunc , "json");
+            return false;
+         }
+
+         function SetPageTitle(strTitle, strLoadingMessage){
+             $('#CurrentFormTitle').text(strTitle);
+             //$('#divFormAjaxMessage').hide();
+             if(strLoadingMessage.toString().length > 0){
+                //$('#divFormAjaxMessage').html(strLoadingMessage);
+                //$('#divFormAjaxMessage').fadeIn();
+            }
+         }
+
+
+        function FormDataPosted(bolCancel){
+            var sMode = 'RuntimeFormDataHasPosted';
+            if(bolCancel){
+                sMode = 'RuntimeFormDataHasCancelled';
+            }
+            if (typeof(parent.HideModal)=='function') parent.HideModal(sMode);
+        }
+
+    </script>
+
+    <style media="screen" type="text/css">
+        .formentry{border: 2px solid #CACACA;margin-bottom:15px;}
+        #FormsWrapper{margin: 15px;}
+    </style>
+    </head>
+    <body>
+        <div style="position:fixed;width:100%;top:0px;z-index:999;">
+            <div class="wizard-nav">
+                <ul class="popuptitle">
+                    <li><h3 style="float:left;margin-right: 20px;" id="CurrentFormTitle"></h3><div style="float:left;margin-right: 20px;" id="divFormAjaxMessage" sourcecontrol="lnkSaveFormJSON" style="display:none;" class="ajaxmsg"></div></li>
+                </ul>
+                <div class="wizard-sub-nav">
+                    <ul class="toolbar">
+                        <li class="cancelbutton" ID="lnkCancel">
+                            Cancel
+                        </li>
+                        <li class="savebutton" id="lnkSaveFormJSON" class="button savebutton">
+                            Save
+                        </li>
+                    </ul>
+                {% if entity_access_rights.Owner %}
+                    <ul class="toolbar" style="float:right;">
+                        <li class="designbutton" id="lnkDesign">
+                            Design This Form
+                        </li>
+                    </ul>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div style="height:85px;">
+            &nbsp;
+        </div>
+
+        <div id="FormsWrapper">
+
+        </div>
+        <div id="baseForm" style="display:none;">
+            {% include "sohoformbuilder/_runtime.html" %}
+        </div>
+
+        <div style="display:none;">
+            <a id="lnkAddCustomer" class="addbutton button" href="#" id="lnkAddCustomer">Add Customer</a>
+        </div>
+    </body>
+</html>

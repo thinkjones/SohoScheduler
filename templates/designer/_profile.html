@@ -1,0 +1,151 @@
+<script language="javascript">
+$(document).ready(function(){
+
+    {% if entity_access_rights.Owner %}
+     $('#lnkPublishTemplate').click(function(){
+        $('#lnkPublishTemplate').nyroModalManual({'autoSizable':true,'minHeight':600,'minWidth':910});
+        return false;
+     });
+     {%endif%}
+
+
+    $("#FormEntityProfile").validationEngine();
+
+    $('#dialog').dialog({ autoOpen: false,modal: true  });
+
+    $('#lnkentityDelete').click(function(){
+        $("#dialog").dialog('open');
+        return false;
+    });
+
+    $('#lnkNoDelete').click(function(){
+        $("#dialog").dialog('close');
+        return false;
+    });
+
+    $('#lnkYesDelete').click(function(){
+        return DeleteThisEntity();
+    });
+
+
+    $('#lnkentitySave').click(function(){
+
+        var bolIsValid = $("#FormEntityProfile").validationEngine({returnIsValid:true});
+        if(bolIsValid==false){
+            return false;
+        }
+
+        
+        //Validate
+        $("#FormEntityProfile").bind("lnkentitySave", function(caller){ 	// Example use of the option returnIsValid
+            alert($("#formID").validationEngine({returnIsValid:true}))
+            return false
+        });
+
+        ReplaceButtonWithSavingGif($("#lnkentitySave").parent(), 'Sending Invite');
+
+        var strURL  = '{%url entity.views.jsonrequests%}';
+        var form_data = $('#FormEntityProfile').serializeArray();
+        var dictFormData = $.toJSON(form_data);
+
+        var data = {'action':'save_entity_profile', 'entity_id': '{{entity_id}}', 'entity_form_data': dictFormData};
+        var callbackFunc = function(data, textStatus){
+            ShowNotification('Information updated','success');
+            ReplaceSavingGifWithButton($("#lnkentitySave").parent());
+        };
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+    });
+
+});
+
+    function DeleteThisEntity(){
+        var strURL  = '{%url entity.views.jsonrequests%}';
+        var data = { action: 'deleteentity', entity_id: '{{entity_id}}'};
+        var callbackFunc = function(data, textStatus){
+            ShowNotification('Application Deleted Successfully','success');
+            $("#dialog").dialog('close');
+            RedirectWithPostback("{%url entity.views.index2 0%}");
+        };
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+     }
+</script> 
+
+<form id="FormEntityProfile" method="post">
+<div class="main-view-box">
+    {% if entity_access_rights.Owner %}
+        {% ifequal entity_render_type "1" %}
+        <div style="float:right;">
+            <a class="entitybutton button" id="lnkPublishTemplate" target="_blank" href="{% url designer.wizards.publishTemplateWizard entity_id%}">Publish Template</a>
+        </div>
+        {%endifequal%}
+    {%endif%}
+        <h2>{{entity.name}}: Application Profile</h2>
+        <em>Edit your profile, name, description and tags.</em>
+
+        <table class="noborder st" width="100%" cellpadding="0">
+            <tbody>
+            <tr class="r1">
+                <td class="d1 rt" width="150px">
+                        Title
+                </td>
+                <td class="d2">
+                    <label class="help">Name of entity or resource that requires managing.</label>
+                    <div>
+                        <input id="entity_name" name="entity_name" class="validate[required,length[0,100]] element text medium" value="{{entity.name}}" />
+                    </div>
+                </td>
+            </tr>
+            <tr class="r1">
+                <td class="d1" width="150px">
+                    Description
+                </td>
+                <td class="d2">
+                    <label class="help">Useful customer information.</label>
+                    <div>
+                        <textarea id="entity_desc" class="validate[required,length[0,255]] element textarea" cols="20" rows="3" name="entity_desc">{{entity.desc}}</textarea>
+                    </div>
+
+                </td>
+            </tr>
+            <tr class="r1">
+                <td class="d1" width="150px">
+                    Keywords
+                </td>
+                <td class="d2">
+                    <label class="help">Enter keywords to help you find and group your entities.</label>
+                    <div>
+                        <input id="entity_tags" name="entity_tags" class="validate[required,length[0,100]] element text medium" value="{{entity.tags}}" />
+                    </div>
+
+                </td>
+            </tr>
+            <tr class="r1">
+                <td class="d1" width="150px">
+
+                </td>
+                <td class="d2">
+                    <a  id="lnkentitySave" class="button savebutton" href="#">Update</a>
+                    <a  id="lnkentityDelete" class="button deletebutton" href="#">Delete This Application</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+</form>
+<div id="dialog" title="Entity Delete">
+    <h1>Warning!</h1>
+    <p>
+    You are about to delete an application.
+    </p>
+    <p>
+    Are  you sure you wish to delete this?
+    </p>
+    <p>
+    If you click yes  your data will be archived and destroyed within two weeks.
+    </p>
+    <a  id="lnkYesDelete" class="button deletebutton" href="#">Delete This Application</a>
+    &nbsp;&nbsp;
+    <a  id="lnkNoDelete" href="#">cancel</a>
+</div>

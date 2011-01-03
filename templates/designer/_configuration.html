@@ -1,0 +1,177 @@
+<div class="main-view-box">
+    <h2>Configuration</h2>
+    <table width="100%" cellpadding="0" class="stb">
+        <tbody>
+            <tr class="r1">
+                <td class="d1" width="150px">
+                    <p class="rt">Appointment Form:</p>
+                    <div id="lblAppUpdater" style="display:none;" class="ajaxmsg"></div>
+                </td>
+                <td class="d2">
+                    <div class="rt">
+                        <p>
+                            Design the form that will help you capture the information required when making an appointment.
+                        </p>
+                        <a id="lnkAppointmentFormDesign" href="{%url designer.views.designAppointment entity_id%}" target="_blank" class="button designerbutton">Click to Design</a>
+                    </div>
+                    <div class="rt">
+                        <p>
+                            Please indicate the booking date field.
+                        </p>
+                        <div class="select-frame">
+                            <ol id="ddlAppointmentDateField" class="selectable">
+                                {% for oFld in appointDateFields %}
+                                    <li class="ui-widget-content" value="{{oFld.key.id}}">{{oFld.field_display_name}}</li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="rt">
+                        <p>
+                            Please indicate the primary customer field.
+                        </p>
+                        <div class="select-frame">
+                            <ol id="ddlAppointmentCRMField" class="selectable">
+                                {% for oFld in appointCustomerFields %}
+                                    <li class="ui-widget-content" value="{{oFld.key.id}}">{{oFld.field_display_name}}</li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="r1">
+                <td class="d1" width="150px">
+                    <p class="rt">Customer Form:</p>
+                    <div id="lblCustUpdater" style="display:none;" class="ajaxmsg"></div>
+                </td>
+                <td class="d2">
+                    <div class="rt">
+                        <p>
+                            Design the form that will help you capture the information required when storing your customer data.
+                        </p>
+                        <a id="lnkCRMFormDesign" href="{%url designer.views.designCRM entity_id%}" target="_blank" class="button designerbutton">Click to Design</a>
+                    </div>
+                    <div class="rt">
+                        <p>
+                        Please indicate the text field used for the customer or client name.
+                        </p>
+                        <div class="select-frame">
+                            <ol id="ddlCustomerNameField" class="selectable">
+                                {% for oFld in crmTextFields %}
+                                <li class="ui-widget-content" value="{{oFld.key.id}}">{{oFld.field_display_name}}</li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="rt">
+                        <p>
+                        Please indicate the text field used for the customer or client email.
+                        </p>
+                        <div class="select-frame">
+                            <ol id="ddlCustomerEmailField" class="selectable">
+                                {% for oFld in crmTextFields %}
+                                <li class="ui-widget-content" value="{{oFld.key.id}}">{{oFld.field_display_name}}</li>
+                                {% endfor %}
+                            </ol>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr class="clearboth" />
+</div>
+
+<script language="javascript">
+    var default_app_date = '{{defaultAppDate.param_value}}';
+    var default_app_crm = '{{defaultAppCRM.param_value}}';
+    var default_crm_text = '{{defaultCRMText.param_value}}';
+    var default_crm_email = '{{defaultCRMEmail.param_value}}';
+
+$(document).ready(function () {
+    //Make a hrefs with the nyroModal class popups
+    //$('.nyroModal').nyroModal({width:'600px',height:'400px'});
+
+    $("#ddlAppointmentDateField").find('li[value="' + default_app_date + '"]').addClass('ui-selected');
+    $("#ddlAppointmentCRMField").find('li[value="' + default_app_crm + '"]').addClass('ui-selected');
+    $("#ddlCustomerNameField").find('li[value="' + default_crm_text + '"]').addClass('ui-selected');
+    $("#ddlCustomerEmailField").find('li[value="' + default_crm_email + '"]').addClass('ui-selected');
+
+	$("#ddlAppointmentDateField").selectable({
+        selected: function(event, ui) {
+            if(default_app_date==$(ui.selected).attr('value')){return;};
+            default_app_date = $(ui.selected).attr('value');
+            $('#lblAppUpdater').fadeIn();
+            ShowLoadingMessage($('#lblAppUpdater'), " updating");
+            SaveItemSelected(default_app_date,'AppointmentDateDefaultField');
+        }
+    });
+    
+	$("#ddlCustomerNameField").selectable({
+        selected: function(event, ui) {
+            if(default_crm_text==$(ui.selected).attr('value')){return;};
+            default_crm_text = $(ui.selected).attr('value');
+            $('#lblCustUpdater').fadeIn();
+            ShowLoadingMessage($('#lblCustUpdater'), " updating");
+            SaveItemSelected(default_crm_text,'CustomerNameDefaultField');
+        }
+    });
+
+    $("#ddlAppointmentCRMField").selectable({
+        selected: function(event, ui) {
+            if(default_app_crm==$(ui.selected).attr('value')){return;};
+            default_app_crm = $(ui.selected).attr('value');
+            $('#lblAppUpdater').fadeIn();
+            ShowLoadingMessage($('#lblAppUpdater'), " updating");
+            SaveItemSelected(default_app_crm,'AppointmentCRMDefaultField');
+        }
+    });
+
+	$("#ddlCustomerEmailField").selectable({
+        selected: function(event, ui) {
+            if(default_crm_text==$(ui.selected).attr('value')){return;};
+            default_crm_text = $(ui.selected).attr('value');
+            $('#lblCustUpdater').fadeIn();
+            ShowLoadingMessage($('#lblCustUpdater'), " updating");
+            SaveItemSelected(default_crm_text,'CustomerEmailDefaultField');
+        }
+    });
+
+     $('#lnkAppointmentFormDesign').click(function(){
+        $('#lnkAppointmentFormDesign').nyroModalManual({'autoSizable':true,'minHeight':600,'minWidth':1000});
+        return false;
+     });
+
+     $('#lnkCRMFormDesign').click(function(){
+        $('#lnkCRMFormDesign').nyroModalManual({'autoSizable':true,'minHeight':600,'minWidth':1000});
+        return false;
+     });
+});
+
+
+    //Attach JSON Functions
+     function SaveItemSelected(value_updated, default_field_name){
+        var strURL  = '{%url designer.views.updatedsettings entity_id%}';
+        var data = { action: 'defaultFieldUpdate', 'default_field_name': default_field_name, 'default_field': value_updated};
+        var callbackFunc = function(data, textStatus){hideLoadingMessages();};
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+     }
+
+     function RefreshConfiguration(){
+         selectAjaxURLPart('{%url designer.views.index entity_id %}?tab=configuration', 'divTabContent');
+     }
+</script>
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+  
+</style>

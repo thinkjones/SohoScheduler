@@ -1,0 +1,14 @@
+{%extends "base_content.html"%}
+
+{%block submenu %}
+            <a href="{%url appointment.views.new company_id%}"><img align="left" src="/static/images/ib/date_add.png" alt="appointment"/>&nbsp;Add</a>
+{%endblock submenu %}
+
+{%block maincontent%}
+	{% include "appointment/_main.html" %}
+{%endblock maincontent%}
+
+{% block sidebar %}
+	{% include "appointment/_sidebar.html" %}
+{% endblock sidebar %}
+  

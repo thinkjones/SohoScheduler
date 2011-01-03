@@ -1,0 +1,26 @@
+<div>
+    <h2>{{appointment.name}}</h2>
+    <table cellpadding="3" cellspacing="3">
+        {%for ffv in ffvs%}
+        <tr>
+            <td align="right">
+                <strong>
+                    {{ffv.display_name}}
+                    {% ifequal ffv.sub_field_type "df" %}(Date From){% endifequal %}
+                    {% ifequal ffv.sub_field_type "tf" %}(Time From){% endifequal %}
+                    {% ifequal ffv.sub_field_type "tt" %}(Time To){% endifequal %}
+                    {% ifequal ffv.sub_field_type "dt" %}(Date To){% endifequal %}
+                    :
+                </strong>
+            </td>
+            <td>
+                {% ifequal ffv.display_type "textarea" %}
+                    {{ffv.value_text}}
+                {% else %}
+                    {{ffv.value_string}}
+                {% endifequal %}
+            </td>
+        </tr>
+    {%endfor%}
+    </table>
+</div>

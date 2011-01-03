@@ -1,0 +1,18 @@
+<html>
+    <head>
+		<!-- JQuery -->
+		<script type="text/javascript" src="/static/javascript/jquery/js/jquery-1.3.2.min.js"></script>
+        
+        <!-- JQuery Form Plugin to allow ajax form postbacks -->
+        <script type="text/javascript" src="/static/javascript/jquery/jquery.form.js"></script>
+
+		<!-- Soho Scheduler Helper Code-->
+		<script type="text/javascript" src="/static/javascript/soho_navigation.js"></script>
+ 
+    </head>
+    <body>
+        <!-- <script type="text/javascript" src="{{link_href}}"></script> -->
+        <!-- <IFRAME width="1000px" height="600px" scrolling="none" frameborder="0" type="text/javascript" src="{{link_href}}"></IFRAME> -->
+        <IFRAME width="1000px" height="600px" scrolling="none" frameborder="0" type="text/javascript" src="{{link_href}}"></IFRAME>
+    </body>
+</html>

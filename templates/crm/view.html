@@ -1,0 +1,12 @@
+{%extends "base.html"%}
+
+{%block maincontent%}
+    {% include "crm/_View.html" %}
+	<br />
+    {{ message }}
+	<table cellpadding=2 cellspacing=2 width=100%>
+    {%for contact in contacts %}
+        {% include "contact/_View.html" %}
+    {%endfor%}
+	</table>
+{%endblock maincontent%}

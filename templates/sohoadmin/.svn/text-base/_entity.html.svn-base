@@ -1,0 +1,34 @@
+<div class="dashboardItem">
+	<table cellpadding="0" cellspacing="0" width="400px">
+		<th colspan=3>
+			<span class="entitylabel">
+				Recent Entities
+			</span>
+		</th>
+		{% if entities %}
+			{%for entity in entities%}
+				{% include "sohoadmin/_entityTR.html" %}
+			{%endfor%}
+		{% else %}
+			<tr><td colspan="3">No entities</td></tr>
+	{% endif %}
+	</table>
+</div>
+
+
+<div class="dashboardItem">
+	<table cellpadding="0" cellspacing="0" width="400px">
+		<th colspan=3>
+			<span class="sharemydesignlabel">
+				Recent	Designs
+			</span>
+		</th>
+		{% if templates %}
+			{%for template in templates%}
+				{% include "sohoadmin/_templateTR.html" %}
+			{%endfor%}
+		{% else %}
+			<tr><td colspan="3">No Designs</td></tr>
+	{% endif %}
+	</table>
+</div>

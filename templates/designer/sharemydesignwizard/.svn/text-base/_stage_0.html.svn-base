@@ -1,0 +1,28 @@
+<div class="form_description">
+    <h2>Stage 1 - Terms and Conditions</h2>
+    <p>
+        Share Your Design is a way of sharing your creations with the community of Small Businesses.
+        Designs created will earn credits and discounts against the future paid version of the application.
+    </p>
+</div>
+<h3>What information do we share?</h3>
+<p>
+	We share purely the design of your application.  You give it a generic but useful name to help other
+	community members; such as "Hairdressing Company".  Then the forms you have designed for the application will
+	be copied to our shared templates area, which after an approval process, will be shared with the community. 
+</p>
+<h3>Is my cusomter and company information safe?</h3>
+<p>
+	The short answer is Yes!  We absolutely do not share your customer or sales information.
+</p>
+<br />
+<input type="button" id="lnkEntityShareWizard" Value="Enter details to share your design >>" />
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function(){
+            $('#lnkEntityShareWizard').click(function() {
+                selectAjaxURLPart('{%url designer.views.shareMyDesignWizard entity_id,0,1%}','divTabContent');
+                return false;
+          });
+		});
+</script>

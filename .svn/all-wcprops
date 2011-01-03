@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/thinkjones/sohosched/!svn/ver/380/trunk
+END
+app.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/thinkjones/sohosched/!svn/ver/370/trunk/app.yaml
+END
+gdata.zip
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/thinkjones/sohosched/!svn/ver/370/trunk/gdata.zip
+END
+atom.zip
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/thinkjones/sohosched/!svn/ver/370/trunk/atom.zip
+END
+code.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/thinkjones/sohosched/!svn/ver/370/trunk/code.py
+END
+appengine_utilities.zip
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/thinkjones/sohosched/!svn/ver/370/trunk/appengine_utilities.zip
+END
+cron.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/thinkjones/sohosched/!svn/ver/370/trunk/cron.yaml
+END
+queue.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/thinkjones/sohosched/!svn/ver/176/trunk/queue.yaml
+END
+index.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/thinkjones/sohosched/!svn/ver/370/trunk/index.yaml
+END
+django_settings.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/thinkjones/sohosched/!svn/ver/370/trunk/django_settings.py
+END
+urls.py
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/thinkjones/sohosched/!svn/ver/378/trunk/urls.py
+END

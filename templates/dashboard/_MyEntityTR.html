@@ -1,0 +1,17 @@
+<tr>
+	<td>
+            <span class="activityType1">
+                    {{myentity.entity_reference.name|escape}}
+            </span>
+	</td>
+	<td>
+                    {{myentity.access_right_code.name|escape}}
+	</td>
+	<td align="right">
+		{% ifequal myentity.entity_reference.key.id entity_id%}
+                        <span class="dashboardselected">selected</span>
+		{% else %}
+			<a href="{%url dashboard.views.change_entity myentity.entity_reference.key.id %}">manage</a>
+		{% endifequal %}
+	</td>
+</tr>

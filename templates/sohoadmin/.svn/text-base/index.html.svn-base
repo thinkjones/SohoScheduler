@@ -1,0 +1,5 @@
+{%extends "base_IB.html"%}
+
+{%block maincontent%}
+	{% include "sohoadmin/_main.html" %}
+{%endblock maincontent%}

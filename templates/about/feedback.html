@@ -1,0 +1,29 @@
+{%extends "base.html" %}
+
+{% block title %}
+  Soho Scheduler - Scheduling Accounting For Small Office Home Office!
+{% endblock title %}
+
+{% block maincontent %}
+<div id="subheader">
+	<div id="title">
+		<span id="title">
+			Soho Scheduler Feedback
+		</span>
+    </div>
+	<div id="subtitle">
+	<p>Help define and refine.  By offering your suggestions for improvements and fixes we can help shape Soho Scheduler to meet the requirements of small businesses.
+</p>
+	</div>
+</div>
+<br />
+
+<div id="stylized" class="myform">
+	<iframe id="fdbk_iframe_inline" allowTransparency="true" width="100%" height="500" scrolling="no" frameborder="0" src="http://getsatisfaction.com/sohoscheduler/feedback/topics/new?display=inline&amp;style=idea"></iframe>
+</div>
+{% endblock maincontent %}
+
+{% block sidebar %}
+    {% include "about/_sidebar.html" %}    
+{% endblock sidebar %}
+

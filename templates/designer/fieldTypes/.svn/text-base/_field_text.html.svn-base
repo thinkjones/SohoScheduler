@@ -1,0 +1,8 @@
+		<li>
+				  <label class="name">{{field.name}}:</label>
+				  {% if field.required %}				  
+              <span class="required">*</span>
+              {% endif %}
+              <input type="text" name="{{field.name}}" value="{{field_values|hash:field.name}}" />      
+              <span class="description">{{field.description}}</span>
+		</li>

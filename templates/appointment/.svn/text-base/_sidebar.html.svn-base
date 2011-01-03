@@ -1,0 +1,9 @@
+<div class="right_articles">
+	<p>
+		<b>appointment ?</b><br />
+		The appointment is the location of all your bookings within the system.  Use the quick links below or the more extensive 
+		date filter to locate your bookings.
+	</p>
+</div>
+<br />
+{% include "about/_sponsor_sidebar.html" %}

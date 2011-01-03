@@ -1,0 +1,5 @@
+{% ifnotequal messages.count 0 %}
+	{%for message in messages %}
+		<div class="{{message.class}}">{{message.text}}</div>
+	{%endfor%}
+{% endifnotequal %}

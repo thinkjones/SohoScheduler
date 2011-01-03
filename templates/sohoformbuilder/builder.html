@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Form Designer</title>
+    <!-- Core Soho Scheduler CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/sohocore.css" />
+
+    <!--  Live -->
+    <!--  Use Google Load To Get Common Libraries
+    <script src="http://www.google.com/jsapi?key=ABQIAAAAtv2S0aqv5w1DGTRhtpnPVxTbYQ7prvATpQQQm3H3JWTO5igQtBRZ6z2lzZZ8sQn4QS2Pf69nFew8ZQ" type="text/javascript"></script>
+    <script type="text/javascript">
+        google.load("jquery", "1.3.2");
+        google.load("jqueryui", "1.7.2");
+    </script>
+    -->
+
+    <!--  Dev -->
+    <script type="text/javascript" src="/static/javascript/jquery/jquery-ui-1.7.2/js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="/static/javascript/jquery/jquery-ui-1.7.2/js/jquery-ui-1.7.2.custom.min.js"></script>
+
+    <!-- JQuery -->
+    <link rel="stylesheet" href="/static/javascript/jquery/jquery-ui-1.7.2/css/flick/jquery-ui-1.7.2.custom.css" type="text/css" />
+
+    <!-- Form Builder -->
+    <script type="text/javascript" src="/static2/jquery/jquery.sohoformbuilder/jquery.sohoformbuilder.js"></script>
+    <link rel="stylesheet" href="/static2/jquery/jquery.sohoformbuilder/jquery.sohoformbuilder.css" type="text/css" />
+
+    <!-- Scroll To -->
+    <script type="text/javascript" src="/static/javascript/jquery/scrollTo/jquery.scrollTo.js"></script>
+
+    <!-- Time picker -->
+    <script type="text/javascript" src="/static/javascript/jquery/timepicker/jquery.timepickr.min.js"></script>
+    <link rel="stylesheet" href="/static/javascript/jquery/timepicker/themes/default/ui.timepickr.css" type="text/css" />
+
+    <!-- Json Library-->
+    <script type="text/javascript" src="/static/javascript/jquery/jquery.json.js"></script>
+
+    <!-- Jquery Utils -->
+    <script type="text/javascript" src="/static/javascript/jquery/jquery.utils.js"></script>
+
+    <!-- Auto Suggest -->
+    <script type="text/javascript" src="/static/javascript/jquery/autosuggest/js/bsn.AutoSuggest_2.1.3.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/static/javascript/jquery/autosuggest/css/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#form-builder').sohoFormBuilder({
+                'id': '{{formbuilder.key.id}}',
+                'save_url': '{%url sohoformbuilder.views.jsonrequests sohoapp_id%}',
+                'load_url': '{%url sohoformbuilder.views.jsonrequests sohoapp_id%}',
+                'load_data': {'action':'getFormData','form_id':'{{formbuilder.key.id}}'},
+                'form_design_data': {{form_design_data|safe}},
+                'runtime_form_placeholder': '',
+                'menu_control_placeholder': '#navtoolbox',
+                'save_handler':'#lnkSaveForm',
+                'easysort_handler':'#lnkEasySort',
+                'testdrive_handler':'#lnkTestDrive',
+                'design_handler':'#lnkDesign',
+                'postsavefunction': FormSaved,
+                'controls':{'customer':{'DisplayName':'Customer','ControlType':'customer','DisplayType':'autocomplete','HtmlControl':'input','HtmlControlType':'autocomplete','AutoCompleteURL':'{%url crm.views.jsonselect sohoapp_id%}?'}}
+            });
+    
+            $("#lnkCancel").click(function(){HideDesigner('cancel');});
+
+        });
+
+        function FormSaved(){HideDesigner('ConfigurationSaved');}
+
+        function HideDesigner(strMode){
+            if (typeof(parent.HideModal)=='function') parent.HideModal(strMode);
+        }
+
+
+
+    </script>
+
+    <style media="screen" type="text/css">
+        .formentry{padding: 15px;margin-bottom:15px;}
+        #FormsWrapper{margin: 15px;margin-right: 260px;margin-top: 0px;}
+
+        .ToolbarWrapper{border: 2px solid #CACACA;margin-bottom:15px;position:fixed;right:20px;top: 85px;}
+        .ToolbarTitle{background-color:#CACACA;}
+        .ToolbarContents{padding: 15px;}
+        #navtoolbox li { margin: 0 0 .2em 0; }
+        #navtoolbox li {background-repeat:no-repeat;background-position: 5px;background-color:#F7F7F7;min-width:150px;border:1px solid silver;padding:5px 5px 5px 50px;cursor:pointer; }
+        #navtoolbox li:hover {background-color:#EEEEEE;}
+    </style>
+
+
+</head>
+<body>
+
+<div style="position:fixed;width:100%;top:0px;z-index:999;">
+    <div class="wizard-nav" >
+        <ul class="popuptitle">
+            <li><h3 style="float:left;margin-right: 20px;" id="CurrentFormTitle">Form Designer</h3>
+            <div style="float:left;margin-right: 20px;display:none;" id="divFormAjaxMessage" sourcecontrol="lnkSaveFormJSON" class="ajaxmsg"></div>
+            </li>
+        </ul>
+        <div class="wizard-sub-nav">
+        <ul class="toolbar">
+            <li class="designbutton" id="lnkDesign">
+                Design
+            </li>
+            <li class="testdrivebutton" id="lnkTestDrive">
+                Test Drive
+            </li>
+            <li class="easysortbutton" id="lnkEasySort">
+                Easy Sort
+            </li>
+        </ul>
+        <ul class="toolbar" style="float:right;">
+            <li class="cancelbutton" id="lnkCancel">
+                Cancel
+            </li>
+            <li class="savebutton" id="lnkSaveForm">
+                Save
+            </li>
+        </ul>
+        </div>
+    </div>
+</div>
+<div id="navtoolbox" class="ToolbarWrapper">
+    <div class="ToolbarTitle">
+    <h4>Toolbox </h4>
+    <em>(Click to add)</em>
+    </div>
+    <div  class="ToolbarContents">
+    </div>
+</div>
+
+<div style="height:85px;">
+    &nbsp;
+</div>
+
+
+<div id="FormsWrapper">
+    <div class="formentry">
+        <ul id="form-builder">
+            <li></li>
+        </ul>
+    </div>
+</div>
+
+<div id="extra">
+</div>
+
+</body>
+</html>

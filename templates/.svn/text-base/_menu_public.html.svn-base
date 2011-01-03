@@ -1,0 +1,86 @@
+{% if not signed_up %}
+    <ul id="mainHorizTabs">
+        <li><a href="/" accesskey="n">About</a></li>
+    </ul>
+{% endif %}
+
+<!--
+EntityCount {{EntityCount}}<br />
+is_design_mode {{is_design_mode}}<br />
+entity_id {{entity_id}}<br />
+entity_access_rights{{entity_access_rights}}<br />
+access_rights{{access_rights}}<br />
+-->
+
+{% if signed_up %}
+    {% ifequal EntityCount 0 %}
+
+    {% else %}
+        <ul id="mainHorizTabs" style="float:right;">
+            <li id="tabFeedback" class="float:right;">
+                <a href="#" title="We love feedback." class="menufeedbackbutton">Feedback</a>
+            </li>
+        </ul>
+        <ul id="mainHorizTabs">
+        {% ifequal entity_render_type "2" %}
+            <li id="tabDashboard">
+                <a class="menudashboardbutton" href="#" class="dashboardbutton" title="This screen gives an excellent high level view of the application.">Dashboard</a>
+            </li>
+            {% if entity_access_rights.Owner %}
+            <li id="tabDesigner">
+                <a href="#" title="Configuration settings for company design." class="menudesignerbutton">Settings</a>
+            </li>
+            {% endif %}
+        {% else %}
+            <li id="tabDashboard">
+                <a class="menudashboardbutton" href="#" class="dashboardbutton" title="This screen gives an excellent high level view of the application.">Dashboard</a>
+            </li>
+            <li id="tabAppointment">
+                <a class="menuappointmentbutton" href="#" class="dashboardbutton" title="This screen gives an excellent high level view of the application.">Appointment</a>
+            </li>
+            <li id="tabCRM">
+                <a class="menucrmbutton" href="#" class="dashboardbutton" title="This screen gives an excellent high level view of the application.">Clients</a>
+            </li>
+            {% if entity_access_rights.Owner %}
+            <li id="tabDesigner">
+                <a class="menudesignerbutton" href="#" title="Configuration settings for company design." >Settings</a>
+            </li>
+            {%endif%}
+
+        {% endifequal %}
+        </ul>
+	{% endifequal %}
+{% endif %}
+
+
+<script type="text/javascript" language="javascript">
+    //Main Tabs Used In Application
+    var tabMainURLS = {
+            'tabDashboard':        "{%url dashboard.views.index entity_id%}",
+            'tabAppointment':      "{%url appointment.views.index entity_id%}",
+            'tabCRM':              "{%url crm.views.index entity_id%}",
+            'tabDesigner':         "{%url designer.views.index entity_id%}",
+            'tabFeedback':         "{%url about.views.feedback entity_id%}"
+        };
+
+     $(document).ready(function(){
+        var ts = $('#{{tabSelected}}');
+        $(ts).addClass("selected");
+        $(ts).find('a').addClass("active");
+
+        $('#mainHorizTabs a').click(function(){
+            var tabSelected = $(this).parent();
+            var tabSelectedID = $(this).parent().attr('id');
+
+            $('#mainHorizTabs>li').removeClass('selected');
+            $('#mainHorizTabs>li').find('a').removeClass('active');
+
+            $(tabSelected).addClass("selected");
+            $(this).addClass("active");
+
+            strURL = tabMainURLS[tabSelectedID];
+            RedirectWithPostback(strURL);
+        });
+
+    });
+</script>

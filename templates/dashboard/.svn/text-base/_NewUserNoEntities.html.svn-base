@@ -1,0 +1,24 @@
+<div id="subheader">
+    <h1>Welcome to Soho Scheduler!</h1>
+    <h2> Lets get started by creating your first application using the New Application Wizard.</h2>
+</div>
+<div id="divTabContent" class="sub-content">
+    <p>
+        Soho Scheduler is fully customizable allowing you to create a scheduling application from a variety of in-house and user built templates
+        or simplt create a blank application and design your own.
+        <br />
+        Soho Scheduler allows you to design your application to your business needs allow you to hit the ground running when running and managing
+        your small business.
+    </p>
+    <p>
+        <a class="entitybutton button" id="lnkFirstEntityCreate" target="_blank" href="{% url entity.wizards.loadNewEntityWizard%}">Click here to launch the Create New Application Wizard</a>
+    </p>
+</div>
+    <script language="javascript">
+        $(document).ready(function(){
+            $('#lnkFirstEntityCreate').click(function(){
+                $('#lnkFirstEntityCreate').nyroModalManual({'autoSizable':true,'minHeight':600,'minWidth':920});
+                return false;
+            });
+        });
+    </script>

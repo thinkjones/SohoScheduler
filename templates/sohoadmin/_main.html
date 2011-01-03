@@ -1,0 +1,31 @@
+<div id="subheader">
+	<div id="title">
+		<span id="title">
+			Global Admin Dashboard
+		</span>
+	</div>
+	<div id="subtitle">
+		Administration of the Soho Scheduler System - System Wide Authorised Users Only!!!
+	</div>
+</div>
+<div id="sortheader">
+    <div id="orderoptions">
+		&nbsp;
+    </div>
+</div>
+
+<div id="">
+	<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td valign="top">
+				{% include "sohoadmin/_recent_users.html" %}
+				{% include "sohoadmin/_extended_profile.html" %}
+			</td>
+			<td style="width: 50px;">&nbsp;</td>
+			<td valign="top">
+				{% include "sohoadmin/_entity.html" %}
+			</td>
+			<td style="width: 50px;">&nbsp;</td>
+		</tr>
+	</table>
+</div>

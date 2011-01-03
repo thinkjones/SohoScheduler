@@ -1,0 +1,11 @@
+<div class="dashboardItem">
+    <table cellpadding="0" id="tableUsersWithInvites" cellspacing="0" width="400px">
+        {% if current_users_with_invites.count %}
+            {%for eachuser in current_users_with_invites%}
+                {% include "dashboard/_UserAccessInviteTR.html" %}
+            {%endfor%}
+        {% else %}
+            <tr><td colspan="3">No users invited</td></tr>
+    {% endif %}
+    </table>
+</div>

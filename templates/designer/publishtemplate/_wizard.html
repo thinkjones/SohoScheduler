@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Publish Application Template</title>
+    
+    <!-- Soho Scheduler Helper Code-->
+    <script type="text/javascript" src="/static/javascript/soho_navigation.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/sohocore.css" />
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/javascript/jquery/jquery.wizard.js"></script>
+	
+    <script type="text/javascript" src="/static/javascript/jquery/formValidator/js/jquery.validationEngine.js"></script>
+    <link rel="stylesheet" href="/static/javascript/jquery/formValidator/css/validationEngine.jquery.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+
+    <!-- Json Library-->
+    <script type="text/javascript" src="/static/javascript/jquery/jquery.json.js"></script>
+
+   <style type="text/css">
+       .stageholder{margin-left: 50px;margin-top:30px;margin-bottom:30px;}
+      .complete,.active{
+           color:black;
+           font-weight:bold;
+       }
+
+
+    .wizard-nav a
+    {
+    border-right: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    text-decoration: none;
+    width: 162.5px;
+    display: inline;
+    margin: 0;
+    }
+    .wizard-nav a.active { background: #dfd; }
+
+    .wizardcontrols .wizardnext {  width: 150px; }
+    .wizardcontrols .wizardprev { margin-right: 30px; width: 150px; }
+
+	</style>
+
+<script type="text/javascript">
+    var new_entity_url = "/";
+
+    var newTemplateWizardValues = {
+        source_entity_id: {{entity_id}},
+        templateID: 0,
+        templateName: null,
+        title: null,
+        description: null,
+        tags: null        
+    };
+
+    $().ready(function(){
+        $('.messageerror').hide();
+
+        $("form.wizard").validationEngine();
+
+        $("form.wizard").wizard({
+            onShow: function(element,link) {
+                if($(element).is("#LastPage"))
+                    asd=1;
+            },
+            onValidation: function(pageInfo) {
+                currentStage = pageInfo.currentPage;
+                //Validate Client Side
+                var bolValidated = true;
+                if(currentStage==0){
+                    bolValidated = true;
+                }
+                if(currentStage==1){
+                    bolValidated = ValidateStage1();
+                }
+                return bolValidated;
+            },
+            onBeforePrev: function(prevStage) {
+                if(prevStage==1){
+                    $.validationEngine.closePrompt('.formError', true);
+                }
+            },
+            onBeforeNext: function(currentPageInfo,nextPageInfo) {
+                var nextStage = nextPageInfo.currentPage;
+                var bolCanContinue = true;
+                //Runs if validation succesful and before the screen moves to the next screen
+                if(nextStage==1){
+                    //Populate form with template name
+                    $("#lblTemplateName").text(newTemplateWizardValues.templatename);
+                }
+                if(nextStage==2){
+                    //Populate form with template name
+                    $("#confirmName").text(newTemplateWizardValues.title + ' (' + newTemplateWizardValues.templatename + ')');
+                    $("#confirmDescription").text(newTemplateWizardValues.description);
+                    $("#confirmTags").text(newTemplateWizardValues.tags);
+                }
+                if(nextStage==3){
+                    //SaveNewEntity();
+                    ReplaceButtonWithSavingGif(currentPageInfo.nextButton.hide(), " Creating Template");
+                    PublishApplication();
+                    bolCanContinue = false;
+                }
+                if(nextStage==4){
+                    HideWizard('TemplatePublished');
+                }
+
+                return bolCanContinue;
+            },
+            wizardstagelinks:'.wizardlink',
+            wizardpages:'.wizardpage',
+            addprevnext: false,
+            wizardcontrols: '#wizardcontrols'
+        });
+
+
+        $('div.templaterow').click(function(){
+            selectedTemplateID = $(this).attr('templateid');
+            selectedTemplateName = $(this).attr('templatename');
+            if(selectedTemplateID == newTemplateWizardValues.templateID){
+                //deselected
+                newTemplateWizardValues.templateID = 0;
+                newTemplateWizardValues.templatename = null;
+            }else{
+                newTemplateWizardValues.templateID = selectedTemplateID;
+                newTemplateWizardValues.templatename = selectedTemplateName;
+            }
+            AssignCheckNextToSelectedTemplate(newTemplateWizardValues.templateID);
+        });
+    });
+
+    function AssignCheckNextToSelectedTemplate(templateID){
+        $('div#templates').find('.templaterow').removeClass('templaterowSelected');
+        $('div.templaterow input').val('Use this template');
+        $("div[templateid='" + templateID + "']").addClass('templaterowSelected');
+        if(templateID > 0){
+            $("div[templateid='" + templateID + "'] input").val('De-select template');
+            $('.messageerror').hide();
+        }        
+    }
+
+    function ValidateStage1(){
+
+        // Perform Validation
+        var bolIsValid = $("form.wizard").validationEngine({returnIsValid:true});
+        if(bolIsValid==false){
+            return false;
+        }
+
+        // Reset Values
+        newTemplateWizardValues.title = null;
+        newTemplateWizardValues.description = null;
+        newTemplateWizardValues.tags  = null;
+
+        //Record Values if ok
+        if(bolIsValid){
+            newTemplateWizardValues.title = $('#id_name').val();
+            newTemplateWizardValues.description = $('#id_desc').val();
+            newTemplateWizardValues.tags  = $('#id_tags').val();
+        }
+
+        //alert(bolValidated);
+        return bolIsValid;
+    }
+
+     //Attach JSON Functions
+     function PublishApplication(){
+        var strURL  = '{%url designer.wizards.jsonrequests entity_id%}';
+        var data = { action: 'publishtemplate', newtemplate: $.toJSON(newTemplateWizardValues)};
+        var callbackFunc = function(data, textStatus){
+            //alert('item saved');
+            $('.ajaxmsg').hide();
+            new_entity_url = data.new_entity_url;
+            $.wizard.manualNext();
+        };
+        json_post(strURL, data, callbackFunc , "json");
+        return false;
+     }
+
+     function HideWizard(strMode){
+        if (typeof(parent.HideModal)=='function') parent.HideModal(strMode,new_entity_url);
+     }
+
+</script>
+
+
+</head>
+<body>
+
+<form class="wizard" action="#" method="post">
+    <div class="wizard-nav">
+        <ul id="breadcrumb">
+            <li class="complete">Publish Application Template Wizard</li>
+            <li class="wizardlink" target="#SelectTemplate">Stage 1 - Terms and Conditions</li>
+            <li class="wizardlink" target="#Personalize">Stage 2 - Template Details</li>
+            <li class="wizardlink" target="#Confirmation">Stage 3 - Confirmation</li>
+            <li class="wizardlink" target="#Confirmation">Stage 4 - Complete</li>
+        </ul>
+    </div>
+    <div style="padding:20px;">
+        <div id="SelectTemplate" class="wizardpage">{% include "designer/publishtemplate/_stage_0.html" %}</div>
+        <div id="Personalize" class="wizardpage">{% include "designer/publishtemplate/_stage_1.html" %}</div>
+        <div id="Confirmation" class="wizardpage">{% include "designer/publishtemplate/_stage_2.html" %}</div>
+        <div id="Complete" class="wizardpage">{% include "designer/publishtemplate/_stage_3.html" %}</div>
+        <div id="wizardcontrols">
+            <a class="prevbutton button wizardprev" href="#">Previous</a>
+            <a class="nextbutton button wizardnext" href="#">Next</a>
+        </div>
+    </div>
+
+
+</form>
+</body>
+</html>

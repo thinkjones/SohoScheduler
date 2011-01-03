@@ -1,0 +1,46 @@
+{%extends "base.html"%}
+
+{%block submenu %}
+<script language="javascript">
+	var tabURLS = { 
+		0:     '{%url designer.views.index entity_id %}?tab=profile',
+		1:     '{%url designer.views.index entity_id %}?tab=configuration',
+                2:     '{%url designer.views.index_permissions entity_id %}?tab=permissions'
+	}; 
+		
+	$(document).ready(function(){
+		// Select Tab Selected
+		SelectSubMenuTab(tabURLS, '{{tab_info.index}}','');
+		SetupTabNavigation(tabURLS,'divTabContent');
+	});
+
+        function RefreshAfterTemplatePublish(){
+            ShowNotification('Application Template Published','success');
+         }
+
+</script> 
+<div id="nav2" class="apps-clearfix settings">
+	<h2>{{entity.name}}: Application Settings</h2>
+        <em>These pages centralize all your application settings.</em>
+	<ul>
+		<li><a href="#">Profile</a></li>
+		<li><a href="#">Form Designer and Configuration</a></li>
+                <li><a href="#">Manage User Access</a></li>
+	</ul>
+</div>
+{%endblock submenu %}
+
+{%block maincontent%}
+	<div id="divTabContent" class="sub-content">
+        {% ifequal tab_info.index 0  %}
+            {% include "designer/_profile.html" %}
+        {% endifequal %}
+        {% ifequal tab_info.index 1 %}
+            {% include "designer/_configuration.html" %}
+        {% endifequal %}
+        {% ifequal tab_info.index 2 %}
+            {% include "designer/sharemydesignwizard/_manager.html" %}
+        {% endifequal %}
+	</div>
+{%endblock maincontent%}
+

@@ -1,0 +1,93 @@
+<div id="subheader">
+	<div id="title">
+		<span id="title">
+			Appointment: {{ appointment.customer_reference }}
+		</span>
+		<a class="editbutton" href="javascript: selectAjaxURL('{% url appointment.views.edit appointment.company_reference.key.id,appointment.key.id %}');">edit</a>
+		<a class="deletebutton" href="{%url appointment.views.delete appointment.company_reference.key.id,appointment.key.id %}">delete</a>
+    </div>
+	<div id="subtitle">
+		{{ appointment.booking_date|date:"D F j, Y" }} 
+	</div>
+</div>
+<br />
+
+<div id="stylized" class="myform">
+	<div class="spacer"></div>
+		<input type="hidden" name="txtAddCustomer" id="txtAddCustomer" value="{{ add_new_customer }}" />
+		<fieldset>
+			<legend>Customer</legend>
+			<label for="customer_reference">Existing customer:
+			</label>
+			{{ appointment.customer_reference }}
+		</fieldset>
+		<fieldset>
+			<legend>Booking Details</legend>
+				<div>
+					<label for="id_booking_date">Booking Date:
+					</label>
+					<span style="float: left">
+						{{ appointment.booking_date }}
+					</span>
+				</div>
+				<div>
+					<label for="id_booking_time">Booking Time:
+					</label>
+					{{ appointment.booking_time }}
+				</div>
+				<div>
+					<label for="id_booking_from">From Address:
+					</label>
+					{{ appointment.booking_from }}
+				</div>
+				<div>
+					<label for="id_booking_to">To Adress:
+					</label>    
+					{{ appointment.booking_to }}
+				</div>
+				<div>
+					<label for="id_number_of_passengers">Passengers:
+					</label>    
+					{{ appointment.number_of_passengers }}
+				</div>
+				<div>
+					<label for="id_airport_code">Airport Code:
+					</label>    
+					{{ appointment.airport_code }}
+				</div>
+				<div>
+					<label for="id_amount">Payment Type/Amount:
+					</label>    
+					<span style="float: left">
+						{{ appointment.payment_type_reference}}
+					</span>
+					<span style="float: left">
+						{{ appointment.amount }}
+					</span>
+				</div>
+				<div>
+					<label for="id_booking_notes">Booking Notes:
+					</label>    
+					{{ appointment.booking_notes }}
+				</div>
+		</fieldset>
+		
+		 <fieldset>
+			<legend>Accounting and Scheduling</legend>
+				<div>
+					<label for="id_driver_car">Resource Code:
+					</label>
+					{{ appointment.driver_car}}
+				</div>
+				<div>
+					<label for="id_tax_type">Tax Type:
+					</label>
+					{{ appointment.tax_type}}
+				</div>
+				<div>
+					<label for="id_invoice_no">Invoice Ref:
+					</label>
+					{{ appointment.invoice_no }}
+				</div>
+		</fieldset>
+</div>

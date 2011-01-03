@@ -1,0 +1,68 @@
+<div class="dashboardItem">
+                <div  id="accordian_entity">
+                   <h3><a  href="#"><span class="entitylabel">Your Applications</span></a></h3>
+                   <div>
+                        <table cellpadding="0" cellspacing="0" width="400px">
+                            <tr><td colspan="3"><h4>Owned by you</h4></td></tr>
+                            {% if myentities_owner %}
+                                {%for myentity in myentities_owner%}
+                                    {%ifequal myentity.access_right_code.mnemonic 'Owner'%}
+                                        {% include "dashboard/_MyEntityTR.html" %}
+                                    {% endifequal %}
+                                {%endfor%}
+                            {% else %}
+                                    <tr><td colspan="3">No Applications Created - Click Add Application to get started.</td></tr>
+                            {% endif %}
+                            <tr>
+                                <td colspan="3" align="right">
+                                    {% if can_add_entity %}
+                                        <a class="entitybutton button" id="lnkAddNewEntityWizard" target="_blank" href="{% url entity.wizards.loadNewEntityWizard%}">Add Application</a>
+                                    {% else %}
+                                        {% if is_admin %}
+                                                <a class="entitybutton button" id="lnkAddNewEntityWizard" target="_blank" href="{% url entity.wizards.loadNewEntityWizard%}">Add New Entity Wizard</a>
+                                            {% else %}
+                                                <span style="color:green;font-weight:bold;">Entity limit reached.  To add more contact us for billing inquiries.</span>
+                                            {% endif %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr><td colspan="3"><h4>Shared Access</h4></td></tr>
+                            {% if myentities_shared_access %}
+                                {%for myentity in myentities_shared_access%}
+                                    {%ifnotequal myentity.access_right_code.mnemonic 'Owner'%}
+                                        {% include "dashboard/_MyEntityTR.html" %}
+                                    {% endifnotequal %}
+                                {%endfor%}
+                            {% else %}
+                                    <tr><td colspan="3">No one has shared any Applications with you yet.</td></tr>
+                            {% endif %}
+                        </table>
+                   </div>
+                   <h3><a href="#"><span class="sharemydesignlabel">Your Applications Templates</span></a></h3>
+                   <div>
+                        <table cellpadding="0" cellspacing="0" width="400px">
+                            <tr><td colspan="3"><h4>Applications you have designed</h4></td></tr>
+                        {% if mytemplates %}
+                                {%for mytemplate in mytemplates%}
+                                    {% include "dashboard/_MyTemplateTR.html" %}
+                                {%endfor%}
+                        {% else %}
+                                <tr><td colspan="3">No designs</td></tr>
+                        {% endif %}
+                        </table>
+                   </div>
+                </div>.
+</div> 
+
+<script language="javascript">
+$(document).ready(function () {
+    //Make a hrefs with the nyroModal class popups
+    //$('.nyroModal').nyroModal({width:'600px',height:'400px'});
+
+     $('#lnkAddNewEntityWizard').click(function(){
+        $('#lnkAddNewEntityWizard').nyroModalManual({'autoSizable':true,'minHeight':600,'minWidth':910});
+        return false;
+     });
+
+});
+</script>

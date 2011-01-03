@@ -1,0 +1,13 @@
+<tr>
+	<td>
+        {{eachuser.signup_reference.signup_user|escape}}
+	</td>
+	<td align="right">
+        {{eachuser.access_right_code.name|escape}}
+	</td>
+        <td>
+        {%ifnotequal signup_user eachuser.signup_reference%}
+            <a class="deletesmallbutton deleteuser" id="lnkDeleteThisUser" user_type="current" userid="{{eachuser.key.id}}" href="#"></a>
+        {%endifnotequal%}
+	</td>
+</tr>

@@ -1,0 +1,46 @@
+<table cellpadding="0" cellspacing="0" width="100%">
+<tr valign="top">
+    <td width="75px" style="padding: 0px 10px 0px 0px;">
+        <div id="date">
+        <span class="month">{{appointment.booking_date|date:"M"}}</span><br />
+        {{appointment.booking_date|date:"d"}}<br />
+        </div>
+        <div id="time">
+        {{appointment.booking_time|escape}}
+        </div>
+    </td>
+    <td valign="top">
+		<div id="ItemTitle">
+			<h1>
+			<a href="javascript: selectAjaxURL('{% url appointment.views.view appointment.company_reference.key.id,appointment.key.id %}');">
+				{{appointment.customer_reference.name|escape}}
+			</a>
+			</h1>
+			<em>{{appointment.booking_date|date:"D"}}         {{appointment.booking_date|date:"d"}}         {{appointment.booking_date|date:"M"}}         {{appointment.booking_date|date:"Y"}}         {{appointment.booking_time|escape}}</em>
+		<div>
+	<table cellpadding="0" cellspacing="0" width="100%">
+		<tr>
+			<td>
+				<b>Amount:</b>
+				{{appointment.amount|default_if_none:"0.00"}}<br />
+				<b>Booking Notes:</b>
+				{{appointment.booking_notes|escape}}<br />
+			</td>
+			<td>
+				<b>From:</b>
+				{{appointment.booking_from|escape}}<br />
+				<b>To:</b>
+				{{appointment.booking_to|escape}}<br />
+			</td>
+		</tr>
+	</table>
+    </td>
+    <td width="150px">
+        <a class="editbutton" href="javascript: selectAjaxURL('{% url appointment.views.edit appointment.company_reference.key.id,appointment.key.id %}');">edit</a>
+        <br />
+        <br />
+        <a class="deletebutton" href="{% url appointment.views.delete appointment.company_reference.key.id,appointment.key.id %}">delete</a>
+    </td>
+</tr>
+</table>
+<hr>
